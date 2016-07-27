@@ -1,0 +1,32 @@
+.summary{
+    height:24px;
+    line-height:24px;
+    text-align:right;
+}
+html .skin-black-light .main-header > .logo{
+	border-right:none;
+}
+html .skin-black-light .main-header > .navbar > .sidebar-toggle{
+	border-left:1px solid #eee;
+}
+html .skin-black-light .content-header{
+	
+	min-height:50px;
+	background:#f9fafc;
+	border-bottom:1px solid #eee;
+}
+html .skin-black-light .content-header h1{
+	font-size:20px;
+}
+html .skin-black-light .main-footer{
+	background:#f9fafc;
+}
+html .content-header > .breadcrumb{
+	top:10px;
+}
+html h1,html h2,html h3,html h4,html h5{
+	font-family:"Helvetica Neue",Helvetica,Microsoft YaHei,sans-serif
+}
+.content .box.box-primary{
+	border-top-color:#eee;
+}
