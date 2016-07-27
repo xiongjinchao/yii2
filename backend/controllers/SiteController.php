@@ -31,7 +31,7 @@ class SiteController extends \yii\web\Controller
                     ],
                 ],
             ],
-            /*
+            /*post only
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
