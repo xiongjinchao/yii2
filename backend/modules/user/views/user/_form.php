@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="admin-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
@@ -18,7 +18,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'user_face')->fileInput() ?>
+    <div class="form-group field-user-user_face">
+        <label class="control-label" for="user-user_face"><?= $model->getAttributeLabel('user_face'); ?></label>
+        <?= Html::activeHiddenInput($model,'user_face',['id'=>null]); ?>
+        <?= Html::activeFileInput($model,'user_face',['style'=>'display:none']); ?>
+        <div>
+            <a class="btn btn-info upload"><i class="fa fa-image"></i> 选择图片</a>
+        </div>
+        <div class="help-block"></div>
+    </div>
 
     <?= $form->field($model, 'status')->dropDownList($model->getStatusOptions());?>
 
@@ -29,3 +37,9 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script>
+    $(".upload").click(function(){
+        $("#user-user_face").trigger('click');
+    })
+</script>
