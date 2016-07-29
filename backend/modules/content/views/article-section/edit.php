@@ -9,7 +9,7 @@ use yii\bootstrap\Tabs;
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
 
-$this->title = '更新文章: ' . ' ' . $article->title;
+$this->title = $article->title;
 $this->params['breadcrumbs'][] = ['label' => '文章管理', 'url' => ['article/index']];
 $this->params['breadcrumbs'][] = ['label' => $article->title, 'url' => ['article/update', 'id' => $article->id]];
 $this->params['breadcrumbs'][] = '更新';

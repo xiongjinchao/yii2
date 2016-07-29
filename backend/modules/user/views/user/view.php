@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'auth_key',
                     'password_hash',
                     'password_reset_token',
+                    'mobile',
                     'email:email',
                     [
                         'attribute' => 'picture_id',

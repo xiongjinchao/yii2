@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'raw',
             ],
             'username',
+            'mobile',
             'email:email',
             [
                 'attribute'=>'created_at',

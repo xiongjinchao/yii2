@@ -48,10 +48,11 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email'], 'required'],
+            [['username', 'auth_key', 'password_hash', 'mobile', 'email'], 'required'],
             [['status', 'picture_id', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
+            [['mobile'], 'string', 'max' => 20],
             [['avatar'], 'file'],
         ];
     }
@@ -69,6 +70,7 @@ class User extends \yii\db\ActiveRecord
             'password_hash' => '密码',
             'password_reset_token' => '密码重置校验',
             'email' => '邮箱',
+            'mobile' => '手机',
             'picture_id' => '头像',
             'avatar' => '头像',
             'status' => '状态',
