@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Role */
 
-$this->title = '更新角色: ' . ' ' . $model->name;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => '角色管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'name' => $model->name]];
 $this->params['breadcrumbs'][] = '更新';

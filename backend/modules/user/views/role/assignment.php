@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '角色管理: ' . $role->name;
+$this->title = $role->name;
 $this->params['breadcrumbs'][] = ['label' => '角色管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $role->name;
 ?>
