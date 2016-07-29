@@ -66,9 +66,13 @@ class UserController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->password = $_POST['User']['password'];
-            $userFace = UploadHelper::upload($model, 'user_face',null,'user_face');
-            if($userFace!=''){
-                $model->picture_id = $userFace->id;
+            try {
+                $avatar = UploadHelper::upload($model, 'avatar', null, 'avatar');
+            }catch (\Exception $e){
+                $avatar = '';
+            }
+            if($avatar!=''){
+                $model->picture_id = $avatar->id;
             }
             if($model->password!=''){
                 $model->password_hash = Yii::$app->security->generatePasswordHash($model->password);
@@ -96,9 +100,13 @@ class UserController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->password = $_POST['User']['password'];
-            $userFace = UploadHelper::upload($model, 'user_face',null,'user_face');
-            if($userFace!=''){
-                $model->picture_id = $userFace->id;
+            try {
+                $avatar = UploadHelper::upload($model, 'avatar', null, 'avatar');
+            }catch (\Exception $e){
+                $avatar = '';
+            }
+            if($avatar!=''){
+                $model->picture_id = $avatar->id;
             }
             if($model->password!=''){
                 $model->password_hash = Yii::$app->security->generatePasswordHash($model->password);

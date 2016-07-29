@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box-body">{items}</div>
             <div class="box-footer">{pager}</div>
             </div>',
+        'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -33,16 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'picture_id',
                 'value'=>function($model){
-                    return $model->picture_id>0?'<img src="'.$model->picture->url.'" height="30">':'';
+                    return $model->picture_id>0?'<img src="'.$model->picture->url.'" height="16">':'';
                 },
                 'headerOptions'=>['width'=>'80px'],
                 'format'=>'raw',
             ],
             'username',
-            //'auth_key',
-            //'password_hash',
-            //'password_reset_token',
-            // 'email:email',
+            'email:email',
             [
                 'attribute'=>'created_at',
                 'format'=>['datetime','php:Y-m-d H:i:s'],
@@ -58,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->status ==$model::STATUS_ACTIVE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['status','id'=>$model->id], ['title' => '状态']) ;
                 },
                 'headerOptions'=>['width'=>'80px'],
+                'filter'=>false
             ],
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -111,6 +111,18 @@ class AdminController extends Controller
         }
     }
 
+    public function actionStatus($id)
+    {
+        $model = $this->findModel($id);
+        $model->status = 10- $model->status;
+        if($model->save()){
+            Yii::$app->session->setFlash('info','状态提交成功！');
+        }else{
+            Yii::$app->session->setFlash('danger','状态提交失败！');
+        }
+        return $this->redirect(['index']);
+    }
+
     /**
      * Deletes an existing Admin model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -125,8 +137,6 @@ class AdminController extends Controller
         Yii::$app->session->setFlash('info','管理员删除成功！');
         return $this->redirect(['index']);
     }
-
-    public function actionTest(){}
 
     public function actionReset()
     {

@@ -37,6 +37,12 @@ $this->params['breadcrumbs'][] = '更新';
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     //'filterModel' => $searchModel,
+                    'layout' => '<div class="box box-primary">
+                        <div class="box-header with-border"><h3 class="box-title pull-left">'.$this->title.'</h3><span class=pull-right>{summary}</span></div>
+                        <div class="box-body">{items}</div>
+                        <div class="box-footer">{pager}</div>
+                        </div>',
+                    'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
                         [

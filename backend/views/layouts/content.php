@@ -18,11 +18,11 @@ use dmstr\widgets\Alert;
                     echo \yii\helpers\Inflector::camel2words(
                         \yii\helpers\Inflector::id2camel($this->context->module->id)
                     );
-                    echo ' Module ';
+                    echo ' / ';
                     echo \yii\helpers\Inflector::camel2words(
                         \yii\helpers\Inflector::id2camel($this->context->id)
                     );
-                    echo ' Controller</small>';
+                    echo ' </small>';
                 }
                 ?>
             </h1>

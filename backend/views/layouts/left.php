@@ -36,18 +36,18 @@
                         'icon' => 'fa fa-folder',
                         'url' => '#',
                         'items' => [
-                            ['label' => '菜单管理', 'icon' => 'fa fa-list', 'url' => ['/content/menu/index']],
+                            ['label' => '菜单管理', 'icon' => 'fa fa-list text-light-blue', 'url' => ['/content/menu/index']],
                             [
                                 'label' => '文章管理',
-                                'icon' => 'fa fa-file',
+                                'icon' => 'fa fa-file text-light-blue',
                                 'url' => '#',
                                 'items' => [
-                                    ['label' => '文章管理', 'icon' => 'fa fa-file-text', 'url' => ['/content/article/index']],
-                                    ['label' => '文章分类', 'icon' => 'fa fa-navicon', 'url' => ['/content/article-category/index']],
-                                    ['label' => '评论管理', 'icon' => 'fa fa-comments', 'url' => ['/content/comment/index']],
+                                    ['label' => '文章管理', 'icon' => 'fa fa-file-text text-light-blue', 'url' => ['/content/article/index']],
+                                    ['label' => '文章分类', 'icon' => 'fa fa-navicon text-light-blue', 'url' => ['/content/article-category/index']],
+                                    ['label' => '评论管理', 'icon' => 'fa fa-comments text-light-blue', 'url' => ['/content/comment/index']],
                                 ],
                             ],
-                            ['label' => '单页管理', 'icon' => 'fa fa-file-text', 'url' => ['/content/page/index']],
+                            ['label' => '单页管理', 'icon' => 'fa fa-file-text text-light-blue', 'url' => ['/content/page/index']],
                         ],
                     ],
                     ['label' => '交易管理', 'options' => ['class' => 'header']],
@@ -56,9 +56,9 @@
                         'icon' => 'fa fa-shopping-cart',
                         'url' => '#',
                         'items' => [
-                            ['label' => '订单管理', 'icon' => 'fa fa-credit-card', 'url' => '#'],
-                            ['label' => '发货纪录', 'icon' => 'fa fa-paper-plane', 'url' => '#'],
-                            ['label' => '退款纪录', 'icon' => 'fa fa-refresh', 'url' => '#'],
+                            ['label' => '订单管理', 'icon' => 'fa fa-credit-card text-purple', 'url' => '#'],
+                            ['label' => '发货纪录', 'icon' => 'fa fa-paper-plane text-purple', 'url' => '#'],
+                            ['label' => '退款纪录', 'icon' => 'fa fa-refresh text-purple', 'url' => '#'],
                         ],
                     ],
                     ['label' => '用户权限', 'options' => ['class' => 'header']],
@@ -67,8 +67,8 @@
                         'icon' => 'fa fa-graduation-cap',
                         'url' => '#',
                         'items' => [
-                            ['label' => '用户管理', 'icon' => 'fa fa-user', 'url' => ['/user/user/index']],
-                            ['label' => '员工管理', 'icon' => 'fa fa-user-md', 'url' => ['/user/admin/index']],
+                            ['label' => '用户管理', 'icon' => 'fa fa-user text-orange', 'url' => ['/user/user/index']],
+                            ['label' => '员工管理', 'icon' => 'fa fa-user-md text-orange', 'url' => ['/user/admin/index']],
                         ],
                     ],
                     [
@@ -82,12 +82,12 @@
                         'icon' => 'fa fa-gears',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'GII', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii'],],
-                            ['label' => 'DEBUG', 'icon' => 'fa fa-dashboard', 'url' => ['/debug'],]
+                            ['label' => '代码生成', 'icon' => 'fa fa-rocket text-olive', 'url' => ['/gii'],],
+                            ['label' => '性能调试', 'icon' => 'fa fa-pie-chart text-olive', 'url' => ['/debug'],]
                         ],
                     ],
 
-                    ['label' => '退出登录', 'url' => ['site/logout'], 'icon'=>'fa fa-power-off', 'visible' => Yii::$app->user->id>0, 'linkOptions' => ['data-method' => 'post']],
+                    ['label' => '退出登录', 'url' => ['site/logout'], 'icon'=>'fa fa-power-off text-red', 'visible' => Yii::$app->user->id>0, 'linkOptions' => ['data-method' => 'post']],
                 ],
             ]
         ) ?>

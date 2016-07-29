@@ -18,10 +18,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <div class="form-group field-user-user_face">
-        <label class="control-label" for="user-user_face"><?= $model->getAttributeLabel('user_face'); ?></label>
-        <?= Html::activeHiddenInput($model,'user_face',['id'=>null]); ?>
-        <?= Html::activeFileInput($model,'user_face',['style'=>'display:none']); ?>
+    <div class="form-group field-user-avatar">
+        <label class="control-label" for="user-avatar"><?= $model->getAttributeLabel('avatar'); ?></label>
+        <?= Html::activeHiddenInput($model,'avatar',['id'=>null]); ?>
+        <?= Html::activeFileInput($model,'avatar',['style'=>'display:none']); ?>
         <div>
             <a class="btn btn-info upload"><i class="fa fa-image"></i> 选择图片</a>
         </div>

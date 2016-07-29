@@ -17,7 +17,7 @@ class UploadHelper
      * @return Picture
      * @throws \yii\base\Exception
      */
-    public static function Upload($model = null, $attribute = null, $name = null, $category = 'images')
+    public static function upload($model = null, $attribute = null, $name = null, $category = 'images')
     {
         if($model && $attribute){
             $image = UploadedFile::getInstance($model, $attribute);
@@ -26,20 +26,22 @@ class UploadHelper
         }else{
             throw new Exception('参数错误');
         }
-
+        if(!$image){
+            throw new Exception('未选择图片');
+        }
         try{
             $image->name = time().rand(100000,999999).'.'.$image->getExtension();
             $path = $category!=null?'/'.$category:'';
             $path.='/'.date('Y').'/'.date('m').'/'.date('d');
-            if(!is_dir(Yii::$app->params['uploadsPath'].$path)){
+            if(!is_dir(Yii::$app->params['uploads'].$path)){
                 $mask = umask(0);
-                mkdir(Yii::$app->params['uploadsPath'].$path,0777,true);
+                mkdir(Yii::$app->params['uploads'].$path,0777,true);
                 umask($mask);
             }
             $path.='/'.$image->name;
-            if($image->saveAs(Yii::$app->params['uploadsPath'].$path,true)){
-                $info = getimagesize(Yii::$app->params['uploadsPath'].$path);
-                $url = 'http://'.Yii::$app->params['imageHost'].$path;
+            if($image->saveAs(Yii::$app->params['uploads'].$path,true)){
+                $info = getimagesize(Yii::$app->params['uploads'].$path);
+                $url = 'http://'.Yii::$app->params['domain']['image'].$path;
 
                 $picture = new Picture;
                 $picture->name = $image->name;

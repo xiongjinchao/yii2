@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box-body">{items}</div>
             <div class="box-footer">{pager}</div>
             </div>',
+        'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

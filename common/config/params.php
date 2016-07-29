@@ -4,8 +4,11 @@ return [
     'supportEmail' => 'support@example.com',
     'user.passwordResetTokenExpire' => 3600,
 
-    'frontendHost' => 'www.yii2.com',
-    'backendHost' => 'admin.yii2.com',
-    'imageHost' => 'img.yii2.com',
-    'uploadsPath' => dirname(dirname(__DIR__)).'/uploads',
+    'domain' => [
+        'backend' => 'admin.yii2.com',
+        'frontend' => 'www.yii2.com',
+        'api' => 'api.yii2.com',
+        'image' => 'img.yii2.com',
+    ],
+    'uploads' => dirname(dirname(__DIR__)).'/uploads',
 ];

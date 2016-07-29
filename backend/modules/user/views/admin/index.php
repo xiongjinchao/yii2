@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box-body">{items}</div>
             <div class="box-footer">{pager}</div>
             </div>',
+        'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -34,8 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'auth_key',
             //'password_hash',
             //'password_reset_token',
-            // 'email:email',
-            // 'status',
+            'email:email',
             [
                 'attribute'=>'created_at',
                 'format'=>['datetime','php:Y-m-d H:i:s'],
@@ -44,7 +44,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'updated_at',
                 'format'=>['datetime','php:Y-m-d H:i:s'],
             ],
-
+            [
+                'attribute'=>'status',
+                'format'=>'raw',
+                'value'=>function($model){
+                    return Html::a($model->status ==$model::STATUS_ACTIVE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['status','id'=>$model->id], ['title' => '状态']) ;
+                },
+                'headerOptions'=>['width'=>'80px'],
+            ],
             ['class' => 'yii\grid\ActionColumn'],
             [
                 'format'=>'raw',

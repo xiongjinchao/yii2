@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box-body">{items}</div>
             <div class="box-footer">{pager}</div>
             </div>',
+        'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'afterRow' => function($model){
             if(isset($model->comments)&&$model->comments!=null){
                 $comments = '';

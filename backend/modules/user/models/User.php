@@ -24,7 +24,7 @@ class User extends \yii\db\ActiveRecord
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
     public $password;
-    public $user_face;
+    public $avatar;
 
     /**
      * @inheritdoc
@@ -52,7 +52,7 @@ class User extends \yii\db\ActiveRecord
             [['status', 'picture_id', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
-            [['user_face'], 'file'],
+            [['avatar'], 'file'],
         ];
     }
 
@@ -70,7 +70,7 @@ class User extends \yii\db\ActiveRecord
             'password_reset_token' => '密码重置校验',
             'email' => '邮箱',
             'picture_id' => '头像',
-            'user_face' => '头像',
+            'avatar' => '头像',
             'status' => '状态',
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
