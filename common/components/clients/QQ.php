@@ -4,7 +4,7 @@
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
-namespace common\components\authClients;
+namespace common\components\clients;
 use Yii;
 use yii\authclient\OAuth2;
 use yii\web\HttpException;
