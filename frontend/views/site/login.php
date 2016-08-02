@@ -11,7 +11,6 @@ use yii\authclient\widgets\AuthChoice;
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
