@@ -16,7 +16,7 @@ return [
             'class' => 'yii\authclient\Collection',
             'clients' => [
                 'weibo' => [
-                    'class' => 'common\components\authClients\Weibo',
+                    'class' => 'common\components\clients\Weibo',
                     'clientId' => 'wb_key',
                     'clientSecret' => 'wb_secret',
                 ],
@@ -26,13 +26,13 @@ return [
                     'clientSecret' => 'github_appkey',
                 ],
                 'qq' => [
-                    'class' => 'common\components\authClients\QQ',
+                    'class' => 'common\components\clients\QQ',
                     'clientId' => 'qq_appid',
                     'clientSecret' => 'qq_appkey',
                 ],
                 /*
                 'wechat' => [
-                    'class' => 'common\components\authClients\WeChat',
+                    'class' => 'common\components\clients\WeChat',
                     'clientId' => 'weixin_appid',
                     'clientSecret' => 'weixin_appkey',
                 ],
