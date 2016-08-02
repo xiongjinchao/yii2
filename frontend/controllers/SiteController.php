@@ -62,6 +62,10 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'successCallback'],
+            ],
         ];
     }
 
@@ -209,5 +213,13 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function successCallback($client)
+    {
+        print_r($client);
+        $attributes = $client->getUserAttributes();
+        print_r($attributes);exit;
+        // user login or signup comes here
     }
 }

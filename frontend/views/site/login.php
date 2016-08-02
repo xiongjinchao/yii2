@@ -6,10 +6,12 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\authclient\widgets\AuthChoice;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -31,6 +33,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <div class="form-group">
                     <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                </div>
+
+                <div class="form-group">
+                    <?php $authAuthChoice = AuthChoice::begin(['baseAuthUrl' => ['site/auth']]); ?>
+                        <span>Login with other account:</span>
+                        <?php foreach ($authAuthChoice->getClients() as $client){?>
+                            <?= Html::a('<i class="fa fa-'.$client->id.'"></i> '.$client->getTitle(),$authAuthChoice->createClientUrl($client),['class'=>$client->id.' auth-link','data-popup-height'=>'500','data-popup-width'=>'800','style'=>'margin-left:5px;']);?>
+                        <?php }?>
+                    <?php AuthChoice::end(); ?>
                 </div>
 
             <?php ActiveForm::end(); ?>
