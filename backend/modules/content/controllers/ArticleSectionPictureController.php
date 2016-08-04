@@ -2,10 +2,10 @@
 
 namespace backend\modules\content\controllers;
 
-use Yii;
+use yii;
 use backend\models\Picture;
-use backend\modules\content\models\Article;
-use backend\modules\content\models\ArticleSectionPicture;
+use common\models\Article;
+use common\models\ArticleSectionPicture;
 use backend\controllers\Controller;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;

@@ -1,10 +1,8 @@
 <?php
 
-use yii\helpers\Html;
-
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\content\models\Comment */
+/* @var $model common\models\Comment */
 
 $this->title = '创建评论';
 $this->params['breadcrumbs'][] = ['label' => '评论管理', 'url' => ['index']];

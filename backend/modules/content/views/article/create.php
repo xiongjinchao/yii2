@@ -1,10 +1,8 @@
 <?php
 
-use yii\helpers\Html;
-
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\content\models\Article */
+/* @var $model common\models\Article */
 
 $this->title = '创建文章';
 $this->params['breadcrumbs'][] = ['label' => '文章管理', 'url' => ['index']];

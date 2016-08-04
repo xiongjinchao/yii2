@@ -2,7 +2,7 @@
 
 namespace backend\modules\user\controllers;
 
-use Yii;
+use yii;
 use yii\db\Query;
 use yii\rbac\Item;
 use yii\data\ActiveDataProvider;

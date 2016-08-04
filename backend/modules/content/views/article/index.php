@@ -2,10 +2,10 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use \backend\modules\content\models\Article;
+use common\models\Article;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\modules\content\models\ArticleSearch */
+/* @var $searchModel common\models\ArticleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '文章管理';

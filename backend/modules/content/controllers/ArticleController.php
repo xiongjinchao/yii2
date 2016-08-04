@@ -2,11 +2,11 @@
 
 namespace backend\modules\content\controllers;
 
-use Yii;
-use backend\modules\content\models\Article;
-use backend\modules\content\models\ArticleSearch;
-use backend\modules\content\models\ArticleSection;
-use backend\modules\content\models\ArticleSectionPicture;
+use yii;
+use common\models\Article;
+use common\models\ArticleSearch;
+use common\models\ArticleSection;
+use common\models\ArticleSectionPicture;
 use backend\models\Picture;
 use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;

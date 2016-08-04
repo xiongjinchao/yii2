@@ -1,11 +1,11 @@
 <?php
 
-use backend\modules\content\models\ArticleCategory;
+use common\models\ArticleCategory;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\content\models\Article */
+/* @var $model common\models\Article */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

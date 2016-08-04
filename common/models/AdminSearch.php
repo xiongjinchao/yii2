@@ -1,16 +1,15 @@
 <?php
 
-namespace backend\modules\user\models;
+namespace common\models;
 
-use Yii;
+use yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\modules\user\models\User;
 
 /**
- * UserSearch represents the model behind the search form about `backend\modules\user\models\User`.
+ * AdminSearch represents the model behind the search form about `backend\modules\user\models\Admin`.
  */
-class UserSearch extends User
+class AdminSearch extends Admin
 {
     /**
      * @inheritdoc
@@ -18,8 +17,8 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'status', 'picture_id', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'mobile', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
+            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
         ];
     }
 
@@ -41,7 +40,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find();
+        $query = Admin::find()->where('id>:id',[':id'=>2]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,7 +63,6 @@ class UserSearch extends User
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
-            'picture_id' => $this->picture_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);

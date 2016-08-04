@@ -1,12 +1,12 @@
 <?php
 
-namespace backend\modules\content\models;
+namespace common\models;
 
-use Yii;
+use yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "{{%page}}".
+ * This is the model class for table "{{%article_category}}".
  *
  * @property integer $id
  * @property string $name
@@ -15,29 +15,24 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $rgt
  * @property integer $parent
  * @property integer $depth
- * @property string $content
  * @property integer $audit
- * @property integer $visible
  * @property string $seo_title
  * @property string $seo_description
  * @property string $seo_keyword
  * @property integer $created_at
  * @property integer $updated_at
  */
-class Page extends \yii\db\ActiveRecord
+class ArticleCategory extends \yii\db\ActiveRecord
 {
     const AUDIT_ENABLE = 1;
     const AUDIT_DISABLE = 0;
-
-    const VISIBLE_ENABLE = 1;
-    const VISIBLE_DISABLE = 0;
 
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%page}}';
+        return '{{%article_category}}';
     }
 
     public function behaviors()
@@ -54,10 +49,8 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             ['name', 'required'],
-            [['lft', 'rgt', 'parent', 'depth', 'audit', 'visible'], 'integer'],
-            [['content'], 'string'],
+            [['lft', 'rgt', 'parent', 'depth', 'audit'], 'integer'],
             [['name'], 'string', 'max' => 100],
-            [['link'], 'string', 'max' => 200],
             [['tag'], 'string', 'max' => 50],
             [['seo_title', 'seo_description', 'seo_keyword'], 'string', 'max' => 255]
         ];
@@ -72,14 +65,11 @@ class Page extends \yii\db\ActiveRecord
             'id' => '编号',
             'name' => '名称',
             'tag' => '标示',
-            'link' => '链接',
             'lft' => '左值',
             'rgt' => '右值',
             'parent' => '所属菜单',
             'depth' => '深度',
-            'content' => '内容',
             'audit' => '审核',
-            'visible' => '可见',
             'seo_title' => 'SEO标题',
             'seo_description' => 'SEO描述',
             'seo_keyword' => 'SEO关键字',
@@ -100,23 +90,23 @@ class Page extends \yii\db\ActiveRecord
     public function getParent()
     {
         if($this->parent>0){
-            return Page::findOne($this->parent);
+            return ArticleCategory::findOne($this->parent);
         }else{
-            return new Page();
+            return new ArticleCategory();
         }
     }
 
     public function getLastBrother()
     {
-        return Page::find()->where(['parent'=>$this->parent])->orderBy('`rgt` DESC')->one();
+        return ArticleCategory::find()->where(['parent'=>$this->parent])->orderBy('`rgt` DESC')->one();
     }
 
-    public function getPageOptions()
+    public function getArticleCategoryOptions()
     {
         $arr = [];
-        $pages = Page::find()->orderBy(['lft'=>SORT_ASC])->all();
-        foreach($pages as $page){
-            $arr[$page->id] = $page->getSpace().$page->name;
+        $articleCategories = ArticleCategory::find()->orderBy(['lft'=>SORT_ASC])->all();
+        foreach($articleCategories as $articleCategory){
+            $arr[$articleCategory->id] = $articleCategory->getSpace().$articleCategory->name;
         }
         return $arr;
     }
@@ -131,19 +121,6 @@ class Page extends \yii\db\ActiveRecord
             return $arr;
         }else{
             return isset($arr[$audit]) ? $arr[$audit] : $audit;
-        }
-    }
-
-    public function getVisibleOptions($visible = null)
-    {
-        $arr = [
-            self::AUDIT_ENABLE => '显示',
-            self::AUDIT_DISABLE => '隐藏',
-        ];
-        if( $visible === null ){
-            return $arr;
-        }else{
-            return isset($arr[$visible]) ? $arr[$visible] : $visible;
         }
     }
 }

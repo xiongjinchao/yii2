@@ -12,6 +12,11 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'urlManager'=>array(
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => []
+        ),
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
             'clients' => [

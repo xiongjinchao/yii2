@@ -20,6 +20,11 @@ return [
         ],
     ],
     'components' => [
+        'urlManager'=>array(
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => []
+        ),
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest'],

@@ -1,12 +1,12 @@
 <?php
 
-use backend\modules\content\models\ArticleCategory;
+use common\models\ArticleCategory;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
-/* @var $model backend\modules\content\models\ArticleSearch */
+/* @var $model common\models\ArticleSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace backend\modules\content\models;
+namespace common\models;
 
-use Yii;
+use yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "{{%menu}}".
+ * This is the model class for table "{{%page}}".
  *
  * @property integer $id
  * @property string $name
@@ -24,7 +24,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class Menu extends \yii\db\ActiveRecord
+class Page extends \yii\db\ActiveRecord
 {
     const AUDIT_ENABLE = 1;
     const AUDIT_DISABLE = 0;
@@ -37,7 +37,7 @@ class Menu extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%menu}}';
+        return '{{%page}}';
     }
 
     public function behaviors()
@@ -100,23 +100,23 @@ class Menu extends \yii\db\ActiveRecord
     public function getParent()
     {
         if($this->parent>0){
-            return Menu::findOne($this->parent);
+            return Page::findOne($this->parent);
         }else{
-            return new Menu();
+            return new Page();
         }
     }
 
     public function getLastBrother()
     {
-        return Menu::find()->where(['parent'=>$this->parent])->orderBy('`rgt` DESC')->one();
+        return Page::find()->where(['parent'=>$this->parent])->orderBy('`rgt` DESC')->one();
     }
 
-    public function getMenuOptions()
+    public function getPageOptions()
     {
         $arr = [];
-        $menus = Menu::find()->orderBy(['lft'=>SORT_ASC])->all();
-        foreach($menus as $menu){
-            $arr[$menu->id] = $menu->getSpace().$menu->name;
+        $pages = Page::find()->orderBy(['lft'=>SORT_ASC])->all();
+        foreach($pages as $page){
+            $arr[$page->id] = $page->getSpace().$page->name;
         }
         return $arr;
     }

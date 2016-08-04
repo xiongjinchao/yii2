@@ -3,11 +3,11 @@
 namespace backend\modules\user\controllers;
 
 
-use Yii;
+use yii;
 use yii\db\Query;
 use yii\rbac\Item;
-use backend\modules\user\models\Admin;
-use backend\modules\user\models\AdminSearch;
+use common\models\Admin;
+use common\models\AdminSearch;
 use yii\data\ActiveDataProvider;
 use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;

@@ -1,8 +1,8 @@
 <?php
 
-namespace backend\modules\content\models;
+namespace common\models;
 
-use Yii;
+use yii;
 use backend\models\Picture;
 
 /**

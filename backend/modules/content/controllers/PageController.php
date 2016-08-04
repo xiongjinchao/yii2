@@ -2,8 +2,8 @@
 
 namespace backend\modules\content\controllers;
 
-use Yii;
-use backend\modules\content\models\Page;
+use yii;
+use common\models\Page;
 use backend\controllers\Controller;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;

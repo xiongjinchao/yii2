@@ -1,8 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use \backend\modules\content\models\ArticleSection;
-use \backend\modules\content\models\ArticleSectionPicture;
+use common\models\ArticleSection;
+use common\models\ArticleSectionPicture;
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Tabs;
 

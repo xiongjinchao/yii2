@@ -1,13 +1,12 @@
 <?php
 
-namespace backend\modules\user\models;
+namespace common\models;
 
-use Yii;
+use yii;
 use yii\behaviors\TimestampBehavior;
-use backend\models\Picture;
 
 /**
- * This is the model class for table "{{%user}}".
+ * This is the model class for table "{{%admin}}".
  *
  * @property integer $id
  * @property string $username
@@ -19,19 +18,17 @@ use backend\models\Picture;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class User extends \yii\db\ActiveRecord
+class Admin extends \yii\db\ActiveRecord
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
     public $password;
-    public $avatar;
-
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return '{{%admin}}';
     }
 
 
@@ -48,12 +45,10 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'mobile', 'email'], 'required'],
-            [['status', 'picture_id', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'auth_key', 'password_hash', 'email'], 'required'],
+            [['status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
-            [['auth_key'], 'string', 'max' => 32],
-            [['mobile'], 'string', 'max' => 20],
-            [['avatar'], 'file'],
+            [['auth_key'], 'string', 'max' => 32]
         ];
     }
 
@@ -70,9 +65,6 @@ class User extends \yii\db\ActiveRecord
             'password_hash' => '密码',
             'password_reset_token' => '密码重置校验',
             'email' => '邮箱',
-            'mobile' => '手机',
-            'picture_id' => '头像',
-            'avatar' => '头像',
             'status' => '状态',
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
@@ -90,10 +82,5 @@ class User extends \yii\db\ActiveRecord
         }else{
             return isset($arr[$status]) ? $arr[$status] : $status;
         }
-    }
-
-    public function getPicture()
-    {
-        return $this->hasOne(Picture::className(), ['id' => 'picture_id']);
     }
 }

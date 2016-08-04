@@ -2,9 +2,9 @@
 
 namespace backend\modules\content\controllers;
 
-use Yii;
-use backend\modules\content\models\Comment;
-use backend\modules\content\models\CommentSearch;
+use yii;
+use common\models\Comment;
+use common\models\CommentSearch;
 use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
