@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
 
-$this->title = $model->title;
+$this->title = '文章管理';
 $this->params['breadcrumbs'][] = ['label' => '文章管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = '更新';
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = '更新';
 				<?=Html::a('基本信息',['article/update', 'id' => $model->id])?>
 			</li>
 			<li class="pull-left header">
-				<?php echo $this->title; ?>
+				<?php echo $model->title; ?>
 			</li>
 		</ul>
 		<div class="tab-content">

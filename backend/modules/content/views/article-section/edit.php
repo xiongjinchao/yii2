@@ -9,7 +9,7 @@ use yii\bootstrap\Tabs;
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
 
-$this->title = $article->title;
+$this->title = '文章段落';
 $this->params['breadcrumbs'][] = ['label' => '文章管理', 'url' => ['article/index']];
 $this->params['breadcrumbs'][] = ['label' => $article->title, 'url' => ['article/update', 'id' => $article->id]];
 $this->params['breadcrumbs'][] = '更新';
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = '更新';
                 <?=Html::a('基本信息',['article/update', 'id' => $article->id])?>
             </li>
             <li class="pull-left header">
-                <?php echo $this->title; ?>
+                <?php echo $article->title; ?>
             </li>
         </ul>
         <div class="tab-content">

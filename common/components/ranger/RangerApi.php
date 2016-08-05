@@ -14,7 +14,7 @@ class RangerApi
     {
         $params['sign'] = self::generateSign($params);
         $params = http_build_query($params);
-        $url = "http://api.yii2.com/";
+        $url = Yii::$app->params['domain']['api'];
 
         $ch = curl_init();
         curl_setopt ( $ch, CURLOPT_URL, $url );
