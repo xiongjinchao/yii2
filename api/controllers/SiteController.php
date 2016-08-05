@@ -54,8 +54,8 @@ class SiteController extends RangerController
             ];
         }catch (\Exception $e){
             $result = [
-                'status' => 'success',
-                'code' => '0',
+                'status' => 'error',
+                'code' => $e->getCode(),
                 'data' => $e->getMessage()
             ];
         }
