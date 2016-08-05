@@ -11,7 +11,7 @@ use yii\web\NotFoundHttpException;
  */
 class SiteController extends Controller
 {
-    //http://api.yii2.com/?method=ranger.user.list&params[uid]=6218&params[page]=2&ip=192.168.1.1&timestamp=2015-06-21 17:18:09&key=9XNNXe66zOlSassjSKD5gry9BiN61IUEi8IpJmjBwvU07RXP0J3c4GnhZR3GKhMHa1A&sign=34A4C639B15718F3D8AF12EEE2B1BD47&device_id=100010&device_type=IOS&format=json&version=1.0
+    //http://api.yii2.com/?method=ranger.user.list&params[uid]=6218&params[page]=2&ip=192.168.1.1&timestamp=1470362650&key=9XNNXe66zOlSassjSKD5gry9BiN61IUEi8IpJmjBwvU07RXP0J3c4GnhZR3GKhMHa1A&sign=34A4C639B15718F3D8AF12EEE2B1BD47&device_id=100010&device_type=IOS&format=json&version=1.0
 
     /**
      * @inheritdoc

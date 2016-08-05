@@ -9,25 +9,26 @@ use yii\helpers\ArrayHelper;
 
 class UserController extends Controller
 {
-    public function actionList($params)
+    public function actionList(array $params)
     {
+        print_r($params);
         $result = array_map(function($record) {
             return $record->attributes;
         },User::find()->all());
         return $result;
     }
 
-    public function actionCreate()
+    public function actionCreate(array $params)
     {
 
     }
 
-    public function actionUpdate()
+    public function actionUpdate(array $params)
     {
 
     }
 
-    public function actionDelete()
+    public function actionDelete(array $params)
     {
 
     }
