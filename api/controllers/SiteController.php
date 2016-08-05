@@ -22,8 +22,6 @@ class SiteController extends RangerController
         ];
     }
 
-    //http://api.yii2.com/?method=ranger.user.list&params[uid]=6218&params[page]=2&ip=192.168.1.1&timestamp=1470362650&key=9XNNXe66zOlSassjSKD5gry9BiN61IUEi8IpJmjBwvU07RXP0J3c4GnhZR3GKhMHa1A&sign=7AC10545EC3380508EC1AF8D950380A5&device_id=100010&device=computer&origin=html5&format=json&version=1.0
-
     /**
      * Displays homepage.
      *
