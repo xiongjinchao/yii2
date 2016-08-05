@@ -64,6 +64,9 @@ class SiteController extends Controller
     public function beforeAction($action)
     {
         $query = Yii::$app->request->get();
+        if(!isset($query['sign'])){
+            throw new NotFoundHttpException();
+        }
         $secret = '27e1be4fdcaa83d7f61c489994ff6ed6';
 
         $query['secret'] = $secret;
