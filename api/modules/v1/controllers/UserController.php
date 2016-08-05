@@ -3,15 +3,19 @@
 namespace api\modules\v1\controllers;
 
 use yii;
-use yii\web\Controller;
+use api\controllers\RangerController;
 use common\models\User;
-use yii\helpers\ArrayHelper;
 
-class UserController extends Controller
+class UserController extends RangerController
 {
+    
+    public function actionLogin(array $params)
+    {
+
+    }
+
     public function actionList(array $params)
     {
-        print_r($params);
         $result = array_map(function($record) {
             return $record->attributes;
         },User::find()->all());

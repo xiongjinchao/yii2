@@ -18,6 +18,7 @@ return [
     ],
     'components' => [
         'urlManager'=>array(
+            'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => []
