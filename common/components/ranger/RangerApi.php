@@ -10,7 +10,7 @@ use yii\web\HttpException;
  */
 class RangerApi
 {
-    public function request(array $params, $type = 'post')
+    public static function request(array $params, $type = 'post')
     {
         $params['sign'] = self::generateSign($params);
         $params = http_build_query($params);
@@ -28,7 +28,7 @@ class RangerApi
         return $result;
     }
     
-    public function generateSign($params)
+    public static function generateSign($params)
     {
         ksort($params['params']);
         ksort($params);

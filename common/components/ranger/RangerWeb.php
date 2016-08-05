@@ -13,7 +13,7 @@ class RangerWeb extends RangerApi
     const KEY = '9XNNXe66zOlSassjSKD5gry9BiN61IUEi8IpJmjBwvU07RXP0J3c4GnhZR3GKhMHa1A';
     const SECRET = '27e1be4fdcaa83d7f61c489994ff6ed6';
 
-    public function request($method, array $query, $type = 'post', $params = [])
+    public static function api($method, array $query, $type = 'post', $params = [])
     {
         $params['method'] = $method;
         $params['params'] = $query;
@@ -30,9 +30,5 @@ class RangerWeb extends RangerApi
         $params['format'] = isset($params['format'])?$params['format']:'json';
 
         return parent::request($params, $type);
-    }
-
-    public static function api($method, array $query, $type = 'post', $params = []){
-        return self::request($method, $query, $type, $params);
     }
 }
