@@ -35,10 +35,7 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
-        ],
-        'errorHandler' => [
-            'errorAction' => 'site/error',
-        ],
+        ]
     ],
     'params' => $params,
 ];
