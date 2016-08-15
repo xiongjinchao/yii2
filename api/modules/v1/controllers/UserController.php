@@ -36,6 +36,7 @@ class UserController extends RangerController
         if(!Yii::$app->getSecurity()->validatePassword($password, $user->password_hash)){
             RangerException::throwException(RangerException::ERROR_CUSTOM,'密码错误');
         }else{
+            Yii::$app->user->login($user, 3600 * 24 * 30);
             return [
                 'token' => $user->auth_key
             ];
