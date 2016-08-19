@@ -13,8 +13,9 @@ class TestController extends Controller
     public function actionIndex()
     {
         print_r(RangerWeb::api('ranger.user.list',[
-            'username'=>'13311002524',
-            'password'=>'123456',
+//            'username'=>'13311002524',
+//            'password'=>'123456',
+            'access_token'=>'r7D1LmQKvs7layt_b5Xn9G54ALLCjf9Y',
         ]));
     }
 }

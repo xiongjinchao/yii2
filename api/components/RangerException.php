@@ -16,9 +16,10 @@ class RangerException extends HttpException
 
     const APP_ERROR_PARAMS = 10101;
     const APP_EMPTY_RECORD = 10102;
-    const APP_NEED_LOGIN = 10103;
-    const APP_ERROR_PASSWORD = 10104;
-    const APP_ERROR_TOKEN = 10105;
+    const APP_NEED_ACCESS_TOKEN = 10103;
+    const APP_ERROR_ACCESS_TOKEN = 10104;
+    const APP_ACCESS_TOKEN_EXPIRE = 10105;
+    const APP_ERROR_PASSWORD = 10106;
 
     private function getExceptionMessage($code)
     {
@@ -29,8 +30,9 @@ class RangerException extends HttpException
 
             self::APP_ERROR_PARAMS => '缺少必要的参数',
             self::APP_EMPTY_RECORD => '查询记录为空',
-            self::APP_NEED_LOGIN => '需要令牌认证',
-            self::APP_ERROR_TOKEN => '令牌认证失败',
+            self::APP_NEED_ACCESS_TOKEN => '需要令牌认证',
+            self::APP_ERROR_ACCESS_TOKEN => '令牌认证失败',
+            self::APP_ACCESS_TOKEN_EXPIRE => '令牌已过期',
             self::APP_ERROR_PASSWORD => '密码错误',
         ];
         if(isset($messages[$code])){
