@@ -74,8 +74,9 @@ class SiteController extends RangerController
         }else{
             RangerException::throwException(RangerException::SYS_ERROR_SECRET);
         }
-
-        ksort($query['params']);
+        if(!empty($query['params'])) {
+            ksort($query['params']);
+        }
         ksort($query);
 
         $query = http_build_query($query);
