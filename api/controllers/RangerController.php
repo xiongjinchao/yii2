@@ -3,6 +3,7 @@ namespace api\controllers;
 
 use yii;
 use yii\web\Controller;
+use common\models\User;
 use api\components\RangerException;
 
 /**
@@ -14,10 +15,12 @@ class RangerController extends Controller
 
     public function checkoutLogin($params)
     {
-        if(!$params['query']['token']){
-            RangerException::throwException(RangerException::ERROR_TOKEN);
-        }else{
-            //checkout token
+        if(!isset($params['query']['token'])){
+            RangerException::throwException(RangerException::APP_NEED_LOGIN);
+        }
+        $token = User::find()->select('token')->where(['token'=>$params['query']['token']])->one();
+        if($params['query']['token'] != $token){
+            RangerException::throwException(RangerException::APP_ERROR_TOKEN);
         }
 
         return true;

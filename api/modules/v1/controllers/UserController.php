@@ -4,7 +4,6 @@ namespace api\modules\v1\controllers;
 
 use yii;
 use api\controllers\RangerController;
-use common\models\User;
 use api\components\RangerException;
 
 class UserController extends RangerController
@@ -22,19 +21,19 @@ class UserController extends RangerController
             $username = '';
         }
         if(!$username){
-            RangerException::throwException(RangerException::ERROR_PARAMS,'username或mobile或email');
+            RangerException::throwException(RangerException::APP_ERROR_PARAMS,'username or mobile or email');
         }
-        $user = User::find()->where(['username'=>$username])->orWhere(['mobile'=>$username])->orWhere(['email'=>$username])->one();
+        $user = \api\models\User::find()->where(['username'=>$username])->orWhere(['mobile'=>$username])->orWhere(['email'=>$username])->one();
         if(!$user){
-            RangerException::throwException(RangerException::EMPTY_RECORD);
+            RangerException::throwException(RangerException::APP_EMPTY_RECORD);
         }
 
         $password = isset($params['query']['password'])?$params['query']['password']:'';
         if(!$password){
-            RangerException::throwException(RangerException::ERROR_PARAMS,'password');
+            RangerException::throwException(RangerException::APP_ERROR_PARAMS,'password');
         }
         if(!Yii::$app->getSecurity()->validatePassword($password, $user->password_hash)){
-            RangerException::throwException(RangerException::ERROR_CUSTOM,'密码错误');
+            RangerException::throwException(RangerException::APP_ERROR_PASSWORD);
         }else{
             Yii::$app->user->login($user, 3600 * 24 * 30);
             return [
@@ -48,7 +47,7 @@ class UserController extends RangerController
         parent::checkoutLogin($params);
         $result = array_map(function($record) {
             return $record->attributes;
-        },User::find()->all());
+        },\common\models\User::find()->all());
         return $result;
     }
 

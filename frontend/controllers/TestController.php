@@ -15,7 +15,6 @@ class TestController extends Controller
         print_r(RangerWeb::api('ranger.user.list',[
             'username'=>'13311002524',
             'password'=>'123456',
-            'token'=>'123',
         ]));
     }
 }

@@ -50,7 +50,7 @@ class SiteController extends RangerController
                 'code' => '0',
                 'data' => $data
             ];
-        }catch (\Exception $e){
+        }catch (RangerException $e){
             $result = [
                 'status' => 'error',
                 'code' => $e->getCode(),
@@ -63,7 +63,7 @@ class SiteController extends RangerController
     public function beforeAction($action)
     {
         if(!Yii::$app->request->post('sign')){
-            RangerException::throwException(RangerException::EMPTY_SIGN);
+            RangerException::throwException(RangerException::SYS_EMPTY_SIGN);
         }
         $query = Yii::$app->request->post();
         $sign = $query['sign'];
@@ -72,7 +72,7 @@ class SiteController extends RangerController
         if(isset(Yii::$app->params['device'][$query['device']][$query['origin']]) && Yii::$app->params['device'][$query['device']][$query['origin']]['key'] == $query['key']){
             $query['secret'] = Yii::$app->params['device'][$query['device']][$query['origin']]['secret'];
         }else{
-            RangerException::throwException(RangerException::ERROR_SECRET);
+            RangerException::throwException(RangerException::SYS_ERROR_SECRET);
         }
 
         ksort($query['params']);
@@ -82,7 +82,7 @@ class SiteController extends RangerController
         if($sign === strtoupper(md5($query))) {
             return parent::beforeAction($action);
         }else{
-            RangerException::throwException(RangerException::ERROR_SIGN);
+            RangerException::throwException(RangerException::SYS_ERROR_SIGN);
         }
     }
 
