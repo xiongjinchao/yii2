@@ -47,22 +47,49 @@ class UserController extends RangerController
 
     public function actionList(array $params)
     {
-        parent::checkAccessToken($params);
-        $result = array_map(function($record) {
-            unset($record->auth_key,$record->password_hash,$record->password_reset_token,$record->access_token,$record->expire_at);
+        $query = \common\models\User::find();
+        if(isset($params['query']['where']) && is_array($params['query']['where'])) {
+            foreach ($params['query']['where'] as $where) {
+                $query->where($where);
+            }
+        }
+        $result = array_map(function($record){
             return $record;
-        },\common\models\User::find()->all());
+        },$query->all());
         return $result;
     }
 
     public function actionCreate(array $params)
     {
-
+        $model = new \common\models\User();
+        if($model->load($params,'query')){
+            $password = isset($params['query']['password'])?$params['query']['password']:'';
+            if(!$password){
+                RangerException::throwException(RangerException::APP_ERROR_PARAMS,'password');
+            }
+            $model->password_hash = Yii::$app->security->generatePasswordHash($password);
+            $model->auth_key = Yii::$app->security->generateRandomString();
+            if($model->validate() ){
+                try{
+                    $model->save();
+                    $result = [
+                        'id' => $model->id
+                    ];
+                    return $result;
+                }catch(\yii\db\Exception $e){
+                    RangerException::throwException(RangerException::APP_ERROR_CREATE,$e->getMessage());
+                }
+            }else{
+                RangerException::throwException(RangerException::APP_ERROR_PARAMS,json_encode($model->getErrors()));
+            }
+        }else{
+            RangerException::throwException(RangerException::APP_ERROR_PARAMS);
+        }
     }
 
     public function actionUpdate(array $params)
     {
-
+        parent::checkAccessToken($params);
     }
 
     public function actionDelete(array $params)

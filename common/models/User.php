@@ -51,6 +51,7 @@ class User extends \yii\db\ActiveRecord
             [['username', 'auth_key', 'password_hash', 'mobile', 'email'], 'required'],
             [['status', 'picture_id', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['email','mobile','username'], 'unique'],
             [['auth_key'], 'string', 'max' => 32],
             [['mobile'], 'string', 'max' => 20],
             [['avatar'], 'file'],

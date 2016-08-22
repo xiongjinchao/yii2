@@ -13,7 +13,7 @@ class RangerController extends Controller
 {
     public $enableCsrfValidation = false;
 
-    const PER_PAGE = 20;
+    const PAGE_SIZE = 20;
 
     public function checkAccessToken($params)
     {

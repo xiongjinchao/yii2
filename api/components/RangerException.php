@@ -20,6 +20,7 @@ class RangerException extends HttpException
     const APP_ERROR_ACCESS_TOKEN = 10104;
     const APP_ACCESS_TOKEN_EXPIRE = 10105;
     const APP_ERROR_PASSWORD = 10106;
+    const APP_ERROR_CREATE = 10107;
 
     private function getExceptionMessage($code)
     {
@@ -34,6 +35,7 @@ class RangerException extends HttpException
             self::APP_ERROR_ACCESS_TOKEN => '令牌认证失败',
             self::APP_ACCESS_TOKEN_EXPIRE => '令牌已过期',
             self::APP_ERROR_PASSWORD => '密码错误',
+            self::APP_ERROR_CREATE => '创建失败',
         ];
         if(isset($messages[$code])){
             return $messages[$code];
@@ -42,11 +44,13 @@ class RangerException extends HttpException
         return '未知的错误';
     }
 
-    public static function throwException($code, $message = '')
+    public static function throwException($code, $message = '', $http_status = 403)
     {
-        if($message === ''){
-            $message = self::getExceptionMessage($code).$message;
+        if($message != ''){
+            $message = self::getExceptionMessage($code).':'.$message;
+        }else{
+            $message = self::getExceptionMessage($code);
         }
-        throw new HttpException('403',$message,$code);
+        throw new HttpException($http_status, $message, $code);
     }
 }
