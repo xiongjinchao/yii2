@@ -24,7 +24,7 @@ class RangerController extends Controller
             'page_size' => 10,
             'page' => 1,
             'where' => [
-                ['id'=>12],
+                //['id'=>12],
                 ['<>','id',10]
             ],
         ]));
@@ -46,7 +46,7 @@ class RangerController extends Controller
             'page_size' => 10,
             'page' => 1,
             'where' => [
-                ['id'=>12],
+                //['id'=>12],
                 ['<>','id',10]
             ],
         ]));

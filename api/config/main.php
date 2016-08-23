@@ -28,11 +28,13 @@ return [
             'enableAutoLogin' => true,
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning', 'info'],
+                    'logVars' => ['_POST'],
+                    'categories' => ['yii\db\Command::query','application'],
                 ],
             ],
         ]
