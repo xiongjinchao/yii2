@@ -9,6 +9,7 @@ return [
         'frontend' => 'www.yii2.com',
         'api' => 'api.yii2.com',
         'image' => 'img.yii2.com',
+        'html5' => 'm.yii2.com',
     ],
     'uploads' => dirname(dirname(__DIR__)).'/uploads',
 ];
