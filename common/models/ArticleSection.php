@@ -47,4 +47,9 @@ class ArticleSection extends \yii\db\ActiveRecord
             'section_content' => '段落内容',
         ];
     }
+
+    public function getPictures()
+    {
+        return $this->hasMany(ArticleSectionPicture::className(), ['section_id' => 'id'])->orderBy(['sort' => SORT_DESC]);;
+    }
 }

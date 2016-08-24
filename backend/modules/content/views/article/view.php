@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'title',
                     [
                         'attribute'=>'category_id',
-                        'value'=>$model->getArticleCategoryValues(),
+                        'value'=>$model->getArticleCategoryNames(),
                     ],
                     'content:raw',
                     [

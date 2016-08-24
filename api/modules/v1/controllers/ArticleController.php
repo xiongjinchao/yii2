@@ -2,6 +2,7 @@
 
 namespace api\modules\v1\controllers;
 
+use common\models\Article;
 use yii;
 use api\controllers\RangerController;
 use yii\data\Pagination;
@@ -24,7 +25,13 @@ class ArticleController extends RangerController
         }
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' =>$countQuery->count(), 'pageSize' => $pageSize, 'page' => $page]);
-        $models = $query->offset($pages->offset)->limit($pages->limit)->orderBy(['id'=>SORT_DESC])->all();
+        $models = array_map(function($model){
+            $record = $model->attributes;
+            $record['created_at'] = date('Y-m-d H:i:s',$record['created_at']);
+            $record['updated_at'] = date('Y-m-d H:i:s',$record['updated_at']);
+            return $record;
+        },$query->offset($pages->offset)->limit($pages->limit)->orderBy(['id'=>SORT_DESC])->all());
+
         $result = [
             'models' => $models,
             'pages' => [
@@ -42,12 +49,34 @@ class ArticleController extends RangerController
         if(!isset($params['query']['where']) || !is_array($params['query']['where'])){
             RangerException::throwException(RangerException::APP_ERROR_PARAMS,'where[]');
         }
-        $query = Menu::find();
+        $query = Article::find();
         foreach ($params['query']['where'] as $where) {
             $query->andWhere($where);
         }
-        $result = $query->one();
-        return $result->attributes;
+        $model = $query->one();
+        $result = $model->attributes;
+        $result['created_at'] = date('Y-m-d H:i:s',$result['created_at']);
+        $result['updated_at'] = date('Y-m-d H:i:s',$result['updated_at']);
+        $result['sections'] = [];
+        if(isset($model->sections)&&$model->sections!=null){
+            foreach($model->sections as $key=>$section){
+                $record = $section->attributes;
+                unset($record['id'],$record['article_id']);
+                $record['pictures'] = [];
+                $result['sections'][] = $record;
+                if(isset($section->pictures)&&$section->pictures!=null){
+                    foreach($section->pictures as $picture){
+                        $record = $picture->attributes;
+                        unset($record['id'],$record['article_id'],$record['section_id']);
+                        if(isset($picture->picture)&&$picture->picture!=null){
+                            $record['url'] = $picture->picture->url;
+                        }
+                        $result['sections'][$key]['pictures'][] = $record;
+                    }
+                }
+            }
+        }
+        return $result;
     }
 
     public function actionCreate(array $params)

@@ -68,4 +68,13 @@ class RangerController extends Controller
             ],
         ]));
     }
+
+    public function actionArticleDetail()
+    {
+        print_r(RangerHtml5::api('ranger.article.detail',[
+            'where'=>[
+                'id' => 1
+            ]
+        ]));
+    }
 }

@@ -18,7 +18,10 @@ class MenuController extends RangerController
                 $query->andWhere($where);
             }
         }
-        $result = array_map(function($record) {
+        $result = array_map(function($model) {
+            $record = $model->attributes;
+            $record['created_at'] = date('Y-m-d H:i:s',$record['created_at']);
+            $record['updated_at'] = date('Y-m-d H:i:s',$record['updated_at']);
             return $record;
         },$query->orderBy(['left'=>SORT_ASC])->all());
         return $result;
@@ -33,8 +36,11 @@ class MenuController extends RangerController
         foreach ($params['query']['where'] as $where) {
             $query->andWhere($where);
         }
-        $result = $query->one();
-        return $result->attributes;
+        $model = $query->one();
+        $result = $model->attributes;
+        $result['created_at'] = date('Y-m-d H:i:s',$result['created_at']);
+        $result['updated_at'] = date('Y-m-d H:i:s',$result['updated_at']);
+        return $result;
     }
 
     public function actionCreate(array $params)

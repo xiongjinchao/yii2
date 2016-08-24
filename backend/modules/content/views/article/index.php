@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'category_id',
                 'value'=>function($model){
-                    return $model->getArticleCategoryValues();
+                    return $model->getArticleCategoryNames();
                 }
             ],
             //'content:ntext',

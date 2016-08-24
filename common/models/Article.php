@@ -136,7 +136,7 @@ class Article extends \yii\db\ActiveRecord
         }
     }
 
-    public function getArticleCategoryValues()
+    public function getArticleCategoryNames()
     {
         $str = '';
         if($this->category_id){
@@ -148,6 +148,11 @@ class Article extends \yii\db\ActiveRecord
                 }
             }
         }
-        return $str;
+        return trim($str);
+    }
+
+    public function getSections()
+    {
+        return $this->hasMany(ArticleSection::className(), ['article_id' => 'id']);
     }
 }
