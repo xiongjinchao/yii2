@@ -10,7 +10,7 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property integer $id
  * @property string $name
- * @property string $tag
+ * @property string $action
  * @property integer $lft
  * @property integer $rgt
  * @property integer $parent
@@ -58,7 +58,7 @@ class Page extends \yii\db\ActiveRecord
             [['content'], 'string'],
             [['name'], 'string', 'max' => 100],
             [['link'], 'string', 'max' => 200],
-            [['tag'], 'string', 'max' => 50],
+            [['action'], 'string', 'max' => 50],
             [['seo_title', 'seo_description', 'seo_keyword'], 'string', 'max' => 255]
         ];
     }
@@ -71,7 +71,7 @@ class Page extends \yii\db\ActiveRecord
         return [
             'id' => '编号',
             'name' => '名称',
-            'tag' => '标示',
+            'action' => '标示',
             'link' => '链接',
             'lft' => '左值',
             'rgt' => '右值',

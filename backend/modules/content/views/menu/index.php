@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->getSpace().$model->name;
                 }
             ],
-            'tag',
+            'action',
             [
                 'attribute'=>'created_at',
                 'format'=>['datetime','php:Y-m-d H:i:s'],

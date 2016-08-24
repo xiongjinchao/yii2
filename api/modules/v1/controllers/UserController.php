@@ -48,22 +48,29 @@ class UserController extends RangerController
 
     public function actionList(array $params)
     {
-        $query = \common\models\User::find();
+        $query = User::find();
         if(isset($params['query']['where']) && is_array($params['query']['where'])) {
             foreach ($params['query']['where'] as $where) {
-                $query->where($where);
+                $query->andWhere($where);
             }
         }
         $result = array_map(function($record){
             unset($record['auth_key'], $record['password_hash'], $record['password_reset_token']);
             return $record;
-        },$query->all());
+        },$query->orderBy(['id'=>SORT_DESC])->all());
         return $result;
+    }
+
+    public function actionDetail(array $params)
+    {
+        $user = parent::checkAccessToken($params);
+        unset($user['auth_key'], $user['password_hash'], $user['password_reset_token']);
+        return $user;
     }
 
     public function actionCreate(array $params)
     {
-        $model = new \common\models\User();
+        $model = new User();
         if(!$model->load($params,'query')){
             RangerException::throwException(RangerException::APP_ERROR_PARAMS);
         }

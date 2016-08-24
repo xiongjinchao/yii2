@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attributes' => [
                     'id',
                     'name',
-                    'tag',
+                    'action',
                     'lft',
                     'rgt',
                     'parent',

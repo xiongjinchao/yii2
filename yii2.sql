@@ -1032,7 +1032,7 @@ CREATE TABLE IF NOT EXISTS `yii_comment` (
 CREATE TABLE IF NOT EXISTS `yii_menu` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
-  `tag` varchar(50) DEFAULT NULL,
+  `action` varchar(50) DEFAULT NULL,
   `link` varchar(200) NOT NULL DEFAULT '',
   `lft` int(10) NOT NULL DEFAULT '0',
   `rgt` int(10) NOT NULL DEFAULT '0',
@@ -1054,7 +1054,7 @@ CREATE TABLE IF NOT EXISTS `yii_menu` (
 -- 转存表中的数据 `yii_menu`
 --
 
-INSERT INTO `yii_menu` (`id`, `name`, `tag`, `link`, `lft`, `rgt`, `parent`, `depth`, `content`, `audit`, `visible`, `seo_title`, `seo_description`, `seo_keyword`, `created_at`, `updated_at`) VALUES
+INSERT INTO `yii_menu` (`id`, `name`, `action`, `link`, `lft`, `rgt`, `parent`, `depth`, `content`, `audit`, `visible`, `seo_title`, `seo_description`, `seo_keyword`, `created_at`, `updated_at`) VALUES
 (1, '首页', 'home', '', 1, 2, 0, 1, '', 1, 1, '首页', '首页', '首页', 1438655940, 1450168089),
 (2, '心灵鸡汤', 'essay', '', 3, 8, 0, 1, '', 1, 1, '心灵鸡汤', '心灵鸡汤', '心灵鸡汤', 1438657431, 1438916256),
 (3, '笑话', 'joke', '', 9, 10, 0, 1, '', 1, 1, '笑话', '笑话', '笑话', 1438657526, 1443603604),
@@ -1094,7 +1094,7 @@ INSERT INTO `yii_migration` (`version`, `apply_time`) VALUES
 CREATE TABLE IF NOT EXISTS `yii_page` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
-  `tag` varchar(50) DEFAULT NULL,
+  `action` varchar(50) DEFAULT NULL,
   `link` varchar(200) NOT NULL DEFAULT '',
   `lft` int(10) NOT NULL DEFAULT '0',
   `rgt` int(10) NOT NULL DEFAULT '0',
