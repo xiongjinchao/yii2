@@ -27,6 +27,7 @@ class RangerController extends Controller
                 //['id'=>12],
                 ['<>','id',10]
             ],
+            'access_token' => '0mcZIy285iWeFXiJV9ArhrMQinlMcCwZ',
         ]));
     }
 
@@ -37,6 +38,22 @@ class RangerController extends Controller
             'password' => '123456',
             'email' => '67218315@qq.com',
             'mobile' => '18600945045',
+        ]));
+    }
+
+    public function actionUserUpdate()
+    {
+        print_r(RangerHtml5::api('ranger.user.update',[
+            'username' => 'STARR',
+            'access_token' => '0mcZIy285iWeFXiJV9ArhrMQinlMcCwZ',
+        ]));
+    }
+
+    public function actionUserDelete()
+    {
+        print_r(RangerHtml5::api('ranger.user.delete',[
+            'username' => 'STARR',
+            'access_token' => '0mcZIy285iWeFXiJV9ArhrMQinlMcCwZ',
         ]));
     }
 

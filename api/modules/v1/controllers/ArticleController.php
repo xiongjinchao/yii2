@@ -5,6 +5,7 @@ namespace api\modules\v1\controllers;
 use yii;
 use api\controllers\RangerController;
 use yii\data\Pagination;
+use api\components\RangerException;
 
 class ArticleController extends RangerController
 {
@@ -38,16 +39,16 @@ class ArticleController extends RangerController
 
     public function actionCreate(array $params)
     {
-        
+        RangerException::throwException(RangerException::APP_ERROR_CREATE);
     }
 
     public function actionUpdate(array $params)
     {
-
+        RangerException::throwException(RangerException::APP_ERROR_UPDATE);
     }
 
     public function actionDelete(array $params)
     {
-
+        RangerException::throwException(RangerException::APP_ERROR_DELETE);
     }
 }

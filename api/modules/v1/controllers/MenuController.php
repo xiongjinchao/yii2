@@ -4,6 +4,7 @@ namespace api\modules\v1\controllers;
 
 use yii;
 use api\controllers\RangerController;
+use api\components\RangerException;
 
 class MenuController extends RangerController
 {
@@ -24,16 +25,16 @@ class MenuController extends RangerController
 
     public function actionCreate(array $params)
     {
-
+        RangerException::throwException(RangerException::APP_ERROR_CREATE);
     }
 
     public function actionUpdate(array $params)
     {
-
+        RangerException::throwException(RangerException::APP_ERROR_UPDATE);
     }
 
     public function actionDelete(array $params)
     {
-
+        RangerException::throwException(RangerException::APP_ERROR_DELETE);
     }
 }

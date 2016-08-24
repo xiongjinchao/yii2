@@ -27,6 +27,7 @@ class RangerController extends Controller
                 ['id'=>12],
                 ['<>','id',10]
             ],
+            'access_token' => '0mcZIy285iWeFXiJV9ArhrMQinlMcCwZ',
         ]));
     }
 

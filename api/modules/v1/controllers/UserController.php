@@ -2,6 +2,7 @@
 
 namespace api\modules\v1\controllers;
 
+use common\models\User;
 use yii;
 use api\controllers\RangerController;
 use api\components\RangerException;
@@ -34,14 +35,14 @@ class UserController extends RangerController
         if(!Yii::$app->getSecurity()->validatePassword($password, $user->password_hash)){
             RangerException::throwException(RangerException::APP_ERROR_PASSWORD);
         }else{
-            //可以使用redis缓存数据
-            $user->access_token = Yii::$app->security->generateRandomString();
-            $user->expire_at = time()+3600*24*30;
-            $user->save();
-            Yii::$app->user->login($user, 3600*24*30);
-            return [
-                'access_token' => $user->access_token
-            ];
+            $accessToken = Yii::$app->security->generateRandomString();
+            $duration = 3600*24*30;
+            Yii::$app->cache->set($accessToken, $user->id, $duration);
+            Yii::$app->user->login($user, $duration);
+            $result = $user->attributes;
+            unset($result['auth_key'], $result['password_hash'], $result['password_reset_token']);
+            $result['access_token'] = $accessToken;
+            return $result;
         }
     }
 
@@ -54,6 +55,7 @@ class UserController extends RangerController
             }
         }
         $result = array_map(function($record){
+            unset($record['auth_key'], $record['password_hash'], $record['password_reset_token']);
             return $record;
         },$query->all());
         return $result;
@@ -62,38 +64,57 @@ class UserController extends RangerController
     public function actionCreate(array $params)
     {
         $model = new \common\models\User();
-        if($model->load($params,'query')){
-            $password = isset($params['query']['password'])?$params['query']['password']:'';
-            if(!$password){
-                RangerException::throwException(RangerException::APP_ERROR_PARAMS,'password');
-            }
-            $model->password_hash = Yii::$app->security->generatePasswordHash($password);
-            $model->auth_key = Yii::$app->security->generateRandomString();
-            if($model->validate() ){
-                try{
-                    $model->save();
-                    $result = [
-                        'id' => $model->id
-                    ];
-                    return $result;
-                }catch(\yii\db\Exception $e){
-                    RangerException::throwException(RangerException::APP_ERROR_CREATE,$e->getMessage());
-                }
-            }else{
-                RangerException::throwException(RangerException::APP_ERROR_PARAMS,json_encode($model->getErrors()));
-            }
-        }else{
+        if(!$model->load($params,'query')){
             RangerException::throwException(RangerException::APP_ERROR_PARAMS);
+        }
+        $password = isset($params['query']['password'])?$params['query']['password']:'';
+        if(!$password){
+            RangerException::throwException(RangerException::APP_ERROR_PARAMS,'password');
+        }
+        $model->password_hash = Yii::$app->security->generatePasswordHash($password);
+        $model->auth_key = Yii::$app->security->generateRandomString();
+        if(!$model->validate() ){
+            RangerException::throwException(RangerException::APP_ERROR_PARAMS,json_encode($model->getErrors()));
+        }
+        try{
+            $model->save();
+            $result = [
+                'id' => $model->id
+            ];
+            return $result;
+        }catch(\yii\db\Exception $e){
+            RangerException::throwException(RangerException::APP_ERROR_CREATE,$e->getMessage());
         }
     }
 
     public function actionUpdate(array $params)
     {
-        parent::checkAccessToken($params);
+        $user = parent::checkAccessToken($params);
+        $model = User::findOne($user['id']);
+        if(isset($params['query']['id'])){
+            unset($params['query']['id']);
+        }
+        if(!$model->load($params,'query')){
+            RangerException::throwException(RangerException::APP_ERROR_PARAMS);
+        }
+        $password = isset($params['query']['password'])?$params['query']['password']:'';
+        if($password){
+            $model->password_hash = Yii::$app->security->generatePasswordHash($password);
+            $model->auth_key = Yii::$app->security->generateRandomString();
+        }
+
+        try {
+            $model->save();
+        } catch (\yii\db\Exception $e) {
+            RangerException::throwException(RangerException::APP_ERROR_UPDATE, $e->getMessage());
+        }
+        $result = $model->attributes;
+        unset($result['auth_key'], $result['password_hash'], $result['password_reset_token']);
+        return $model->attributes;
     }
 
     public function actionDelete(array $params)
     {
-
+        RangerException::throwException(RangerException::APP_ERROR_DELETE);
     }
 }
