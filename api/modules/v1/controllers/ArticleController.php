@@ -58,17 +58,17 @@ class ArticleController extends RangerController
         $result['created_at'] = date('Y-m-d H:i:s',$result['created_at']);
         $result['updated_at'] = date('Y-m-d H:i:s',$result['updated_at']);
         $result['sections'] = [];
-        if(isset($model->sections)&&$model->sections!=null){
+        if(isset($model->sections) && $model->sections != null){
             foreach($model->sections as $key=>$section){
                 $record = $section->attributes;
                 unset($record['id'],$record['article_id']);
                 $record['pictures'] = [];
                 $result['sections'][] = $record;
-                if(isset($section->pictures)&&$section->pictures!=null){
+                if(isset($section->pictures) && $section->pictures != null){
                     foreach($section->pictures as $picture){
                         $record = $picture->attributes;
                         unset($record['id'],$record['article_id'],$record['section_id']);
-                        if(isset($picture->picture)&&$picture->picture!=null){
+                        if(isset($picture->picture) && $picture->picture != null){
                             $record['url'] = $picture->picture->url;
                         }
                         $result['sections'][$key]['pictures'][] = $record;
