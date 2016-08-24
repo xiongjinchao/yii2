@@ -22,10 +22,10 @@ class RangerApi
         curl_setopt ( $ch, CURLOPT_HEADER, 0 );
         curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
         curl_setopt ( $ch, CURLOPT_POSTFIELDS, $params );
-        $result = curl_exec($ch);
+        $data = curl_exec($ch);
         curl_close($ch);
 
-        return $result;
+        return yii\helpers\Json::decode($data);
     }
     
     public static function generateSign($params)
