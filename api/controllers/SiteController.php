@@ -11,17 +11,6 @@ use api\components\RangerException;
  */
 class SiteController extends RangerController
 {
-    /**
-     * @inheritdoc
-     */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-        ];
-    }
 
     /**
      * Displays homepage.
@@ -64,27 +53,27 @@ class SiteController extends RangerController
     public function beforeAction($action)
     {
         if(!Yii::$app->request->post('sign')){
-            RangerException::throwException(RangerException::SYS_EMPTY_SIGN);
+            RangerException::throwException(RangerException::SYS_EMPTY_SIGN,'',401);
         }
-        $query = Yii::$app->request->post();
-        $sign = $query['sign'];
-        unset($query['sign']);
+        $params = Yii::$app->request->post();
+        $sign = $params['sign'];
+        unset($params['sign']);
 
-        if(isset(Yii::$app->params['device'][$query['device']][$query['origin']]) && Yii::$app->params['device'][$query['device']][$query['origin']]['key'] == $query['key']){
-            $query['secret'] = Yii::$app->params['device'][$query['device']][$query['origin']]['secret'];
+        if(isset(Yii::$app->params['device'][$params['device']][$params['origin']]) && Yii::$app->params['device'][$params['device']][$params['origin']]['key'] == $params['key']){
+            $query['secret'] = Yii::$app->params['device'][$params['device']][$params['origin']]['secret'];
         }else{
-            RangerException::throwException(RangerException::SYS_ERROR_SECRET);
+            RangerException::throwException(RangerException::SYS_ERROR_SECRET,'',401);
         }
-        if(!empty($query['params'])) {
-            ksort($query['params']);
+        if(!empty($params['params'])) {
+            ksort($params['params']);
         }
-        ksort($query);
+        ksort($params);
 
-        $query = http_build_query($query);
+        $query = http_build_query($params);
         if($sign === strtoupper(md5($query))) {
             return parent::beforeAction($action);
         }else{
-            RangerException::throwException(RangerException::SYS_ERROR_SIGN);
+            RangerException::throwException(RangerException::SYS_ERROR_SIGN,'',401);
         }
     }
 

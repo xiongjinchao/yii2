@@ -37,7 +37,10 @@ return [
                     'categories' => ['yii\db\Command::query','application'],
                 ],
             ],
-        ]
+        ],
+        'errorHandler' => [
+            'errorAction' => 'ranger/error',
+        ],
     ],
     'params' => $params,
 ];

@@ -6,10 +6,19 @@ use yii\web\Controller;
 use common\components\ranger\RangerHtml5;
 
 /**
- * Site controller
+ * Ranger controller
  */
 class RangerController extends Controller
 {
+    public function actionRangerScript()
+    {
+        $method = Yii::$app->request->post('method');
+        $params = Yii::$app->request->post('params');
+        $params['format'] = 'json';
+        echo RangerHtml5::api($method,$params);
+        Yii::$app->end();
+    }
+
     public function actionUserLogin()
     {
         print_r(RangerHtml5::api('ranger.user.login',[

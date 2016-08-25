@@ -24,9 +24,13 @@ class RangerApi
         curl_setopt ( $ch, CURLOPT_POSTFIELDS, $params );
         $data = curl_exec($ch);
         curl_close($ch);
-        try{
-            $result = yii\helpers\Json::decode($data);
-        }catch (\Exception $e){
+        if($params['format'] == 'array') {
+            try {
+                $result = yii\helpers\Json::decode($data);
+            } catch (\Exception $e) {
+                $result = $data;
+            }
+        }else{
             $result = $data;
         }
         return $result;
@@ -34,7 +38,7 @@ class RangerApi
     
     public static function generateSign($params)
     {
-        if(!empty($query['params'])) {
+        if(!empty($params['params'])) {
             ksort($params['params']);
         }
         ksort($params);

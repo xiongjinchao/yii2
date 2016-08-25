@@ -47,7 +47,7 @@ class RangerException extends HttpException
         return '未知的错误';
     }
 
-    public static function throwException($code, $message = '', $http_status = 403)
+    public static function throwException($code, $message = '', $http_status = 400)
     {
         if($message != ''){
             $message = self::getExceptionMessage($code).':'.$message;

@@ -27,7 +27,7 @@ class RangerHtml5 extends RangerApi
         $params['ip'] = Yii::$app->request->getUserHost();
         $params['timestamp'] = time();
         $params['version'] = isset($params['version'])?$params['version']:'1.0';
-        $params['format'] = isset($params['format'])?$params['format']:'json';
+        $params['format'] = isset($params['format'])?$params['format']:'array';
 
         return parent::request($params, $type);
     }
