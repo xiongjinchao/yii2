@@ -77,4 +77,9 @@ class RangerController extends Controller
             ]
         ]));
     }
+
+    public function actionArticleCategoryList()
+    {
+        print_r(RangerHtml5::api('ranger.article-category.list',[]));
+    }
 }

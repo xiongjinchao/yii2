@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'tag')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'action')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'parent')->dropDownList($model->getArticleCategoryOptions(),['prompt'=>'设为主分类']);?>
 

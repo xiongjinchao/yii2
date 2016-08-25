@@ -3,16 +3,16 @@
 namespace api\modules\v1\controllers;
 
 use yii;
-use common\models\Page;
+use common\models\ArticleCategory;
 use api\controllers\RangerController;
 use api\components\RangerException;
 
-class PageController extends RangerController
+class ArticleCategoryController extends RangerController
 {
 
     public function actionList(array $params)
     {
-        $query = Page::find();
+        $query = ArticleCategory::find();
         if(isset($params['query']['where']) && is_array($params['query']['where'])) {
             foreach ($params['query']['where'] as $where) {
                 $query->andWhere($where);
@@ -32,7 +32,7 @@ class PageController extends RangerController
         if(!isset($params['query']['where']) || !is_array($params['query']['where'])){
             RangerException::throwException(RangerException::APP_ERROR_PARAMS,'where[]');
         }
-        $query = Page::find();
+        $query = ArticleCategory::find();
         foreach ($params['query']['where'] as $where) {
             $query->andWhere($where);
         }

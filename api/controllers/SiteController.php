@@ -3,6 +3,7 @@ namespace api\controllers;
 
 use yii;
 use yii\helpers\Json;
+use yii\helpers\Inflector;
 use api\components\RangerException;
 
 /**
@@ -30,7 +31,7 @@ class SiteController extends RangerController
     public function actionIndex()
     {
         $method = Yii::$app->request->post('method');
-        $method = explode('.',$method);
+        $method = explode('.',Inflector::camel2id($method));
         $version = explode('.',Yii::$app->request->post('version'))[0];
         $params['query'] = Yii::$app->request->post('params');
         $params['query'] = empty($params['query'])?[]:$params['query'];

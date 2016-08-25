@@ -2,8 +2,8 @@
 
 namespace api\modules\v1\controllers;
 
-use common\models\Article;
 use yii;
+use common\models\Article;
 use api\controllers\RangerController;
 use yii\data\Pagination;
 use api\components\RangerException;

@@ -2,8 +2,8 @@
 
 namespace api\modules\v1\controllers;
 
-use common\models\User;
 use yii;
+use common\models\User;
 use api\controllers\RangerController;
 use api\components\RangerException;
 

@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->getSpace().$model->name;
                 }
             ],
-            'tag',
+            'action',
             //'lft',
             //'rgt',
             //'parent',

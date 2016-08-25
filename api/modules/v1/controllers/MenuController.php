@@ -23,7 +23,7 @@ class MenuController extends RangerController
             $record['created_at'] = date('Y-m-d H:i:s',$record['created_at']);
             $record['updated_at'] = date('Y-m-d H:i:s',$record['updated_at']);
             return $record;
-        },$query->orderBy(['left'=>SORT_ASC])->all());
+        },$query->orderBy(['lft'=>SORT_ASC])->all());
         return $result;
     }
 
