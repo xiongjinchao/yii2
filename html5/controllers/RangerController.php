@@ -64,17 +64,52 @@ class RangerController extends Controller
         ]));
     }
 
+    public function actionMenuList()
+    {
+        print_r(RangerHtml5::api('ranger.menu.list',
+            [],
+            [
+                'format' => 'json',
+                'version' => '1.0',
+            ]
+        ));
+    }
+
+    public function actionMenuDetail()
+    {
+        print_r(RangerHtml5::api('ranger.menu.detail',
+            [
+                'where' => [
+                    'id' => 1
+                ]
+            ]
+        ));
+    }
+
+    public function actionPageList()
+    {
+        print_r(RangerHtml5::api('ranger.page.list',
+            [],
+            [
+                'format' => 'json',
+                'version' => '1.0',
+            ]
+        ));
+    }
+
+    public function actionPageDetail()
+    {
+        print_r(RangerHtml5::api('ranger.page.detail',
+            [
+                'where' => [
+                    'id' => 1
+                ]
+            ]
+        ));
+    }
+
     public function actionArticleList()
     {
-        print_r(json_encode([
-            'page_size' => 10,
-            'page' => 1,
-            'where' => [
-                //['id'=>12],
-                ['<>','id',10]
-            ],
-        ]));
-        exit;
         print_r(RangerHtml5::api('ranger.article.list',
             [
                 'page_size' => 10,
