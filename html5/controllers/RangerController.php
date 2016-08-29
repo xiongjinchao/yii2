@@ -10,14 +10,6 @@ use common\components\ranger\RangerHtml5;
  */
 class RangerController extends Controller
 {
-    public function actionRangerScript()
-    {
-        $method = Yii::$app->request->post('method');
-        $params = Yii::$app->request->post('params');
-        $params['format'] = 'json';
-        echo RangerHtml5::api($method,$params);
-        Yii::$app->end();
-    }
 
     public function actionUserLogin()
     {
@@ -29,15 +21,21 @@ class RangerController extends Controller
 
     public function actionUserList()
     {
-        print_r(RangerHtml5::api('ranger.user.list',[
-            'page_size' => 10,
-            'page' => 1,
-            'where' => [
-                //['id'=>12],
-                ['<>','id',10]
+        print_r(RangerHtml5::api('ranger.user.list',
+            [
+                'page_size' => 10,
+                'page' => 1,
+                'where' => [
+                    //['id'=>12],
+                    ['<>','id',10]
+                ],
+                'access_token' => '0mcZIy285iWeFXiJV9ArhrMQinlMcCwZ',
             ],
-            'access_token' => '0mcZIy285iWeFXiJV9ArhrMQinlMcCwZ',
-        ]));
+            [
+                'format' => 'json',
+                'version' => '1.0',
+            ]
+        ));
     }
 
     public function actionUserCreate()
@@ -68,7 +66,7 @@ class RangerController extends Controller
 
     public function actionArticleList()
     {
-        print_r(RangerHtml5::api('ranger.article.list',[
+        print_r(json_encode([
             'page_size' => 10,
             'page' => 1,
             'where' => [
@@ -76,6 +74,21 @@ class RangerController extends Controller
                 ['<>','id',10]
             ],
         ]));
+        exit;
+        print_r(RangerHtml5::api('ranger.article.list',
+            [
+                'page_size' => 10,
+                'page' => 1,
+                'where' => [
+                    //['id'=>12],
+                    ['<>','id',10]
+                ],
+            ],
+            [
+                'format' => 'json',
+                'version' => '1.0',
+            ]
+        ));
     }
 
     public function actionArticleDetail()

@@ -10,7 +10,7 @@ use common\components\ranger\RangerWeb;
  */
 class RangerController extends Controller
 {
-    public function actionRangerScript()
+    public function actionRangerApi()
     {
         $method = Yii::$app->request->post('method');
         $params = Yii::$app->request->post('params');

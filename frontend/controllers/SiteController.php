@@ -12,6 +12,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\components\ranger\RangerHtml5;
 
 /**
  * Site controller
@@ -67,6 +68,26 @@ class SiteController extends Controller
                 'successCallback' => [$this, 'successCallback'],
             ],
         ];
+    }
+
+    /**
+     * AJAX API统一入口
+     */
+    public function actionApi()
+    {
+        $method = Yii::$app->request->post('method');
+        $params = Yii::$app->request->post('params');
+        $params['format'] = 'json';
+        echo RangerHtml5::api($method,$params);
+        Yii::$app->end();
+    }
+
+    /**
+     * AJAX API测试
+     */
+    public function actionRanger()
+    {
+        return $this->render('ranger');
     }
 
     /**
