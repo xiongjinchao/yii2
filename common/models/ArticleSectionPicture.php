@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use yii;
+use Yii;
 use backend\models\Picture;
 
 /**

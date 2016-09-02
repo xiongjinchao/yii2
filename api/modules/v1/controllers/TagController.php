@@ -6,14 +6,14 @@ use yii;
 use api\controllers\RangerController;
 use api\components\RangerException;
 
-class PageController extends RangerController
+class TagController extends RangerController
 {
 
     public function actionList(array $params)
     {
-        $query = parent::generationQuery(\common\models\Page::class,$params);
+        $query = parent::generationQuery(\common\models\Tag::class,$params);
         try {
-            $models = $query->orderBy(['lft'=>SORT_ASC])->all();
+            $models = $query->orderBy(['total'=>SORT_DESC])->all();
         }catch (\yii\db\Exception $e){
             RangerException::throwException(RangerException::APP_ERROR_PARAMS,$e->getMessage());
         }
@@ -25,22 +25,6 @@ class PageController extends RangerController
                 $record['updated_at'] = date('Y-m-d H:i:s', $record['updated_at']);
                 return $record;
             }, $models);
-        }
-        return $result;
-    }
-
-    public function actionDetail(array $params)
-    {
-        if(!isset($params['query']['where']) || !is_array($params['query']['where'])){
-            RangerException::throwException(RangerException::APP_ERROR_PARAMS,'where[]');
-        }
-        $query = parent::generationQuery(\common\models\Page::class,$params);
-        $model = $query->one();
-        $result = [];
-        if(!empty($model)) {
-            $result = $model->attributes;
-            $result['created_at'] = date('Y-m-d H:i:s', $result['created_at']);
-            $result['updated_at'] = date('Y-m-d H:i:s', $result['updated_at']);
         }
         return $result;
     }

@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use yii;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

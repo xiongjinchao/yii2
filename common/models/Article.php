@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use yii;
+use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -154,5 +154,10 @@ class Article extends \yii\db\ActiveRecord
     public function getSections()
     {
         return $this->hasMany(ArticleSection::className(), ['article_id' => 'id']);
+    }
+
+    public function getTags()
+    {
+        return $this->hasMany(ArticleTag::className(), ['article_id' => 'id'])->orderBy(['total' => SORT_DESC]);
     }
 }

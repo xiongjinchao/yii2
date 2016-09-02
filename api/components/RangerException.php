@@ -31,12 +31,13 @@ class RangerException extends HttpException
             self::SYS_ERROR_SIGN => '签名未通过验证',
             self::SYS_ERROR_SECRET => '获取秘钥失败',
 
-            self::APP_ERROR_PARAMS => '缺少必要的参数',
+            self::APP_ERROR_PARAMS => '参数不合法',
             self::APP_EMPTY_RECORD => '查询记录为空',
             self::APP_NEED_ACCESS_TOKEN => '需要令牌认证',
             self::APP_ERROR_ACCESS_TOKEN => '令牌认证失败',
             self::APP_ERROR_PASSWORD => '密码错误',
             self::APP_ERROR_CREATE => '创建失败',
+            self::APP_ERROR_UPDATE => '更新失败',
             self::APP_ERROR_UPDATE => '更新失败',
             self::APP_ERROR_DELETE => '删除失败',
         ];
@@ -50,9 +51,9 @@ class RangerException extends HttpException
     public static function throwException($code, $message = '', $http_status = 400)
     {
         if($message != ''){
-            $message = self::getExceptionMessage($code).':'.$message;
+            $message = '(#'.$code.')'.self::getExceptionMessage($code).':'.$message;
         }else{
-            $message = self::getExceptionMessage($code);
+            $message = '(#'.$code.')'.self::getExceptionMessage($code);
         }
         throw new HttpException($http_status, $message, $code);
     }

@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use yii;
+use Yii;
 
 /**
  * This is the model class for table "{{%article_section}}".
@@ -50,6 +50,6 @@ class ArticleSection extends \yii\db\ActiveRecord
 
     public function getPictures()
     {
-        return $this->hasMany(ArticleSectionPicture::className(), ['section_id' => 'id'])->orderBy(['sort' => SORT_DESC]);;
+        return $this->hasMany(ArticleSectionPicture::className(), ['section_id' => 'id'])->orderBy(['sort' => SORT_DESC]);
     }
 }

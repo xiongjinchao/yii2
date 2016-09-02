@@ -42,6 +42,17 @@ class RangerController extends Controller
         return $user->attributes;
     }
 
+    public function generationQuery($model,$params)
+    {
+        $query = $model::find();
+        if(isset($params['query']['where']) && is_array($params['query']['where']) && !empty($params['query']['where'])) {
+            foreach ($params['query']['where'] as $where) {
+                $query->andWhere($where);
+            }
+        }
+        return $query;
+    }
+
     public function actionTest(){
         return $this->render('error');
     }

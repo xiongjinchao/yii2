@@ -3,7 +3,6 @@
 namespace api\modules\v1\controllers;
 
 use yii;
-use common\models\Article;
 use api\controllers\RangerController;
 use yii\data\Pagination;
 use api\components\RangerException;
@@ -16,31 +15,37 @@ class ArticleController extends RangerController
         $pageSize = isset($params['query']['page_size']) && $params['query']['page_size']>0?$params['query']['page_size']:self::PAGE_SIZE;
         $page = isset($params['query']['page']) && $params['query']['page']>0?$params['query']['page']-1:0;
 
-        $query = \common\models\Article::find();
-
-        if(isset($params['query']['where']) && is_array($params['query']['where'])) {
-            foreach ($params['query']['where'] as $where) {
-                $query->andWhere($where);
-            }
-        }
+        $query = parent::generationQuery(\common\models\Article::class,$params);
         $countQuery = clone $query;
-        $pages = new Pagination(['totalCount' =>$countQuery->count(), 'pageSize' => $pageSize, 'page' => $page]);
-        $models = array_map(function($model){
-            $record = $model->attributes;
-            $record['created_at'] = date('Y-m-d H:i:s',$record['created_at']);
-            $record['updated_at'] = date('Y-m-d H:i:s',$record['updated_at']);
-            return $record;
-        },$query->offset($pages->offset)->limit($pages->limit)->orderBy(['id'=>SORT_DESC])->all());
-
-        $result = [
-            'models' => $models,
-            'pages' => [
-                'page' => $pages->getPage()+1,
-                'page_size' => $pages->getPageSize(),
-                'page_count' => $pages->getPageCount(),
-                'total_count' => $pages->totalCount,
-            ],
+        try {
+            $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $pageSize, 'page' => $page]);
+            $models = $query->offset($pages->offset)->limit($pages->limit)->orderBy(['id' => SORT_DESC])->all();
+        }catch (\yii\db\Exception $e){
+            RangerException::throwException(RangerException::APP_ERROR_PARAMS,$e->getMessage());
+        }
+        $pages = [
+            'page' => $pages->getPage()+1,
+            'page_size' => $pages->getPageSize(),
+            'page_count' => $pages->getPageCount(),
+            'total_count' => $pages->totalCount,
         ];
+        $result = [
+            'list' => [],
+            'pages' => $pages
+        ];
+        if(!empty($models)) {
+            $list = array_map(function ($model) {
+                $record = $model->attributes;
+                $record['created_at'] = date('Y-m-d H:i:s', $record['created_at']);
+                $record['updated_at'] = date('Y-m-d H:i:s', $record['updated_at']);
+                return $record;
+            }, $models);
+
+            $result = [
+                'list' => $list,
+                'pages' => $pages
+            ];
+        }
         return $result;
     }
 
@@ -49,29 +54,44 @@ class ArticleController extends RangerController
         if(!isset($params['query']['where']) || !is_array($params['query']['where'])){
             RangerException::throwException(RangerException::APP_ERROR_PARAMS,'where[]');
         }
-        $query = Article::find();
-        foreach ($params['query']['where'] as $where) {
-            $query->andWhere($where);
+        $query = parent::generationQuery(\common\models\Article::class,$params);
+        try {
+            $model = $query->one();
+        }catch (\yii\db\Exception $e){
+            RangerException::throwException(RangerException::APP_ERROR_PARAMS,$e->getMessage());
         }
-        $model = $query->one();
-        $result = $model->attributes;
-        $result['created_at'] = date('Y-m-d H:i:s',$result['created_at']);
-        $result['updated_at'] = date('Y-m-d H:i:s',$result['updated_at']);
-        $result['sections'] = [];
-        if(isset($model->sections) && $model->sections != null){
-            foreach($model->sections as $key=>$section){
-                $record = $section->attributes;
-                unset($record['id'],$record['article_id']);
-                $record['pictures'] = [];
-                $result['sections'][] = $record;
-                if(isset($section->pictures) && $section->pictures != null){
-                    foreach($section->pictures as $picture){
-                        $record = $picture->attributes;
-                        unset($record['id'],$record['article_id'],$record['section_id']);
-                        if(isset($picture->picture) && $picture->picture != null){
-                            $record['url'] = $picture->picture->url;
+        $result = [];
+        if(!empty($model)) {
+            $result = $model->attributes;
+            $result['created_at'] = date('Y-m-d H:i:s', $result['created_at']);
+            $result['updated_at'] = date('Y-m-d H:i:s', $result['updated_at']);
+            $result['sections'] = [];
+            if (isset($model->sections) && $model->sections != null) {
+                foreach ($model->sections as $key => $section) {
+                    $record = $section->attributes;
+                    unset($record['id'], $record['article_id']);
+                    $record['pictures'] = [];
+                    $result['sections'][] = $record;
+                    if (isset($section->pictures) && $section->pictures != null) {
+                        foreach ($section->pictures as $picture) {
+                            $record = $picture->attributes;
+                            unset($record['id'], $record['article_id'], $record['section_id']);
+                            if (isset($picture->picture) && $picture->picture != null) {
+                                $record['url'] = $picture->picture->url;
+                            }
+                            $result['sections'][$key]['pictures'][] = $record;
                         }
-                        $result['sections'][$key]['pictures'][] = $record;
+                    }
+                }
+            }
+            $result['tags'] = [];
+            if (isset($model->tags) && $model->tags != null) {
+                foreach ($model->tags as $key => $tag) {
+                    $record = $tag->tag;
+                    if($record!= null){
+                        $record = $record->attributes;
+                        unset($record['created_at'], $record['updated_at']);
+                        $result['tags'][]  = $record;
                     }
                 }
             }
