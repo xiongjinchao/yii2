@@ -72,19 +72,6 @@ class ArticleController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->category_id = !empty($_POST['Article']['category_id'])?','.implode(',',$_POST['Article']['category_id']).',':'';
             if($model->save()){
-
-                if($model->content!=''){
-                    $contents = nl2br($model->content);
-                    $contents = explode('<br />',$contents);
-                    foreach($contents as $content){
-                        if(trim($content)!=''){
-                            $section = new ArticleSection;
-                            $section->article_id = $model->id;
-                            $section->section_content = trim($content);
-                            $section->save();
-                        }
-                    }
-                }
                 Yii::$app->session->setFlash('info','文章创建成功！');
                 return $this->redirect(['view', 'id' => $model->id]);
 
@@ -112,20 +99,6 @@ class ArticleController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->category_id = !empty($_POST['Article']['category_id'])?','.implode(',',$_POST['Article']['category_id']).',':'';
             if($model->save()){
-
-                $count = ArticleSection::find()->where(['article_id'=>$id])->count();
-                if($model->content!='' && $count == '0'){
-                    $contents = nl2br($model->content);
-                    $contents = explode('<br />',$contents);
-                    foreach($contents as $content){
-                        if(trim($content)!=''){
-                            $section = new ArticleSection;
-                            $section->article_id = $model->id;
-                            $section->section_content = trim($content);
-                            $section->save();
-                        }
-                    }
-                }
                 Yii::$app->session->setFlash('info','文章更新成功！');
                 return $this->redirect(['view', 'id' => $model->id]);
 
@@ -136,24 +109,6 @@ class ArticleController extends Controller
             return $this->render('update', [
                 'model' => $model,
             ]);
-        }
-    }
-
-    public function actionFormatAll()
-    {
-        $articles = Article::find()->all();
-        foreach($articles as $article){
-            $content = str_replace(array('<p>','<br/>'),'',$article->content);
-            $sections = explode('</p>',$content);
-            $new_content = '';
-            foreach($sections as $key => $section){
-                if(strip_tags(str_replace('	','',$section))!=''){
-                    $new_content.= '<p>'.strip_tags(str_replace('	','',$section)).'</p>';
-                }
-                //$sections[$key] = strip_tags(str_replace('	','',$section));
-            }
-            $article->content = $new_content;
-            $article->save();
         }
     }
 

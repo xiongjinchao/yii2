@@ -53,6 +53,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->getArticleCategoryNames();
                 }
             ],
+            [
+                'attribute'=>'content_type',
+                'value'=>function($model){
+                    return $model->getContentTypeOptions($model->content_type);
+                }
+            ],
             //'content:ntext',
             //'hot',
             //'recommend',

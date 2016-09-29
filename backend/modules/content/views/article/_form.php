@@ -21,6 +21,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6, 'class' => 'ueditor']) ?>
 
+    <?= $form->field($model, 'content_type')->radioList($model->getContentTypeOptions()) ?>
+
     <?= $form->field($model, 'audit')->radioList($model->getAuditOptions());?>
 
     <?= $form->field($model, 'hot')->radioList($model->getHotOptions());?>

@@ -22,7 +22,7 @@ class ArticleSearch extends Article
     {
         return [
             [['id', 'user_id', 'category_id', 'audit', 'hot', 'recommend', 'hit', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'content', 'source', 'source_url', 'seo_title', 'seo_description', 'author', 'seo_keyword', 'startTime', 'endTime'], 'safe'],
+            [['title', 'content','source', 'source_url', 'seo_title', 'seo_description', 'author', 'seo_keyword'], 'safe'],
         ];
     }
 

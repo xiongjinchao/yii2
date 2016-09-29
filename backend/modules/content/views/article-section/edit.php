@@ -287,7 +287,7 @@ $this->params['breadcrumbs'][] = '更新';
             });
 
             if($(".article_section").length == 0){
-                location.reload();
+                window.location.reload();
             }
         });
 

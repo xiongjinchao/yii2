@@ -41,6 +41,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'content:raw',
                     [
+                        'attribute'=>'content_type',
+                        'value'=>$model->getContentTypeOptions($model->content_type),
+                    ],
+                    [
                         'attribute'=>'audit',
                         'value'=>$model->getAuditOptions($model->audit),
                     ],

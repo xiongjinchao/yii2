@@ -13,6 +13,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $menu_id
  * @property integer $category_id
  * @property string $content
+ * @property string $content_type
  * @property integer $audit
  * @property integer $hot
  * @property integer $recommend
@@ -36,6 +37,9 @@ class Article extends \yii\db\ActiveRecord
     const RECOMMEND_ENABLE = 1;
     const RECOMMEND_DISABLE = 0;
 
+    const CONTENT_TYPE_EDITOR = 1;
+    const CONTENT_TYPE_SECTION = 0;
+
     /**
      * @inheritdoc
      */
@@ -58,7 +62,7 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             [['user_id','hit'], 'default', 'value' => 0],
-            [['audit', 'hot', 'recommend', 'hit', 'user_id'], 'integer'],
+            [['audit', 'hot', 'recommend', 'hit', 'user_id', 'content_type'], 'integer'],
             [['content'], 'string'],
             [['author'], 'string', 'max' => 255],
             [['title'], 'string', 'max' => 200],
@@ -78,6 +82,7 @@ class Article extends \yii\db\ActiveRecord
             'title' => '文章标题',
             'category_id' => '所属分类',
             'content' => '文章内容',
+            'content_type' => '内容类别',
             'audit' => '审核状态',
             'hot' => '热门状态',
             'recommend' => '推荐状态',
@@ -136,6 +141,19 @@ class Article extends \yii\db\ActiveRecord
         }
     }
 
+    public function getContentTypeOptions($type = null)
+    {
+        $arr = [
+            self::CONTENT_TYPE_EDITOR => '编辑器',
+            self::CONTENT_TYPE_SECTION => '段落',
+        ];
+        if( $type === null ){
+            return $arr;
+        }else{
+            return isset($arr[$type]) ? $arr[$type] : $type;
+        }
+    }
+
     public function getArticleCategoryNames()
     {
         $str = '';
@@ -143,8 +161,8 @@ class Article extends \yii\db\ActiveRecord
             $category_id = explode(',',trim($this->category_id,','));
             $articleCategories = ArticleCategory::find()->all();
             foreach($articleCategories as $articleCategory){
-                if(in_array($articleCategory->id,$category_id)){
-                    $str.=$articleCategory->name.' ';
+                if(in_array($articleCategory->id, $category_id)){
+                    $str.= $articleCategory->name.' ';
                 }
             }
         }
