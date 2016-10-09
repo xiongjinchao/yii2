@@ -14,15 +14,15 @@ class RangerException extends HttpException
     const SYS_ERROR_SIGN = 10002;
     const SYS_ERROR_SECRET = 10003;
 
-    const APP_ERROR_PARAMS = 10101;
-    const APP_EMPTY_RECORD = 10102;
-    const APP_NEED_ACCESS_TOKEN = 10103;
-    const APP_ERROR_ACCESS_TOKEN = 10104;
+    const APP_ERROR_PARAMS = 10401;
+    const APP_EMPTY_RECORD = 10402;
+    const APP_NEED_ACCESS_TOKEN = 10403;
+    const APP_ERROR_ACCESS_TOKEN = 10404;
 
-    const APP_ERROR_PASSWORD = 10105;
-    const APP_ERROR_CREATE = 10106;
-    const APP_ERROR_UPDATE = 10107;
-    const APP_ERROR_DELETE = 10108;
+    const APP_ERROR_PASSWORD = 10405;
+    const APP_ERROR_CREATE = 10406;
+    const APP_ERROR_UPDATE = 10407;
+    const APP_ERROR_DELETE = 10408;
 
     private function getExceptionMessage($code)
     {

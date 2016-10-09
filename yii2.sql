@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-09-29 04:13:40
+-- Generation Time: 2016-10-09 09:56:20
 -- 服务器版本： 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -58730,6 +58730,54 @@ INSERT INTO `yii_picture` (`id`, `name`, `category`, `url`, `width`, `height`, `
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `yii_recommendation_category`
+--
+
+CREATE TABLE `yii_recommendation_category` (
+  `id` int(11) NOT NULL,
+  `parent_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `tag` varchar(255) NOT NULL DEFAULT '',
+  `description` varchar(255) DEFAULT '',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yii_recommendation_content`
+--
+
+CREATE TABLE `yii_recommendation_content` (
+  `id` int(11) NOT NULL,
+  `recommendation_category_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `code` varchar(255) NOT NULL DEFAULT '',
+  `content` text NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yii_recommendation_picture`
+--
+
+CREATE TABLE `yii_recommendation_picture` (
+  `id` int(11) NOT NULL,
+  `recommendation_category_id` int(11) NOT NULL DEFAULT '0',
+  `recommendation_content_id` int(11) NOT NULL DEFAULT '0',
+  `picture_id` int(11) NOT NULL DEFAULT '0',
+  `picture_title` varchar(150) NOT NULL DEFAULT '',
+  `sort` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `yii_tag`
 --
 
@@ -58893,6 +58941,24 @@ ALTER TABLE `yii_picture`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `yii_recommendation_category`
+--
+ALTER TABLE `yii_recommendation_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yii_recommendation_content`
+--
+ALTER TABLE `yii_recommendation_content`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yii_recommendation_picture`
+--
+ALTER TABLE `yii_recommendation_picture`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `yii_tag`
 --
 ALTER TABLE `yii_tag`
@@ -58961,6 +59027,21 @@ ALTER TABLE `yii_page`
 --
 ALTER TABLE `yii_picture`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3425;
+--
+-- 使用表AUTO_INCREMENT `yii_recommendation_category`
+--
+ALTER TABLE `yii_recommendation_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- 使用表AUTO_INCREMENT `yii_recommendation_content`
+--
+ALTER TABLE `yii_recommendation_content`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- 使用表AUTO_INCREMENT `yii_recommendation_picture`
+--
+ALTER TABLE `yii_recommendation_picture`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- 使用表AUTO_INCREMENT `yii_tag`
 --
