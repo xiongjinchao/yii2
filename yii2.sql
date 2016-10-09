@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-10-09 09:56:20
+-- Generation Time: 2016-10-09 12:40:07
 -- 服务器版本： 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -728,7 +728,6 @@ INSERT INTO `yii_auth_item` (`name`, `type`, `description`, `rule_name`, `data`,
 ('content/controllers/Article/Audit', 2, 'content/controllers/Article/Audit', NULL, 's:6:"system";', 1450838971, 1450838971),
 ('content/controllers/Article/Create', 2, 'content/controllers/Article/Create', NULL, 's:6:"system";', 1450838971, 1450838971),
 ('content/controllers/Article/Delete', 2, 'content/controllers/Article/Delete', NULL, 's:6:"system";', 1450838971, 1450838971),
-('content/controllers/Article/FormatAll', 2, 'content/controllers/Article/FormatAll', NULL, 's:6:"system";', 1450838971, 1450838971),
 ('content/controllers/Article/Hot', 2, 'content/controllers/Article/Hot', NULL, 's:6:"system";', 1450838971, 1450838971),
 ('content/controllers/Article/Index', 2, 'content/controllers/Article/Index', NULL, 's:6:"system";', 1450838971, 1450838971),
 ('content/controllers/Article/Recommend', 2, 'content/controllers/Article/Recommend', NULL, 's:6:"system";', 1450838971, 1450838971),
@@ -777,6 +776,24 @@ INSERT INTO `yii_auth_item` (`name`, `type`, `description`, `rule_name`, `data`,
 ('content/controllers/Page/Update', 2, 'content/controllers/Page/Update', NULL, 's:6:"system";', 1450838971, 1450838971),
 ('content/controllers/Page/View', 2, 'content/controllers/Page/View', NULL, 's:6:"system";', 1450838971, 1450838971),
 ('content/controllers/Page/Visible', 2, 'content/controllers/Page/Visible', NULL, 's:6:"system";', 1450838972, 1450838972),
+('content/controllers/RecommendationCategory', 1, 'content/controllers/RecommendationCategory', NULL, 's:6:"system";', 1476009220, 1476009220),
+('content/controllers/RecommendationCategory/Create', 2, 'content/controllers/RecommendationCategory/Create', NULL, 's:6:"system";', 1476009220, 1476009220),
+('content/controllers/RecommendationCategory/Delete', 2, 'content/controllers/RecommendationCategory/Delete', NULL, 's:6:"system";', 1476009220, 1476009220),
+('content/controllers/RecommendationCategory/Index', 2, 'content/controllers/RecommendationCategory/Index', NULL, 's:6:"system";', 1476009220, 1476009220),
+('content/controllers/RecommendationCategory/Update', 2, 'content/controllers/RecommendationCategory/Update', NULL, 's:6:"system";', 1476009220, 1476009220),
+('content/controllers/RecommendationCategory/View', 2, 'content/controllers/RecommendationCategory/View', NULL, 's:6:"system";', 1476009220, 1476009220),
+('content/controllers/RecommendationContent', 1, 'content/controllers/RecommendationContent', NULL, 's:6:"system";', 1476009220, 1476009220),
+('content/controllers/RecommendationContent/Create', 2, 'content/controllers/RecommendationContent/Create', NULL, 's:6:"system";', 1476009221, 1476009221),
+('content/controllers/RecommendationContent/Delete', 2, 'content/controllers/RecommendationContent/Delete', NULL, 's:6:"system";', 1476009221, 1476009221),
+('content/controllers/RecommendationContent/Index', 2, 'content/controllers/RecommendationContent/Index', NULL, 's:6:"system";', 1476009220, 1476009220),
+('content/controllers/RecommendationContent/Update', 2, 'content/controllers/RecommendationContent/Update', NULL, 's:6:"system";', 1476009221, 1476009221),
+('content/controllers/RecommendationContent/View', 2, 'content/controllers/RecommendationContent/View', NULL, 's:6:"system";', 1476009220, 1476009220),
+('content/controllers/RecommendationPicture', 1, 'content/controllers/RecommendationPicture', NULL, 's:6:"system";', 1476009221, 1476009221),
+('content/controllers/RecommendationPicture/Create', 2, 'content/controllers/RecommendationPicture/Create', NULL, 's:6:"system";', 1476009221, 1476009221),
+('content/controllers/RecommendationPicture/Delete', 2, 'content/controllers/RecommendationPicture/Delete', NULL, 's:6:"system";', 1476009221, 1476009221),
+('content/controllers/RecommendationPicture/Index', 2, 'content/controllers/RecommendationPicture/Index', NULL, 's:6:"system";', 1476009221, 1476009221),
+('content/controllers/RecommendationPicture/Update', 2, 'content/controllers/RecommendationPicture/Update', NULL, 's:6:"system";', 1476009221, 1476009221),
+('content/controllers/RecommendationPicture/View', 2, 'content/controllers/RecommendationPicture/View', NULL, 's:6:"system";', 1476009221, 1476009221),
 ('user/controllers/Admin', 1, 'user/controllers/Admin', NULL, 's:6:"system";', 1450838972, 1450838972),
 ('user/controllers/Admin/Assignment', 2, 'user/controllers/Admin/Assignment', NULL, 's:6:"system";', 1450838972, 1450838972),
 ('user/controllers/Admin/Create', 2, 'user/controllers/Admin/Create', NULL, 's:6:"system";', 1450838972, 1450838972),
@@ -824,7 +841,6 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('content/controllers/Article', 'content/controllers/Article/Audit'),
 ('content/controllers/Article', 'content/controllers/Article/Create'),
 ('content/controllers/Article', 'content/controllers/Article/Delete'),
-('content/controllers/Article', 'content/controllers/Article/FormatAll'),
 ('content/controllers/Article', 'content/controllers/Article/Hot'),
 ('content/controllers/Article', 'content/controllers/Article/Index'),
 ('content/controllers/Article', 'content/controllers/Article/Recommend'),
@@ -867,6 +883,21 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('content/controllers/Page', 'content/controllers/Page/Update'),
 ('content/controllers/Page', 'content/controllers/Page/View'),
 ('content/controllers/Page', 'content/controllers/Page/Visible'),
+('content/controllers/RecommendationCategory', 'content/controllers/RecommendationCategory/Create'),
+('content/controllers/RecommendationCategory', 'content/controllers/RecommendationCategory/Delete'),
+('content/controllers/RecommendationCategory', 'content/controllers/RecommendationCategory/Index'),
+('content/controllers/RecommendationCategory', 'content/controllers/RecommendationCategory/Update'),
+('content/controllers/RecommendationCategory', 'content/controllers/RecommendationCategory/View'),
+('content/controllers/RecommendationContent', 'content/controllers/RecommendationContent/Create'),
+('content/controllers/RecommendationContent', 'content/controllers/RecommendationContent/Delete'),
+('content/controllers/RecommendationContent', 'content/controllers/RecommendationContent/Index'),
+('content/controllers/RecommendationContent', 'content/controllers/RecommendationContent/Update'),
+('content/controllers/RecommendationContent', 'content/controllers/RecommendationContent/View'),
+('content/controllers/RecommendationPicture', 'content/controllers/RecommendationPicture/Create'),
+('content/controllers/RecommendationPicture', 'content/controllers/RecommendationPicture/Delete'),
+('content/controllers/RecommendationPicture', 'content/controllers/RecommendationPicture/Index'),
+('content/controllers/RecommendationPicture', 'content/controllers/RecommendationPicture/Update'),
+('content/controllers/RecommendationPicture', 'content/controllers/RecommendationPicture/View'),
 ('user/controllers/Admin', 'user/controllers/Admin/Assignment'),
 ('user/controllers/Admin', 'user/controllers/Admin/Create'),
 ('user/controllers/Admin', 'user/controllers/Admin/Delete'),
@@ -895,13 +926,15 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('管理员', 'content/controllers/Comment'),
 ('管理员', 'content/controllers/Menu'),
 ('管理员', 'content/controllers/Page'),
+('管理员', 'content/controllers/RecommendationCategory'),
+('管理员', 'content/controllers/RecommendationContent'),
+('管理员', 'content/controllers/RecommendationPicture'),
 ('管理员', 'user/controllers/Admin'),
 ('管理员', 'user/controllers/Role'),
 ('管理员', 'user/controllers/User'),
 ('编辑', 'content/controllers/Article/Audit'),
 ('编辑', 'content/controllers/Article/Create'),
 ('编辑', 'content/controllers/Article/Delete'),
-('编辑', 'content/controllers/Article/FormatAll'),
 ('编辑', 'content/controllers/Article/Hot'),
 ('编辑', 'content/controllers/Article/Index'),
 ('编辑', 'content/controllers/Article/Recommend'),
@@ -934,7 +967,6 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('超级管理员', 'content/controllers/Article/Audit'),
 ('超级管理员', 'content/controllers/Article/Create'),
 ('超级管理员', 'content/controllers/Article/Delete'),
-('超级管理员', 'content/controllers/Article/FormatAll'),
 ('超级管理员', 'content/controllers/Article/Hot'),
 ('超级管理员', 'content/controllers/Article/Index'),
 ('超级管理员', 'content/controllers/Article/Recommend'),
@@ -977,6 +1009,21 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('超级管理员', 'content/controllers/Page/Update'),
 ('超级管理员', 'content/controllers/Page/View'),
 ('超级管理员', 'content/controllers/Page/Visible'),
+('超级管理员', 'content/controllers/RecommendationCategory/Create'),
+('超级管理员', 'content/controllers/RecommendationCategory/Delete'),
+('超级管理员', 'content/controllers/RecommendationCategory/Index'),
+('超级管理员', 'content/controllers/RecommendationCategory/Update'),
+('超级管理员', 'content/controllers/RecommendationCategory/View'),
+('超级管理员', 'content/controllers/RecommendationContent/Create'),
+('超级管理员', 'content/controllers/RecommendationContent/Delete'),
+('超级管理员', 'content/controllers/RecommendationContent/Index'),
+('超级管理员', 'content/controllers/RecommendationContent/Update'),
+('超级管理员', 'content/controllers/RecommendationContent/View'),
+('超级管理员', 'content/controllers/RecommendationPicture/Create'),
+('超级管理员', 'content/controllers/RecommendationPicture/Delete'),
+('超级管理员', 'content/controllers/RecommendationPicture/Index'),
+('超级管理员', 'content/controllers/RecommendationPicture/Update'),
+('超级管理员', 'content/controllers/RecommendationPicture/View'),
 ('超级管理员', 'user/controllers/Admin/Assignment'),
 ('超级管理员', 'user/controllers/Admin/Create'),
 ('超级管理员', 'user/controllers/Admin/Delete'),
@@ -58825,6 +58872,22 @@ INSERT INTO `yii_user` (`id`, `username`, `auth_key`, `password_hash`, `password
 (2, 'TOM', '5-6cjKbWn_YyUb8ScEtJu3Z_ouQdJWhO', '$2y$13$4BdAZ9Z8TGNAj18k3Q90rOdWYL.p3745a0imLNzFgQz2DQ92eriwi', NULL, 0, '18600945045', '67218027@qq.com', 10, 1471862333, 1471862333),
 (13, 'STARR', 'edBGxpoOgzJtj9qVfQmbW6CRdwn8Vs_i', '$2y$13$7Bcn6RJyBcyRbv3ix0dluO8Q0ppBVc1.giDUT52l5ibtxLg3e4WYC', NULL, 0, '18600945045', '67218315@qq.com', 10, 1471863329, 1471946087);
 
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yii_user_passport`
+--
+
+CREATE TABLE `yii_user_passport` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL DEFAULT '',
+  `username` varchar(255) NOT NULL DEFAULT '',
+  `password` varchar(255) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Indexes for dumped tables
 --
@@ -58974,6 +59037,12 @@ ALTER TABLE `yii_user`
   ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
 
 --
+-- Indexes for table `yii_user_passport`
+--
+ALTER TABLE `yii_user_passport`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- 在导出的表使用AUTO_INCREMENT
 --
 
@@ -59052,6 +59121,11 @@ ALTER TABLE `yii_tag`
 --
 ALTER TABLE `yii_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- 使用表AUTO_INCREMENT `yii_user_passport`
+--
+ALTER TABLE `yii_user_passport`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- 限制导出的表
 --
