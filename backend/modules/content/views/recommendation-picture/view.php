@@ -29,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'recommendation_category_id',
-            'recommendation_content_id',
+            'category_id',
+            'content_id',
             'picture_id',
             'picture_title',
             'sort',

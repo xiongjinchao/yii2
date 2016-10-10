@@ -6,16 +6,21 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\RecommendationCategory */
 
-$this->title = 'Create Recommendation Category';
+$this->title = '创建推荐';
 $this->params['breadcrumbs'][] = ['label' => 'Recommendation Categories', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="recommendation-category-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title pull-left"><?php echo $this->title;?></h3>
+        </div>
+        <div class="box-body">
+            <?= $this->render('_form', [
+                'model' => $model,
+            ]) ?>
+        </div>
+    </div>
 
 </div>

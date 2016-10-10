@@ -3,6 +3,7 @@
 namespace backend\modules\content\controllers;
 
 use Yii;
+use common\models\RecommendationCategory;
 use common\models\RecommendationContent;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -33,26 +34,16 @@ class RecommendationContentController extends Controller
      * Lists all RecommendationContent models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($category_id)
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => RecommendationContent::find(),
+            'query' => RecommendationContent::find()->where('category_id = :category_id',[':category_id'=>$category_id])->orderBy(['sort'=>SORT_ASC]),
         ]);
+        $category = RecommendationCategory::findOne($category_id);
 
         return $this->render('index', [
+            'category' => $category,
             'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single RecommendationContent model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
         ]);
     }
 
@@ -61,14 +52,17 @@ class RecommendationContentController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($category_id)
     {
         $model = new RecommendationContent();
+        $model->category_id = $category_id;
+        $category = RecommendationCategory::findOne($category_id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $model->id]);
         } else {
             return $this->render('create', [
+                'category' => $category,
                 'model' => $model,
             ]);
         }
@@ -83,11 +77,13 @@ class RecommendationContentController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $category = $model->category;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
+                'category' => $category,
                 'model' => $model,
             ]);
         }

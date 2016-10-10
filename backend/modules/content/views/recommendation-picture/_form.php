@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'recommendation_category_id')->textInput() ?>
+    <?= $form->field($model, 'category_id')->textInput() ?>
 
-    <?= $form->field($model, 'recommendation_content_id')->textInput() ?>
+    <?= $form->field($model, 'content_id')->textInput() ?>
 
     <?= $form->field($model, 'picture_id')->textInput() ?>
 

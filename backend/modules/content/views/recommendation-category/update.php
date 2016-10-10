@@ -5,17 +5,37 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\RecommendationCategory */
 
-$this->title = 'Update Recommendation Category: ' . $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Recommendation Categories', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = '更新推荐: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => '推荐管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = '更新';
 ?>
 <div class="recommendation-category-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs pull-right">
+            <li>
+                <?=Html::a('推荐内容',['recommendation-content/index', 'category_id' => $model->id])?>
+            </li>
+            <li class="active">
+                <?=Html::a('基本信息',['recommendation-category/update', 'id' => $model->id])?>
+            </li>
+            <li>
+                <?=Html::a('推荐分类',['recommendation-category/index'])?>
+            </li>
+            <li class="pull-left header">
+                <?php echo $model->name; ?>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active">
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+                <?= $this->render('_form', [
+                    'model' => $model,
+                ]) ?>
+
+            </div>
+        </div>
+    </div>
 
 </div>

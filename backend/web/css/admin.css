@@ -2,6 +2,7 @@
     height:24px;
     line-height:24px;
     text-align:right;
+	margin-bottom:1px;
 }
 html .skin-black-light .main-header > .logo{
 	border-right:none;

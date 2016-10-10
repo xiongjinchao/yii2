@@ -75,7 +75,7 @@ class Page extends \yii\db\ActiveRecord
             'link' => '链接',
             'lft' => '左值',
             'rgt' => '右值',
-            'parent' => '所属菜单',
+            'parent' => '所属页面',
             'depth' => '深度',
             'content' => '内容',
             'audit' => '审核',

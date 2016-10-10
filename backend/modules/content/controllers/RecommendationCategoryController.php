@@ -5,9 +5,11 @@ namespace backend\modules\content\controllers;
 use Yii;
 use common\models\RecommendationCategory;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
+use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\db\Exception;
 
 /**
  * RecommendationCategoryController implements the CRUD actions for RecommendationCategory model.
@@ -19,14 +21,14 @@ class RecommendationCategoryController extends Controller
      */
     public function behaviors()
     {
-        return [
+        return ArrayHelper::merge([
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['post'],
                 ],
             ],
-        ];
+        ],parent::behaviors());
     }
 
     /**
@@ -36,23 +38,11 @@ class RecommendationCategoryController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => RecommendationCategory::find(),
+            'query' => RecommendationCategory::find()->orderBy(['lft'=>SORT_ASC]),
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single RecommendationCategory model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
         ]);
     }
 
@@ -65,8 +55,29 @@ class RecommendationCategoryController extends Controller
     {
         $model = new RecommendationCategory();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            if($model->parent > 0){
+                $parent = RecommendationCategory::findOne($model->parent);
+                RecommendationCategory::updateAllCounters(['lft'=>2],'`lft`>=:lft',[':lft'=>$parent->rgt]);
+                RecommendationCategory::updateAllCounters(['rgt'=>2],'`rgt`>=:rgt',[':rgt'=>$parent->rgt]);
+                $model->lft = $parent->rgt;
+                $model->rgt = $parent->rgt+1;
+                $model->depth = $parent->depth+1;
+            }else{
+                $max = RecommendationCategory::find()->orderBy('`rgt` DESC')->one();
+                $model->parent = 0;
+                $model->lft = $max!=''?$max->rgt+1:1;
+                $model->rgt = $max!=''?$max->rgt+2:2;
+                $model->depth = 1;
+            }
+
+            if($model->save()){
+                Yii::$app->session->setFlash('info','推荐创建成功！');
+                return $this->redirect(['update', 'id' => $model->id]);
+            }else{
+                Yii::$app->session->setFlash('danger','推荐创建失败！');
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,13 +95,115 @@ class RecommendationCategoryController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try{
+                if($model->parent == $model->getOldAttribute('parent')){
+                    $model->save();
+                }else if($model->parent == 0){
+                    $model->update();
+                    $treeRecommendationCategory = RecommendationCategory::find()->where('`lft` >="'.$model->lft.'" and `rgt` <="'.$model->rgt.'"')->all();
+                    $treeRecommendationCategory = ArrayHelper::toArray($treeRecommendationCategory);
+                    $treeId = ArrayHelper::getColumn($treeRecommendationCategory,'id');
+                    RecommendationCategory::updateAllCounters(['lft'=>-($model->rgt-$model->lft+1)],'`lft`>:lft',[':lft'=>$model->rgt]);
+                    RecommendationCategory::updateAllCounters(['rgt'=>-($model->rgt-$model->lft+1)],'`rgt`>:rgt',[':rgt'=>$model->rgt]);
+                    $max = RecommendationCategory::find()->where("`id` not in (".implode(',',$treeId).")")->orderBy('`rgt` DESC')->one();
+                    RecommendationCategory::updateAllCounters(['lft'=>$max->rgt-$model->lft+1,'rgt'=>$max->rgt-$model->lft+1,'depth'=>-($model->depth-1)],"`id` in (".implode(',',$treeId).")");
+                }else{
+                    $parent = RecommendationCategory::findOne($model->parent);
+                    $exist = RecommendationCategory::find()->where('`lft` <:lft and `rgt` >:rgt and `id` = :id',[':lft'=>$model->lft,':rgt'=>$model->rgt,':id'=>$parent->id])->one();
+                    $treeRecommendationCategory = RecommendationCategory::find()->where('`lft` >="'.$model->lft.'" and `rgt` <="'.$model->rgt.'"')->all();
+                    $treeRecommendationCategory = ArrayHelper::toArray($treeRecommendationCategory);
+                    $treeId = ArrayHelper::getColumn($treeRecommendationCategory,'id');
+
+                    if($model->id==$parent->parent||$treeRecommendationCategory==null||in_array($model->parent,$treeId)||$exist!=null){
+                        Yii::$app->session->setFlash('danger','推荐更新失败！');
+                    }else{
+                        $model->save();
+                        if($parent->lft>$model->lft){
+                            $between=$parent->rgt-$model->rgt-1;
+                            RecommendationCategory::updateAllCounters(['lft'=>-($model->rgt-$model->lft+1)],'`lft`>:lft and `lft`<'.$parent->rgt,[':lft'=>$model->rgt]);
+                            RecommendationCategory::updateAllCounters(['rgt'=>-($model->rgt-$model->lft+1)],'`rgt`>:rgt and `rgt`<'.$parent->rgt,[':rgt'=>$model->rgt]);
+                        }else{
+                            $between=$parent->rgt-$model->lft;
+                            RecommendationCategory::updateAllCounters(['lft'=>$model->rgt-$model->lft+1],'`lft`>:lft and `lft`<'.$model->lft,[':lft'=>$parent->rgt]);
+                            RecommendationCategory::updateAllCounters(['rgt'=>$model->rgt-$model->lft+1],'`rgt`>=:rgt and `rgt`<'.$model->lft,[':rgt'=>$parent->rgt]);
+
+                        }
+                        RecommendationCategory::updateAllCounters(['lft'=>$between,'rgt'=>$between,'depth'=>$parent->depth-$model->depth+1],"`id` in (".implode(',',$treeId).")");
+                    }
+                }
+                $transaction->commit();
+                Yii::$app->session->setFlash('info','推荐更新成功！');
+            }catch(Exception $e) {
+                $transaction->rollback();
+                Yii::$app->session->setFlash('danger','推荐更新失败！');
+            }
+            return $this->redirect(['update','id' => $id]);
+
         } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionMoveUp($id)
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+        try{
+            $model = $this->findModel($id);
+            $previousRecommendationCategory = RecommendationCategory::findOne(['rgt'=>$model->lft-1]);
+            $treeRecommendationCategory = RecommendationCategory::find()->where('`lft` >="'.$model->lft.'" and `rgt` <="'.$model->rgt.'"')->all();
+
+            $treeRecommendationCategory = ArrayHelper::toArray($treeRecommendationCategory);
+            $treeId = ArrayHelper::getColumn($treeRecommendationCategory,'id');
+            RecommendationCategory::updateAllCounters(['lft'=>$model->rgt-$model->lft+1,'rgt'=>$model->rgt-$model->lft+1],'`lft`>=:lft and `rgt`<=:rgt',[':lft'=>$previousRecommendationCategory->lft,':rgt'=>$previousRecommendationCategory->rgt]);
+            RecommendationCategory::updateAllCounters(['lft'=>-($previousRecommendationCategory->rgt-$previousRecommendationCategory->lft+1),'rgt'=>-($previousRecommendationCategory->rgt-$previousRecommendationCategory->lft+1)],"`id` in (".implode(',',$treeId).")");
+            $transaction->commit();
+
+            Yii::$app->session->setFlash('info','排序提交成功！');
+
+        }catch(Exception $e) {
+            $transaction->rollback();
+            Yii::$app->session->setFlash('danger','排序提交失败！');
+        }
+        return $this->redirect(['index']);
+    }
+
+    public function actionMoveDown($id)
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+        try{
+            $model = $this->findModel($id);
+            $nextRecommendationCategory = RecommendationCategory::findOne(['lft'=>$model->rgt+1]);
+            $treeRecommendationCategory = RecommendationCategory::find()->where('`lft` >="'.$model->lft.'" and `rgt` <="'.$model->rgt.'"')->all();
+            $treeRecommendationCategory = ArrayHelper::toArray($treeRecommendationCategory);
+            $treeId = ArrayHelper::getColumn($treeRecommendationCategory,'id');
+
+            RecommendationCategory::updateAllCounters(['lft'=>-($model->rgt-$model->lft+1),'rgt'=>-($model->rgt-$model->lft+1)],'`lft`>=:lft and `rgt`<=:rgt',[':lft'=>$nextRecommendationCategory->lft,':rgt'=>$nextRecommendationCategory->rgt]);
+            RecommendationCategory::updateAllCounters(['lft'=>$nextRecommendationCategory->rgt-$nextRecommendationCategory->lft+1,'rgt'=>$nextRecommendationCategory->rgt-$nextRecommendationCategory->lft+1],"id in (".implode(',',$treeId).")");
+            $transaction->commit();
+
+            Yii::$app->session->setFlash('info','排序提交成功！');
+
+        }catch(Exception $e) {
+            $transaction->rollback();
+            Yii::$app->session->setFlash('danger','排序提交失败！');
+        }
+        return $this->redirect(['index']);
+    }
+
+    public function actionAudit($id)
+    {
+        $model = $this->findModel($id);
+        $model->audit = 1- $model->audit;
+        if($model->save()){
+            Yii::$app->session->setFlash('info','审核提交成功！');
+        }else{
+            Yii::$app->session->setFlash('danger','审核提交失败！');
+        }
+        return $this->redirect(['index']);
     }
 
     /**
@@ -101,8 +214,19 @@ class RecommendationCategoryController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $transaction = Yii::$app->db->beginTransaction();
+        try{
+            RecommendationCategory::deleteAll('lft >=:lft and rgt <=:rgt',[':lft'=>$model->lft,':rgt'=>$model->rgt]);
+            RecommendationCategory::updateAllCounters(['lft'=>-($model->rgt-$model->lft+1)],'lft>:lft',[':lft'=>$model->lft]);
+            RecommendationCategory::updateAllCounters(['rgt'=>-($model->rgt-$model->lft+1)],'rgt>:rgt',[':rgt'=>$model->rgt]);
+            $transaction->commit();
 
+            Yii::$app->session->setFlash('info','推荐删除成功！');
+        }catch(Exception $e) {
+            $transaction->rollback();
+            Yii::$app->session->setFlash('danger','推荐删除失败！');
+        }
         return $this->redirect(['index']);
     }
 

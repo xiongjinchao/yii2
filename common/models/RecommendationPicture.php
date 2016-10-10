@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "{{%recommendation_picture}}".
  *
  * @property integer $id
- * @property integer $recommendation_category_id
- * @property integer $recommendation_content_id
+ * @property integer $category_id
+ * @property integer $content_id
  * @property integer $picture_id
  * @property string $picture_title
  * @property integer $sort
@@ -30,7 +30,7 @@ class RecommendationPicture extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['recommendation_category_id', 'recommendation_content_id', 'picture_id', 'sort'], 'integer'],
+            [['category_id', 'content_id', 'picture_id', 'sort'], 'integer'],
             [['picture_title'], 'string', 'max' => 150],
         ];
     }
@@ -41,12 +41,12 @@ class RecommendationPicture extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'recommendation_category_id' => 'Recommendation Category ID',
-            'recommendation_content_id' => 'Recommendation Content ID',
-            'picture_id' => 'Picture ID',
-            'picture_title' => 'Picture Title',
-            'sort' => 'Sort',
+            'id' => '编号',
+            'category_id' => '所属分类',
+            'content_id' => '所属推荐',
+            'picture_id' => '图片编号',
+            'picture_title' => '图片标题',
+            'sort' => '排序',
         ];
     }
 }

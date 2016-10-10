@@ -22,8 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'recommendation_category_id',
-            'recommendation_content_id',
+            'category_id',
+            'content_id',
             'picture_id',
             'picture_title',
             // 'sort',

@@ -48,16 +48,7 @@
                                 ],
                             ],
                             ['label' => '单页管理', 'icon' => 'fa fa-file-text text-light-blue', 'url' => ['/content/page/index']],
-                            [
-                                'label' => '推荐管理',
-                                'icon' => 'fa fa-file text-light-blue',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => '推荐位', 'icon' => 'fa fa-file-text text-light-blue', 'url' => ['/content/recommendation-category/index']],
-                                    ['label' => '推荐内容', 'icon' => 'fa fa-navicon text-light-blue', 'url' => ['/content/recommendation-content/index']],
-                                    ['label' => '推荐图片', 'icon' => 'fa fa-comments text-light-blue', 'url' => ['/content/recommendation-picture/index']],
-                                ],
-                            ],
+                            ['label' => '推荐管理', 'icon' => 'fa fa-coffee text-light-blue', 'url' => ['/content/recommendation-category/index']],
                         ],
                     ],
                     ['label' => '交易管理', 'options' => ['class' => 'header']],
