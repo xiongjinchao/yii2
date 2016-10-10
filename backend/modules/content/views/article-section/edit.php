@@ -140,8 +140,8 @@ $this->params['breadcrumbs'][] = '更新';
 
                     <div class="form-group">
                         <label for="section_content" class="control-label"></label>
-                        <?= Html::submitButton('更新', ['class' => 'btn btn-primary']) ?>
-                        <?= Html::a('返回', ['article/update','id'=>$_GET['id']], ['class' => 'btn btn-default']) ?>
+                        <?= Html::submitButton('<i class="fa fa-save"></i> 更新', ['class' => 'btn btn-primary']) ?>
+                        <?= Html::a('<i class="fa fa-undo"></i> 返回', ['article/update','id'=>$_GET['id']], ['class' => 'btn btn-default']) ?>
                         <div class="help-block"></div>
                     </div>
 

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%recommendation_content}}".
@@ -22,13 +23,20 @@ class RecommendationContent extends \yii\db\ActiveRecord
 
     const AUDIT_ENABLE = 1;
     const AUDIT_DISABLE = 0;
-    
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return '{{%recommendation_content}}';
+    }
+
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
     }
 
     /**

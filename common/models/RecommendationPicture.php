@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use backend\models\Picture;
 
 /**
  * This is the model class for table "{{%recommendation_picture}}".
@@ -48,5 +49,10 @@ class RecommendationPicture extends \yii\db\ActiveRecord
             'picture_title' => '图片标题',
             'sort' => '排序',
         ];
+    }
+
+    public function getPicture()
+    {
+        return $this->hasOne(Picture::className(), ['id' => 'picture_id']);
     }
 }

@@ -6,9 +6,10 @@ use Yii;
 use common\models\RecommendationCategory;
 use common\models\RecommendationContent;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
+use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * RecommendationContentController implements the CRUD actions for RecommendationContent model.
@@ -20,14 +21,14 @@ class RecommendationContentController extends Controller
      */
     public function behaviors()
     {
-        return [
+        return ArrayHelper::merge([
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['post'],
                 ],
             ],
-        ];
+        ],parent::behaviors());
     }
 
     /**
@@ -80,7 +81,7 @@ class RecommendationContentController extends Controller
         $category = $model->category;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'category' => $category,

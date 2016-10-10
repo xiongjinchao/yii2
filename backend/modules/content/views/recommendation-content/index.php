@@ -43,15 +43,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute'=>'id',
                             'headerOptions'=>['style'=>'width:5%'],
                         ],
+                        'title',
                         [
-                            'attribute'=>'id',
+                            'attribute'=>'category_id',
                             'value'=>function($model){
                                 if(isset($model->category)){
                                     return $model->category->name;
                                 }
                             },
                         ],
-                        'title',
                         'sort',
                         [
                             'attribute'=>'created_at',
