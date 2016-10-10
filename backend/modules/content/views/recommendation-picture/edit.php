@@ -89,6 +89,7 @@ $this->params['breadcrumbs'][] = '更新';
 <?php $this->registerCssFile('@web/plug-in/webuploader/webuploader.css');?>
 <?php $this->registerCssFile('@web/plug-in/webuploader/style/simple.css');?>
 <?php $this->registerJsFile('@web/plug-in/webuploader/webuploader.min.js',['position' => \yii\web\View::POS_END]);?>
+
 <script>
     $(function() {
         //批量上传插件
