@@ -52,8 +52,4 @@ class RangerController extends Controller
         }
         return $query;
     }
-
-    public function actionTest(){
-        return $this->render('error');
-    }
 }

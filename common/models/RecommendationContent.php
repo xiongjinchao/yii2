@@ -88,4 +88,9 @@ class RecommendationContent extends \yii\db\ActiveRecord
     {
         return $this->hasOne(RecommendationCategory::className(), ['id' => 'category_id']);
     }
+
+    public function getPictures()
+    {
+        return $this->hasMany(RecommendationPicture::className(), ['article_id' => 'id']);
+    }
 }

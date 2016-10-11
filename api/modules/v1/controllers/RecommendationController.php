@@ -1,6 +1,6 @@
 <?php
 
-namespace api\modules\v1\controllers;
+namespace backend\modules\content\controllers;
 
 use yii;
 use api\controllers\RangerController;
@@ -8,15 +8,17 @@ use yii\data\Pagination;
 use api\components\Ranger;
 use api\components\RangerException;
 
-class ArticleController extends RangerController implements Ranger
+/**
+ * ArticleController implements the CRUD actions for Article model.
+ */
+class RecommendationController extends RangerController implements Ranger
 {
-
     public function actionList(array $params)
     {
         $pageSize = isset($params['query']['page_size']) && $params['query']['page_size']>0?$params['query']['page_size']:self::PAGE_SIZE;
         $page = isset($params['query']['page']) && $params['query']['page']>0?$params['query']['page']-1:0;
 
-        $query = parent::generationQuery(\common\models\Article::class,$params);
+        $query = parent::generationQuery(\common\models\RecommendationContent::class,$params);
         $countQuery = clone $query;
         try {
             $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => $pageSize, 'page' => $page]);
@@ -55,7 +57,7 @@ class ArticleController extends RangerController implements Ranger
         if(!isset($params['query']['where']) || !is_array($params['query']['where'])){
             RangerException::throwException(RangerException::APP_ERROR_PARAMS,'where[]');
         }
-        $query = parent::generationQuery(\common\models\Article::class,$params);
+        $query = parent::generationQuery(\common\models\RecommendationContent::class,$params);
         try {
             $model = $query->one();
         }catch (\yii\db\Exception $e){

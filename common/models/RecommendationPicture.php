@@ -55,4 +55,5 @@ class RecommendationPicture extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Picture::className(), ['id' => 'picture_id']);
     }
+    
 }

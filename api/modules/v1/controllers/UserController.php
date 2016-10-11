@@ -5,9 +5,10 @@ namespace api\modules\v1\controllers;
 use yii;
 use common\models\User;
 use api\controllers\RangerController;
+use api\components\Ranger;
 use api\components\RangerException;
 
-class UserController extends RangerController
+class UserController extends RangerController implements Ranger
 {
     
     public function actionLogin(array $params)
@@ -138,6 +139,6 @@ class UserController extends RangerController
 
     public function actionDelete(array $params)
     {
-        RangerException::throwException(RangerException::APP_ERROR_DELETE);
+        RangerException::throwException(RangerException::APP_FORBID_DELETE);
     }
 }

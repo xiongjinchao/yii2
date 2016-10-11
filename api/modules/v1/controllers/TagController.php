@@ -4,9 +4,10 @@ namespace api\modules\v1\controllers;
 
 use yii;
 use api\controllers\RangerController;
+use api\components\Ranger;
 use api\components\RangerException;
 
-class TagController extends RangerController
+class TagController extends RangerController implements Ranger
 {
 
     public function actionList(array $params)
@@ -29,18 +30,23 @@ class TagController extends RangerController
         return $result;
     }
 
+    public function actionDetail(array $params)
+    {
+        RangerException::throwException(RangerException::APP_FORBID_DETAIL);
+    }
+
     public function actionCreate(array $params)
     {
-        RangerException::throwException(RangerException::APP_ERROR_CREATE);
+        RangerException::throwException(RangerException::APP_FORBID_CREATE);
     }
 
     public function actionUpdate(array $params)
     {
-        RangerException::throwException(RangerException::APP_ERROR_UPDATE);
+        RangerException::throwException(RangerException::APP_FORBID_UPDATE);
     }
 
     public function actionDelete(array $params)
     {
-        RangerException::throwException(RangerException::APP_ERROR_DELETE);
+        RangerException::throwException(RangerException::APP_FORBID_DELETE);
     }
 }
