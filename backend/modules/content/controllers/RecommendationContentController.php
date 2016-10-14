@@ -56,6 +56,7 @@ class RecommendationContentController extends Controller
     public function actionCreate($category_id)
     {
         $model = new RecommendationContent();
+        $model->loadDefaultValues();
         $model->category_id = $category_id;
         $category = RecommendationCategory::findOne($category_id);
 
