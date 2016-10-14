@@ -69,7 +69,7 @@
                         'url' => '#',
                         'items' => [
                             ['label' => '用户管理', 'icon' => 'fa fa-user text-orange', 'url' => ['/user/user/index']],
-                            ['label' => '员工管理', 'icon' => 'fa fa-user-md text-orange', 'url' => ['/user/admin/index']],
+                            ['label' => '员工管理', 'icon' => 'fa fa-user-secret text-orange', 'url' => ['/user/admin/index']],
                         ],
                     ],
                     [
