@@ -34,6 +34,8 @@ class RangerController extends Controller
             [
                 'format' => 'json',
                 'version' => '1.0',
+                'cache' => true,
+                'cache_time' => 120,
             ]
         ));
     }
@@ -122,6 +124,8 @@ class RangerController extends Controller
             [
                 'format' => 'json',
                 'version' => '1.0',
+                'cache' => true,
+                'cache_time' => 120,
             ]
         ));
     }

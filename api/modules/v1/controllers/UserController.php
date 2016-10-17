@@ -57,9 +57,8 @@ class UserController extends RangerController implements Ranger
         }catch(\yii\db\Exception $e){
             RangerException::throwException(RangerException::APP_ERROR_PARAMS,$e->getMessage());
         }
-        $result = [];
         if(!empty($models)) {
-            $result = array_map(function ($model) {
+            $list = array_map(function ($model) {
                 $record = $model->attributes;
                 unset($record['auth_key'], $record['password_hash'], $record['password_reset_token']);
                 $record['avatar'] = $model->picture_id > 0 ? $model->picture->url : '';
@@ -68,6 +67,7 @@ class UserController extends RangerController implements Ranger
                 return $record;
             }, $models);
         }
+        $result['list'] = isset($list)?$list:[];
         return $result;
     }
 

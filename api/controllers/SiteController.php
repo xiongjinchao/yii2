@@ -11,6 +11,8 @@ use api\components\RangerException;
  */
 class SiteController extends RangerController
 {
+    const CACHE = false;
+    const CACHE_TIME = 60*30;
 
     /**
      * Displays homepage.
@@ -32,20 +34,42 @@ class SiteController extends RangerController
         $params['timestamp'] = Yii::$app->request->post('timestamp');
         $params['ip'] = Yii::$app->request->post('ip');
         $params['agent'] = Yii::$app->request->post('agent');
+        $params['cache'] = (bool)Yii::$app->request->post('cache', self::CACHE);
+        $params['cache_time'] = Yii::$app->request->post('cache_time', self::CACHE_TIME);
 
         try {
-            $data = Yii::$app->runAction('/v'.$version.'/'.$method[1].'/'.$method[2],['params'=>$params]);
+            $data = $this->execute($method, $version ,$params);
             $result = [
                 'status' => 'success',
                 'code' => '0',
-                'data' => $data
+                'data' => $data['data'],
+                'cache' => $data['cache'],
             ];
-        }catch (RangerException $e){
+        } catch (RangerException $e) {
             $result = [
                 'status' => 'error',
                 'code' => $e->getCode(),
                 'data' => $e->getMessage()
             ];
+        }
+        return $result;
+    }
+
+    private function execute($method, $version ,$params)
+    {
+        if($params['cache'] == true ) {
+            $key = implode('.',$method).'#'.$version.'#'.md5(json_encode($params['query']));
+            if(Yii::$app->cache->exists($key)) {
+                $result['data'] = Yii::$app->cache->get($key);
+                $result['cache'] = $params['cache'];
+            }else{
+                $result['data'] = Yii::$app->runAction('/v' . $version . '/' . $method[1] . '/' . $method[2], ['params' => $params]);
+                Yii::$app->cache->set($key, $result['data'], $params['cache_time']);
+                $result['cache'] = self::CACHE;
+            }
+        } else {
+            $result['data'] = Yii::$app->runAction('/v' . $version . '/' . $method[1] . '/' . $method[2], ['params' => $params]);
+            $result['cache'] = self::CACHE;
         }
         return $result;
     }

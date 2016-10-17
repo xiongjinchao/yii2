@@ -18,15 +18,15 @@ class ArticleCategoryController extends RangerController implements Ranger
         }catch(\yii\db\Exception $e){
             RangerException::throwException(RangerException::APP_ERROR_PARAMS,$e->getMessage());
         }
-        $result = [];
         if(!empty($models)) {
-            $result = array_map(function ($model) {
+            $list = array_map(function ($model) {
                 $record = $model->attributes;
                 $record['created_at'] = date('Y-m-d H:i:s', $record['created_at']);
                 $record['updated_at'] = date('Y-m-d H:i:s', $record['updated_at']);
                 return $record;
             }, $models);
         }
+        $result['list'] = isset($list)?$list:[];
         return $result;
     }
 
