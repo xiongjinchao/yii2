@@ -3,7 +3,7 @@ namespace html5\controllers;
 
 use yii;
 use yii\web\Controller;
-use common\components\ranger\RangerHtml5;
+use common\components\ranger\RangerApi;
 
 /**
  * Ranger controller
@@ -11,136 +11,23 @@ use common\components\ranger\RangerHtml5;
 class RangerController extends Controller
 {
 
-    public function actionUserLogin()
-    {
-        print_r(RangerHtml5::api('ranger.user.login',[
-            'username'=>'STARR',
-            'password'=>'123456',
-        ]));
-    }
+    const CACHE = false;
+    const CACHE_TIME = 60*30;
 
-    public function actionUserList()
-    {
-        print_r(RangerHtml5::api('ranger.user.list',
-            [
-                'page_size' => 10,
-                'page' => 1,
-                'where' => [
-                    //['id'=>12],
-                    ['<>','id',10]
-                ],
-                'access_token' => '0mcZIy285iWeFXiJV9ArhrMQinlMcCwZ',
-            ],
-            [
-                'format' => 'json',
-                'version' => '1.0',
-                'cache' => true,
-                'cache_time' => 120,
-            ]
-        ));
-    }
+    const KEY = '9XNNXe66zOlSassjSKD5gry9BiN61IUEi8IpJmjBwvU07RXP0J3c4GnhZR3GKhMHa1A';
+    const SECRET = '27e1be4fdcaa83d7f61c489994ff6ed6';
 
-    public function actionUserCreate()
+    public static function api($method, array $query, $params = [], $type='post')
     {
-        print_r(RangerHtml5::api('ranger.user.create',[
-            'username' => 'STARR',
-            'password' => '123456',
-            'email' => '67218315@qq.com',
-            'mobile' => '18600945045',
-        ]));
-    }
+        $params['method'] = $method;
+        $params['params'] = $query;
 
-    public function actionUserUpdate()
-    {
-        print_r(RangerHtml5::api('ranger.user.update',[
-            'username' => 'STARR',
-            'access_token' => '0mcZIy285iWeFXiJV9ArhrMQinlMcCwZ',
-        ]));
-    }
+        $params['key'] = self::KEY;
+        $params['secret'] = self::SECRET;
+        $params['device'] = 'system';
+        $params['device_id'] = '';
+        $params['origin'] = 'api';
 
-    public function actionUserDelete()
-    {
-        print_r(RangerHtml5::api('ranger.user.delete',[
-            'username' => 'STARR',
-            'access_token' => '0mcZIy285iWeFXiJV9ArhrMQinlMcCwZ',
-        ]));
-    }
-
-    public function actionMenuList()
-    {
-        print_r(RangerHtml5::api('ranger.menu.list',
-            [],
-            [
-                'format' => 'json',
-                'version' => '1.0',
-            ]
-        ));
-    }
-
-    public function actionMenuDetail()
-    {
-        print_r(RangerHtml5::api('ranger.menu.detail',
-            [
-                'where' => [
-                    'id' => 1
-                ]
-            ]
-        ));
-    }
-
-    public function actionPageList()
-    {
-        print_r(RangerHtml5::api('ranger.page.list',
-            [],
-            [
-                'format' => 'json',
-                'version' => '1.0',
-            ]
-        ));
-    }
-
-    public function actionPageDetail()
-    {
-        print_r(RangerHtml5::api('ranger.page.detail',
-            [
-                'where' => [
-                    'id' => 1
-                ]
-            ]
-        ));
-    }
-
-    public function actionArticleList()
-    {
-        print_r(RangerHtml5::api('ranger.article.list',
-            [
-                'page_size' => 10,
-                'page' => 1,
-                'where' => [
-                    //['id'=>12],
-                    ['<>','id',10]
-                ],
-            ],
-            [
-                'format' => 'json',
-                'version' => '1.0',
-                'cache' => true,
-                'cache_time' => 120,
-            ]
-        ));
-    }
-
-    public function actionArticleDetail()
-    {
-        print_r(RangerHtml5::api('ranger.article.detail',[
-            'where'=>[
-                'id' => 1
-            ]
-        ]));
-    }
-
-    public function actionArticleCategoryList()
-    {
-        print_r(RangerHtml5::api('ranger.article-category.list',[]));
+        return RangerApi::request($params, $type);
     }
 }
