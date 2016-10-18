@@ -7,6 +7,7 @@ use api\controllers\RangerController;
 use yii\data\Pagination;
 use api\components\Ranger;
 use api\components\RangerException;
+use yii\helpers\ArrayHelper;
 
 class ArticleController extends RangerController implements Ranger
 {

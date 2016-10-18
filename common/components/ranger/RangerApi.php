@@ -3,6 +3,7 @@
 namespace common\components\ranger;
 
 use yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the exception class for ranger.
@@ -14,8 +15,8 @@ class RangerApi
         $params['agent'] = Yii::$app->request->getUserAgent();
         $params['ip'] = Yii::$app->request->getUserHost();
         $params['timestamp'] = time();
-        $params['version'] = isset($params['version'])?$params['version']:'1.0';
-        $params['format'] = isset($params['format'])?$params['format']:'array';
+        $params['version'] = ArrayHelper::getValue($params, 'version', '1.0');
+        $params['format'] = ArrayHelper::getValue($params, 'format', 'array');
         
         $params['sign'] = self::generateSign($params);
         $format = $params['format'];
