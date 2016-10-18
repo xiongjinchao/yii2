@@ -14,13 +14,6 @@ use api\components\RangerException;
 class RangerController extends Controller
 {
 
-    const CACHE = false;
-    const CACHE_TIME = 60*30;
-    const PAGE_SIZE = 20;
-
-    const KEY = '9XNNXe66zOlSassjSKD5gry9BiN61IUEi8IpJmjBwvU07RXP0J3c4GnhZR3GKhMHa1A';
-    const SECRET = '27e1be4fdcaa83d7f61c489994ff6ed6';
-
     public $enableCsrfValidation = false;
 
     public function actions()
@@ -72,11 +65,11 @@ class RangerController extends Controller
             }else{
                 $result['data'] = Yii::$app->runAction('/v' . $version . '/' . $method[1] . '/' . $method[2], ['params' => $params]);
                 Yii::$app->cache->set($key, $result['data'], $params['cache_time']);
-                $result['cache'] = self::CACHE;
+                $result['cache'] = Yii::$app->params['cache'];
             }
         } else {
             $result['data'] = Yii::$app->runAction('/v' . $version . '/' . $method[1] . '/' . $method[2], ['params' => $params]);
-            $result['cache'] = self::CACHE;
+            $result['cache'] = Yii::$app->params['cache'];
         }
         return $result;
     }
@@ -86,8 +79,8 @@ class RangerController extends Controller
         $params['method'] = $method;
         $params['params'] = $query;
 
-        $params['key'] = self::KEY;
-        $params['secret'] = self::SECRET;
+        $params['key'] = Yii::$app->params['ranger.key'];
+        $params['secret'] = Yii::$app->params['ranger.secret'];
         $params['device'] = 'system';
         $params['device_id'] = '';
         $params['origin'] = 'api';

@@ -13,7 +13,7 @@ class ArticleController extends RangerController implements Ranger
 
     public function actionList(array $params)
     {
-        $pageSize = isset($params['query']['page_size']) && $params['query']['page_size']>0?$params['query']['page_size']:self::PAGE_SIZE;
+        $pageSize = isset($params['query']['page_size']) && $params['query']['page_size']>0?$params['query']['page_size']:Yii::$app->params['pageSize'];
         $page = isset($params['query']['page']) && $params['query']['page']>0?$params['query']['page']-1:0;
 
         $query = parent::generationQuery(\common\models\Article::class,$params);

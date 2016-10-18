@@ -3,6 +3,7 @@ return [
     'adminEmail' => 'admin@example.com',
     'supportEmail' => 'support@example.com',
     'user.passwordResetTokenExpire' => 3600,
+    'pageSize' => 20,
 
     'domain' => [
         'backend' => 'admin.yii2.com',

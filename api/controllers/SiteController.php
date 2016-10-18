@@ -3,7 +3,6 @@ namespace api\controllers;
 
 use yii;
 use yii\helpers\Json;
-use yii\helpers\Inflector;
 use api\components\RangerException;
 
 /**
@@ -11,12 +10,14 @@ use api\components\RangerException;
  */
 class SiteController extends RangerController
 {
-
     /**
      * Displays homepage.
      *
      * @return mixed
      */
+    public $start;
+    public $end;
+
     public function actionIndex()
     {
         $method = Yii::$app->request->post('method');
@@ -31,8 +32,8 @@ class SiteController extends RangerController
         $params['timestamp'] = Yii::$app->request->post('timestamp');
         $params['ip'] = Yii::$app->request->post('ip');
         $params['agent'] = Yii::$app->request->post('agent');
-        $params['cache'] = (bool)Yii::$app->request->post('cache', self::CACHE);
-        $params['cache_time'] = Yii::$app->request->post('cache_time', self::CACHE_TIME);
+        $params['cache'] = (bool)Yii::$app->request->post('cache', Yii::$app->params['cache']);
+        $params['cache_time'] = Yii::$app->request->post('cache_time', Yii::$app->params['cacheTime']);
 
         try {
             $data = parent::execute($method, $version ,$params);
@@ -54,6 +55,7 @@ class SiteController extends RangerController
 
     public function beforeAction($action)
     {
+        $this->start = explode(' ',microtime());
         if(!Yii::$app->request->post('sign')){
             RangerException::throwException(RangerException::SYS_EMPTY_SIGN,'',401);
         }
@@ -81,6 +83,9 @@ class SiteController extends RangerController
 
     public function afterAction($action, $result)
     {
+        $this->end = explode(' ',microtime());
+        $time = $this->end[0]+$this->end[1]-($this->start[0]+$this->start[1]);
+        $result['used'] = round($time, 3)."s";
         echo Json::encode($result);
     }
 
