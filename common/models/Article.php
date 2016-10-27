@@ -61,6 +61,7 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            ['title', 'required'],
             [['user_id','hit'], 'default', 'value' => 0],
             [['audit', 'hot', 'recommend', 'hit', 'user_id', 'content_type'], 'integer'],
             [['content'], 'string'],

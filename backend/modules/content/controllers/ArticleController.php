@@ -12,6 +12,7 @@ use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -36,6 +37,19 @@ class ArticleController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->request->post('hasEditable')) {
+            $model = Article::findOne(Yii::$app->request->post('editableKey'));
+            $attribute = Yii::$app->request->post('editableAttribute');
+
+            if ($model->load( ['Article' => current($_POST['Article'])] ) && $model->save()) {
+                $result = ['output'=>$model->$attribute, 'message'=>''];
+            }else{
+                $result = ['output'=>'', 'message'=> $model->getErrors($attribute)];
+            }
+            echo Json::encode($result);
+            return;
+        }
+
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

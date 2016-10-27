@@ -18,6 +18,9 @@ return [
         'content' => [
             'class' => 'backend\modules\content\Module',
         ],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module',
+        ],
     ],
     'components' => [
         'urlManager'=>array(

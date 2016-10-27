@@ -1,8 +1,9 @@
 <?php
 
-use common\models\ArticleCategory;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\widgets\Select2;
+use common\models\ArticleCategory;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
@@ -17,7 +18,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category_id')->dropDownList((new ArticleCategory)->getArticleCategoryOptions(),['prompt'=>'请选择','multiple'=>'true']);?>
+    <?php //= $form->field($model, 'category_id')->dropDownList((new ArticleCategory)->getArticleCategoryOptions(),['prompt'=>'请选择','multiple'=>'true']);?>
+
+    <?= $form->field($model, 'category_id')->widget(Select2::classname(), [
+        'data' => ArticleCategory::getArticleCategoryOptions(),
+        'options' => ['placeholder' => '请选择','multiple'=>'true'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+        'toggleAllSettings' => [
+            'selectLabel' => '<i class="glyphicon glyphicon-unchecked"></i> 全选',
+        ]
+    ]);
+    ?>
 
     <?= $form->field($model, 'content')->textarea(['rows' => 6, 'class' => 'ueditor']) ?>
 
