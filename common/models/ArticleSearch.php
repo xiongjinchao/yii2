@@ -11,18 +11,14 @@ use yii\data\ActiveDataProvider;
  */
 class ArticleSearch extends Article
 {
-
-    public $startTime;
-    public $endTime;
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'category_id', 'content_type', 'audit', 'hot', 'recommend', 'hit', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'content','source', 'source_url', 'seo_title', 'seo_description', 'author', 'seo_keyword'], 'safe'],
+            [['id', 'user_id', 'category_id', 'content_type', 'audit', 'hot', 'recommend', 'hit'], 'integer'],
+            [['title', 'content','source', 'source_url', 'seo_title', 'seo_description', 'author', 'seo_keyword', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -55,11 +51,12 @@ class ArticleSearch extends Article
                 ]
             ]
         ]);
+        //print_r($params);
         $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            $query->where('0=1');
             return $dataProvider;
         }
 
@@ -72,15 +69,8 @@ class ArticleSearch extends Article
             'recommend' => $this->recommend,
             'hit' => $this->hit,
         ]);
-
-        if($this->startTime!='' && $this->endTime!=''){
-            $query->andWhere('created_at>=:startTime and created_at<:endTime',[':startTime'=>strtotime($this->startTime),':endTime'=>strtotime($this->endTime)]);
-        }else{
-            if($this->startTime!=''){
-                $query->andWhere('created_at>=:startTime',[':startTime'=>strtotime($this->startTime)]);
-            }else if($this->endTime!=''){
-                $query->andWhere('created_at<:endTime',[':endTime'=>strtotime($this->endTime)]);
-            }
+        if($this->updated_at!=''){
+            $query->andWhere('updated_at>=:updated_at_start and updated_at<:updated_at_end',[':updated_at_start'=>strtotime(explode(' - ',$this->updated_at)[0]),':updated_at_end'=>strtotime(explode(' - ',$this->updated_at)[1])]);
         }
 
         if($this->category_id!=''){

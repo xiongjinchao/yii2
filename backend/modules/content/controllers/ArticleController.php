@@ -43,8 +43,10 @@ class ArticleController extends Controller
 
             if ($model->load( ['Article' => current($_POST['Article'])] ) && $model->save()) {
                 $result = ['output'=>$model->$attribute, 'message'=>''];
+                Yii::$app->session->setFlash('info','文章更新成功！');
             }else{
                 $result = ['output'=>'', 'message'=> $model->getErrors($attribute)];
+                Yii::$app->session->setFlash('danger','文章更新失败！');
             }
             echo Json::encode($result);
             return;

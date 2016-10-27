@@ -96,14 +96,11 @@ class Article extends \yii\db\ActiveRecord
             'seo_description' => 'SEO描述',
             'seo_keyword' => 'SEO关键字',
             'created_at' => '创建时间',
-            'updated_at' => '更新时间',
-
-            'startTime' => '开始时间',
-            'endTime' => '结束时间',
+            'updated_at' => '更新时间'
         ];
     }
 
-    public function getAuditOptions($audit = null)
+    public static function getAuditOptions($audit = null)
     {
         $arr = [
             self::AUDIT_ENABLE => '已审核',
@@ -116,7 +113,7 @@ class Article extends \yii\db\ActiveRecord
         }
     }
 
-    public function getHotOptions($hot = null)
+    public static function getHotOptions($hot = null)
     {
         $arr = [
             self::HOT_ENABLE => '已置热',
@@ -129,7 +126,7 @@ class Article extends \yii\db\ActiveRecord
         }
     }
 
-    public function getRecommendOptions($recommend = null)
+    public static function getRecommendOptions($recommend = null)
     {
         $arr = [
             self::RECOMMEND_ENABLE => '已推荐',
@@ -142,7 +139,7 @@ class Article extends \yii\db\ActiveRecord
         }
     }
 
-    public function getContentTypeOptions($type = null)
+    public static function getContentTypeOptions($type = null)
     {
         $arr = [
             self::CONTENT_TYPE_EDITOR => '编辑器',

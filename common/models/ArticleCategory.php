@@ -101,7 +101,7 @@ class ArticleCategory extends \yii\db\ActiveRecord
         return ArticleCategory::find()->where(['parent'=>$this->parent])->orderBy('`rgt` DESC')->one();
     }
 
-    public function getArticleCategoryOptions()
+    public static function getArticleCategoryOptions()
     {
         $arr = [];
         $articleCategories = ArticleCategory::find()->orderBy(['lft'=>SORT_ASC])->all();

@@ -44,6 +44,9 @@ html .select2-container .select2-selection--single .select2-selection__rendered{
 html .select2-container .select2-selection--single .select2-selection__clear{
 	margin-top:-3px;
 }
+html .select2-dropdown .select2-search__field:focus, .select2-search--inline .select2-search__field:focus {
+	border:none;
+}
 html .kv-editable-link{
 	border:none;
 	color:#333333;

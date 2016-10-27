@@ -5,6 +5,7 @@ use kartik\grid\GridView;
 use common\models\Article;
 use kartik\widgets\Select2;
 use kartik\widgets\DateTimePicker;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ArticleSearch */
@@ -46,11 +47,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
-                'attribute'=>'id',
-                'headerOptions'=>['style'=>'width:5%'],
+                'class' => '\kartik\grid\RadioColumn'
             ],
             [
-                'class' => '\kartik\grid\RadioColumn'
+                'attribute'=>'id',
+                'headerOptions'=>['style'=>'width:5%'],
             ],
             /*
             [
@@ -103,17 +104,25 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>function($model){
                     return $model->getContentTypeOptions($model->content_type);
                 },
-                'headerOptions'=>['style'=>'width:5%']
             ],
             [
-                'attribute' => 'created_at',
-                'format' => ['datetime','php:Y-m-d H:i:s'],
-                'filter' => DateTimePicker::widget([
+                'attribute' => 'updated_at',
+                'format' =>['datetime','php:Y-m-d H:i:s'],
+                'filter' => DateRangePicker::widget([
                     'model' => $searchModel,
-                    'attribute' => 'created_at',
-                    'type' => DateTimePicker::TYPE_INPUT,
+                    'attribute' => 'updated_at',
+                    'convertFormat'=>true,
+                    'pluginOptions'=>[
+                        'timePicker'=>false,
+                        'timePickerIncrement'=>15,
+                        'locale'=>[
+                            'format'=>'Y-m-d',
+                            'separator'=>' - ',
+                        ],
+                    ]
                 ]),
             ],
+            /*
             [
                 'attribute' => 'updated_at',
                 'format' =>['datetime','php:Y-m-d H:i:s'],
@@ -123,6 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'type' => DateTimePicker::TYPE_INPUT,
                 ]),
             ],
+            */
             [
                 'label'=>'热门',
                 'attribute'=>'hot',
@@ -132,12 +142,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'data'=> \common\models\Article::getHotOptions(),
                     'hideSearch' => true,
                     'options' => ['placeholder' => '所有类别'],
+                    'pluginOptions' => ['allowClear' => 'true'],
                 ]),
                 'format'=>'raw',
                 'value'=>function($model){
-                        return Html::a($model->hot == $model::HOT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['hot','id'=>$model->id], ['title' => '审核']) ;
-                    },
-                'headerOptions'=>['style'=>'width:5%']
+                    return Html::a($model->hot == $model::HOT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['hot','id'=>$model->id], ['title' => '审核']) ;
+                },
             ],
             [
                 'label'=>'推荐',
@@ -148,13 +158,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'data'=> \common\models\Article::getRecommendOptions(),
                     'hideSearch' => true,
                     'options' => ['placeholder' => '所有类别'],
+                    'pluginOptions' => ['allowClear' => 'true'],
                 ]),
                 'format'=>'raw',
                 'value'=>function($model){
-                        return Html::a($model->recommend == $model::RECOMMEND_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['recommend','id'=>$model->id], ['title' => '审核']) ;
-                    },
-                'headerOptions'=>['style'=>'width:5%']
-
+                    return Html::a($model->recommend == $model::RECOMMEND_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['recommend','id'=>$model->id], ['title' => '审核']) ;
+                },
             ],
             [
                 'label'=>'审核',
@@ -165,12 +174,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'data'=> \common\models\Article::getAuditOptions(),
                     'hideSearch' => true,
                     'options' => ['placeholder' => '所有类别'],
+                    'pluginOptions' => ['allowClear' => 'true'],
                 ]),
                 'format'=>'raw',
                 'value'=>function($model){
-                        return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
-                    },
-                'headerOptions'=>['style'=>'width:5%']
+                    return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
+                },
             ],
             ['class' => 'yii\grid\ActionColumn'],
             [
