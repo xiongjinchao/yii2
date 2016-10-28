@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use backend\models\Picture;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%user}}".
@@ -80,7 +81,7 @@ class User extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getStatusOptions($status = null)
+    public static function getStatusOptions($status = null)
     {
         $arr = [
             self::STATUS_ACTIVE => '正常',
@@ -91,6 +92,11 @@ class User extends \yii\db\ActiveRecord
         }else{
             return isset($arr[$status]) ? $arr[$status] : $status;
         }
+    }
+
+    public static function getUserOptions()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'username');
     }
 
     public function getPicture()

@@ -6,7 +6,7 @@
 	overflow:hidden;
 }
 html .skin-black-light .main-header > .logo{
-	border-right:none;
+    border-right:none;
 }
 html .skin-black-light .main-header > .navbar > .sidebar-toggle{
 	border-left:1px solid #eee;
@@ -47,7 +47,13 @@ html .select2-container .select2-selection--single .select2-selection__clear{
 html .select2-dropdown .select2-search__field:focus, .select2-search--inline .select2-search__field:focus {
 	border:none;
 }
+html .input-group .input-group-addon{
+	background-color:#eee
+}
 html .kv-editable-link{
 	border:none;
 	color:#333333;
+}
+html .badge{
+	min-height:14px;
 }

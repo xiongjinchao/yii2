@@ -1,9 +1,11 @@
 <?php
 
+use common\models\ArticleCategory;
+use common\models\User;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\Select2;
-use common\models\ArticleCategory;
+use kartik\widgets\ColorInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Article */
@@ -44,7 +46,27 @@ use common\models\ArticleCategory;
 
     <?= $form->field($model, 'hit')->textInput() ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+    <?= $form->field($model, "color")->widget(ColorInput::classname(), [
+        'showDefaultPalette'=>false,
+        'pluginOptions'=>[
+            'showPalette' => true,
+            'showPaletteOnly' => true,
+            'showSelectionPalette' => true,
+            'showAlpha' => false,
+            'allowEmpty' => false,
+            'preferredFormat' => 'name',
+            'palette' => array_chunk(\common\models\Article::getColorOptions(),6),
+        ]
+    ]);?>
+
+    <?= $form->field($model, 'user_id')->widget(Select2::classname(), [
+        'data' => User::getUserOptions(),
+        'options' => ['placeholder' => '请选择'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'author')->textInput() ?>
 

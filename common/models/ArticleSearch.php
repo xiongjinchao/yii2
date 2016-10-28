@@ -18,7 +18,7 @@ class ArticleSearch extends Article
     {
         return [
             [['id', 'user_id', 'category_id', 'content_type', 'audit', 'hot', 'recommend', 'hit'], 'integer'],
-            [['title', 'content','source', 'source_url', 'seo_title', 'seo_description', 'author', 'seo_keyword', 'created_at', 'updated_at'], 'safe'],
+            [['title', 'content','source', 'source_url', 'seo_title', 'seo_description', 'author', 'seo_keyword', 'color', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -68,6 +68,7 @@ class ArticleSearch extends Article
             'hot' => $this->hot,
             'recommend' => $this->recommend,
             'hit' => $this->hit,
+            'color' => $this->color,
         ]);
         if($this->updated_at!=''){
             $query->andWhere('updated_at>=:updated_at_start and updated_at<:updated_at_end',[':updated_at_start'=>strtotime(explode(' - ',$this->updated_at)[0]),':updated_at_end'=>strtotime(explode(' - ',$this->updated_at)[1])]);

@@ -6,6 +6,7 @@ use common\models\Article;
 use kartik\widgets\Select2;
 use kartik\widgets\DateTimePicker;
 use kartik\daterange\DateRangePicker;
+use kartik\widgets\ColorInput;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\ArticleSearch */
@@ -21,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?= GridView::widget([
+        'id' => 'article-grid',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'layout' => '<div class="box box-primary">
@@ -29,29 +31,18 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box-footer">{pager}</div>
             </div>',
         'export' => false,
+        //'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',
-                //自定义单元格样式
-                'contentOptions' => function($model){
-                    if($model->hot == Article::HOT_ENABLE && $model->recommend == Article::RECOMMEND_ENABLE){
-                        return ['class'=>'success'];
-                    }else if($model->hot == Article::HOT_ENABLE){
-                        return ['class'=>'warning'];
-                    }else if($model->recommend == Article::RECOMMEND_ENABLE){
-                        return ['class'=>'info'];
-                    }else{
-                        return [];
-                    }
-                },
             ],
             [
                 'class' => '\kartik\grid\RadioColumn'
             ],
             [
                 'attribute'=>'id',
-                'headerOptions'=>['style'=>'width:5%'],
+                'width'=>'5%',
             ],
             /*
             [
@@ -67,15 +58,73 @@ $this->params['breadcrumbs'][] = $this->title;
                 'expandOneOnly'=>true
             ],
             */
+
+
             [
                 'attribute' => 'title',
                 'class' => 'kartik\grid\EditableColumn',
                 'refreshGrid' => true,
                 'editableOptions' => function ($model, $key, $index) {
                     return [
-                        'header' => '文章标题',
+                        'header' => '标题',
                         'size' => 'md',
+                        'afterInput'=>function ($form, $widget) use ($model, $index) {
+                            return $form->field($model, "color")->widget(ColorInput::classname(), [
+                                'showDefaultPalette'=>false,
+                                'options'=>['id'=>"color-{$index}",'placeholder' => '请选择'],
+                                'pluginOptions'=>[
+                                    'showPalette' => true,
+                                    'showPaletteOnly' => true,
+                                    'showSelectionPalette' => true,
+                                    'showAlpha' => false,
+                                    'allowEmpty' => false,
+                                    'preferredFormat' => 'name',
+                                    'palette' => array_chunk(\common\models\Article::getColorOptions(),6),
+                                ]
+                            ]).$form->field($model, 'user_id')->widget(Select2::classname(), [
+                                'data' => \common\models\User::getUserOptions(),
+                                'options' => ['id'=>"user_id-{$index}",'placeholder' => '请选择'],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ]
+                            ]);
+                        }
                     ];
+                }
+            ],
+            [
+                'attribute'=>'color',
+                'value'=>function ($model, $key, $index, $widget) {
+                    return $model->color == ''? '' : "<span class='badge' style='background-color: ".$model->color."'> </span>  <code>".$model->color.'</code>';
+                },
+                'filter' => ColorInput::widget([
+                    'model'=> $searchModel,
+                    'attribute'=> 'color',
+                    'showDefaultPalette'=>false,
+                    'pluginOptions'=>[
+                        'showPalette' => true,
+                        'showPaletteOnly' => true,
+                        'showSelectionPalette' => true,
+                        'showAlpha' => false,
+                        'allowEmpty' => false,
+                        'preferredFormat' => 'name',
+                        'palette' => array_chunk(\common\models\Article::getColorOptions(),6),
+                    ]
+                ]),
+                'format'=>'raw',
+                'width'=>'10%',
+            ],
+            [
+                'attribute' => 'user_id',
+                'filter' => Select2::widget([
+                    'model'=> $searchModel,
+                    'attribute'=> 'user_id',
+                    'data'=> \common\models\User::getUserOptions(),
+                    'options' => ['placeholder' => '所有作者'],
+                    'pluginOptions' => ['allowClear' => 'true'],
+                ]),
+                'value'=>function($model){
+                    return $model->user->username;
                 }
             ],
             [
@@ -181,7 +230,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
                 },
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {delete}',
+            ],
             [
                 'format'=>'raw',
                 'value'=>function($model){

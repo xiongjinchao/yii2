@@ -38,14 +38,12 @@ class ArticleController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->request->post('hasEditable')) {
-            $model = Article::findOne(Yii::$app->request->post('editableKey'));
-            $attribute = Yii::$app->request->post('editableAttribute');
-
-            if ($model->load( ['Article' => current($_POST['Article'])] ) && $model->save()) {
-                $result = ['output'=>$model->$attribute, 'message'=>''];
+            $model = $this->findModel(Yii::$app->request->post('editableKey'));
+            if ($model->load( $_POST ) && $model->load( ['Article' => current($_POST['Article'])] ) && $model->save()) {
+                $result = ['output'=>'', 'message'=>''];
                 Yii::$app->session->setFlash('info','文章更新成功！');
             }else{
-                $result = ['output'=>'', 'message'=> $model->getErrors($attribute)];
+                $result = ['output'=>'', 'message'=> current($model->getFirstErrors())];
                 Yii::$app->session->setFlash('danger','文章更新失败！');
             }
             echo Json::encode($result);

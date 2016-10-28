@@ -67,6 +67,7 @@ class Article extends \yii\db\ActiveRecord
             [['content'], 'string'],
             [['author'], 'string', 'max' => 255],
             [['title'], 'string', 'max' => 200],
+            [['color'], 'string', 'max' => 50],
             [['source_url'], 'string', 'max' => 150],
             [['source'], 'string', 'max' => 100],
             [['author', 'seo_title', 'seo_description', 'seo_keyword'], 'string', 'max' => 255],
@@ -87,8 +88,9 @@ class Article extends \yii\db\ActiveRecord
             'audit' => '审核状态',
             'hot' => '热门状态',
             'recommend' => '推荐状态',
+            'color' => '颜色',
             'hit' => '点击次数',
-            'user_id' => '作者编号',
+            'user_id' => '作者',
             'author' => '来源作者',
             'source' => '文章来源',
             'source_url' => '来源链接',
@@ -152,6 +154,16 @@ class Article extends \yii\db\ActiveRecord
         }
     }
 
+    public static function getColorOptions()
+    {
+        $arr = [
+            "white", "black", "grey", "silver", "gold", "brown",
+            "red", "orange", "yellow", "indigo", "maroon", "pink",
+            "blue", "green", "violet", "cyan", "magenta", "purple"
+        ];
+        return $arr;
+    }
+
     public function getArticleCategoryNames()
     {
         $str = '';
@@ -175,5 +187,10 @@ class Article extends \yii\db\ActiveRecord
     public function getTags()
     {
         return $this->hasMany(ArticleTag::className(), ['article_id' => 'id'])->orderBy(['total' => SORT_DESC]);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }
