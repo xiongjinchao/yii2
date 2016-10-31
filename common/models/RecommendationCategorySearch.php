@@ -7,18 +7,15 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * AdminSearch represents the model behind the search form about `backend\modules\user\models\Admin`.
+ * RecommendationCategorySearch represents the model behind the search form about `backend\modules\content\models\RecommendationCategory`.
  */
-class AdminSearch extends Admin
+class RecommendationCategorySearch extends RecommendationCategory
 {
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
-            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
+            [['id', 'audit'], 'integer'],
+            [['name', 'tag','created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -40,39 +37,32 @@ class AdminSearch extends Admin
      */
     public function search($params)
     {
-        $query = Admin::find()->where('id>:id',[':id'=>2]);
+        $query = RecommendationCategory::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => ['pageSize' => 20],
             'sort'=>[
                 'defaultOrder' => [
-                    'id' => SORT_DESC,
+                    'lft' => SORT_ASC,
                 ]
             ]
         ]);
-
         $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            $query->where('0=1');
             return $dataProvider;
         }
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'audit' => $this->audit,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
-            ->andFilterWhere(['like', 'email', $this->email]);
-
+        $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'tag', $this->tag]);
         return $dataProvider;
     }
 }

@@ -4,11 +4,12 @@ namespace backend\modules\content\controllers;
 
 use Yii;
 use common\models\RecommendationCategory;
-use yii\data\ActiveDataProvider;
+use common\models\RecommendationCategorySearch;
 use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 use yii\db\Exception;
 
 /**
@@ -37,11 +38,24 @@ class RecommendationCategoryController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => RecommendationCategory::find()->orderBy(['lft'=>SORT_ASC]),
-        ]);
+        if (Yii::$app->request->post('hasEditable')) {
+            $model = $this->findModel(Yii::$app->request->post('editableKey'));
+            if ($model->load( $_POST ) && $model->load( ['RecommendationCategory' => current($_POST['RecommendationCategory'])] ) && $model->save()) {
+                $result = ['output'=>'', 'message'=>''];
+                Yii::$app->session->setFlash('info','推荐分类更新成功！');
+            }else{
+                $result = ['output'=>'', 'message'=> current($model->getFirstErrors())];
+                Yii::$app->session->setFlash('danger','推荐分类更新失败！');
+            }
+            echo Json::encode($result);
+            return;
+        }
+
+        $searchModel = new RecommendationCategorySearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }

@@ -45,7 +45,7 @@ class RecommendationContent extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id'], 'required'],
+            [['title', 'category_id'], 'required'],
             [['category_id', 'sort', 'audit', 'created_at', 'updated_at'], 'integer'],
             [['content'], 'string'],
             [['title', 'description', 'code'], 'string', 'max' => 255],
@@ -71,7 +71,7 @@ class RecommendationContent extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getAuditOptions($audit = null)
+    public static function getAuditOptions($audit = null)
     {
         $arr = [
             self::AUDIT_ENABLE => '已审核',

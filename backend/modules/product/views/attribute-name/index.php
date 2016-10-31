@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute'=> 'audit',
                     'data'=> \common\models\AttributeName::getAuditOptions(),
                     'hideSearch' => true,
-                    'options' => ['placeholder' => '所有类别'],
+                    'options' => ['prompt' => '所有类别'],
                     'pluginOptions' => ['allowClear' => 'true'],
                 ]),
                 'format'=>'raw',
@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute'=> 'status',
                     'data'=> \common\models\AttributeName::getStatusOptions(),
                     'hideSearch' => true,
-                    'options' => ['placeholder' => '所有状态'],
+                    'options' => ['prompt' => '所有状态'],
                     'pluginOptions' => ['allowClear' => 'true'],
                 ]),
                 'format'=>'raw',
@@ -92,7 +92,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->status == $model::STATUS_SKU?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['status','id'=>$model->id], ['title' => '状态']) ;
                 },
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {delete}',
+            ],
         ],
     ]); ?>
 

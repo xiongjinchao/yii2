@@ -20,11 +20,9 @@ use kartik\widgets\ColorInput;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?php //= $form->field($model, 'category_id')->dropDownList((new ArticleCategory)->getArticleCategoryOptions(),['prompt'=>'请选择','multiple'=>'true']);?>
-
     <?= $form->field($model, 'category_id')->widget(Select2::classname(), [
         'data' => ArticleCategory::getArticleCategoryOptions(),
-        'options' => ['placeholder' => '请选择','multiple'=>'true'],
+        'options' => ['prompt' => '请选择','multiple'=>'true'],
         'pluginOptions' => [
             'allowClear' => true
         ],
@@ -61,7 +59,7 @@ use kartik\widgets\ColorInput;
 
     <?= $form->field($model, 'user_id')->widget(Select2::classname(), [
         'data' => User::getUserOptions(),
-        'options' => ['placeholder' => '请选择'],
+        'options' => ['prompt' => '请选择'],
         'pluginOptions' => [
             'allowClear' => true
         ],

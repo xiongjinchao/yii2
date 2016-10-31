@@ -18,9 +18,6 @@ $this->params['breadcrumbs'][] = '更新';
                 <?=Html::a('推荐图片',['recommendation-picture/edit', 'id' => $model->id])?>
             </li>
             <li class="active">
-                <?=Html::a('推荐详情',['recommendation-content/update', 'id' => $model->id])?>
-            </li>
-            <li>
                 <?=Html::a('推荐内容',['recommendation-content/index', 'category_id' => $category->id])?>
             </li>
             <li>

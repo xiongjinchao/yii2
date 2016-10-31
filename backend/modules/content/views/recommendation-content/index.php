@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\widgets\Select2;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -35,24 +36,58 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    'export' => false,
+                    //'pjax'=>true,
                     'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
                     'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
-
+                        [
+                            'class' => 'yii\grid\SerialColumn',
+                        ],
+                        [
+                            'class' => '\kartik\grid\RadioColumn'
+                        ],
                         [
                             'attribute'=>'id',
-                            'headerOptions'=>['style'=>'width:5%'],
+                            'width'=>'5%',
                         ],
-                        'title',
                         [
-                            'attribute'=>'category_id',
-                            'value'=>function($model){
-                                if(isset($model->category)){
-                                    return $model->category->name;
-                                }
-                            },
+                            'attribute' => 'title',
+                            'class' => 'kartik\grid\EditableColumn',
+                            'refreshGrid' => true,
+                            'editableOptions' => function ($model, $key, $index) {
+                                return [
+                                    'header' => '标题',
+                                    'size' => 'md',
+                                    'afterInput'=>function ($form, $widget) use ($model, $index) {
+                                        return $form->field($model, 'audit')->widget(Select2::classname(), [
+                                            'data' => \common\models\RecommendationContent::getAuditOptions(),
+                                            'options' => ['id'=>"audit-{$index}",'placeholder' => '请选择'],
+                                            'pluginOptions' => [
+                                                'allowClear' => true
+                                            ]
+                                        ]);
+                                    }
+                                ];
+                            }
                         ],
-                        'sort',
+                        [
+                            'attribute' => 'category_id',
+                            'filter' => Select2::widget([
+                                'model'=> $searchModel,
+                                'attribute'=> 'category_id',
+                                'data'=> \common\models\RecommendationCategory::getRecommendationCategoryOptions(),
+                                'options' => ['placeholder' => '所有分类'],
+                                'pluginOptions' => ['allowClear' => 'true'],
+                            ]),
+                            'value'=>function($model){
+                                return  isset($model->category)?$model->category->name:'';
+                            }
+                        ],
+                        [
+                            'attribute' => 'sort',
+                            'filter' => false,
+                        ],
                         [
                             'attribute'=>'created_at',
                             'format'=>['datetime','php:Y-m-d H:i:s'],
@@ -62,12 +97,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format'=>['datetime','php:Y-m-d H:i:s'],
                         ],
                         [
+                            'label'=>'审核',
                             'attribute'=>'audit',
+                            'filter' => Select2::widget([
+                                'model'=> $searchModel,
+                                'attribute'=> 'audit',
+                                'data'=> \common\models\RecommendationContent::getAuditOptions(),
+                                'hideSearch' => true,
+                                'options' => ['placeholder' => '所有类别'],
+                                'pluginOptions' => ['allowClear' => 'true'],
+                            ]),
                             'format'=>'raw',
                             'value'=>function($model){
                                 return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
                             },
-                            'headerOptions'=>['style'=>'width:5%']
                         ],
                         [
                             'class' => 'yii\grid\ActionColumn',

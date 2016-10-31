@@ -95,7 +95,7 @@ class RecommendationCategory extends \yii\db\ActiveRecord
         return RecommendationCategory::find()->where(['parent'=>$this->parent])->orderBy('`rgt` DESC')->one();
     }
 
-    public function getRecommendationCategoryOptions()
+    public static function getRecommendationCategoryOptions()
     {
         $arr = [];
         $recommendationCategories = RecommendationCategory::find()->orderBy(['lft'=>SORT_ASC])->all();
@@ -105,7 +105,7 @@ class RecommendationCategory extends \yii\db\ActiveRecord
         return $arr;
     }
 
-    public function getAuditOptions($audit = null)
+    public static function getAuditOptions($audit = null)
     {
         $arr = [
             self::AUDIT_ENABLE => '已审核',

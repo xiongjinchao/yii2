@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs pull-right">
-            <li>
+            <li class="active">
                 <?=Html::a('推荐内容',['recommendation-content/index', 'category_id' => $category->id])?>
             </li>
             <li>

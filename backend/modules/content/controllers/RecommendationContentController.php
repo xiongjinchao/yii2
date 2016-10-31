@@ -5,11 +5,12 @@ namespace backend\modules\content\controllers;
 use Yii;
 use common\models\RecommendationCategory;
 use common\models\RecommendationContent;
-use yii\data\ActiveDataProvider;
+use common\models\RecommendationContentSearch;
 use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 /**
  * RecommendationContentController implements the CRUD actions for RecommendationContent model.
@@ -37,13 +38,26 @@ class RecommendationContentController extends Controller
      */
     public function actionIndex($category_id)
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => RecommendationContent::find()->where('category_id = :category_id',[':category_id'=>$category_id])->orderBy(['sort'=>SORT_ASC]),
-        ]);
-        $category = RecommendationCategory::findOne($category_id);
+        if (Yii::$app->request->post('hasEditable')) {
+            $model = $this->findModel(Yii::$app->request->post('editableKey'));
+            if ($model->load( $_POST ) && $model->load( ['RecommendationContent' => current($_POST['RecommendationContent'])] ) && $model->save()) {
+                $result = ['output'=>'', 'message'=>''];
+                Yii::$app->session->setFlash('info','推荐分类更新成功！');
+            }else{
+                $result = ['output'=>'', 'message'=> current($model->getFirstErrors())];
+                Yii::$app->session->setFlash('danger','推荐分类更新失败！');
+            }
+            echo Json::encode($result);
+            return;
+        }
+
+        Yii::$app->request->setQueryParams(['RecommendationContentSearch'=>['category_id'=>$category_id]]);
+        $searchModel = new RecommendationContentSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);;
 
         return $this->render('index', [
-            'category' => $category,
+            'category' => RecommendationCategory::findOne($category_id),
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -82,13 +96,25 @@ class RecommendationContentController extends Controller
         $category = $model->category;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' => $model->id]);
+            return $this->redirect(['index', 'category_id' => $model->category_id]);
         } else {
             return $this->render('update', [
                 'category' => $category,
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionAudit($id)
+    {
+        $model = $this->findModel($id);
+        $model->audit = 1- $model->audit;
+        if($model->save()){
+            Yii::$app->session->setFlash('info','审核提交成功！');
+        }else{
+            Yii::$app->session->setFlash('danger','审核提交失败！');
+        }
+        return $this->redirect(['index', 'category_id' => $model->category_id]);
     }
 
     /**

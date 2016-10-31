@@ -45,6 +45,7 @@ class AttributeName extends \yii\db\ActiveRecord
     {
         return [
             [['audit', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['name'], 'unique'],
             [['name'], 'string', 'max' => 100],
         ];
     }

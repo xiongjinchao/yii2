@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\RecommendationCategory;
+use kartik\widgets\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\RecommendationContent */
@@ -15,7 +16,14 @@ use common\models\RecommendationCategory;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category_id')->dropDownList((new RecommendationCategory)->getRecommendationCategoryOptions(),['prompt'=>'请选择']);?>
+    <?= $form->field($model, 'category_id')->widget(Select2::classname(), [
+        'data' => RecommendationCategory::getRecommendationCategoryOptions(),
+        'options' => ['prompt' => '请选择'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 

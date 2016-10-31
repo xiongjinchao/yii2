@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\widgets\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\RecommendationCategory */
@@ -16,7 +17,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tag')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'parent')->dropDownList($model->getRecommendationCategoryOptions(),['prompt'=>'设为主分类']);?>
+    <?= $form->field($model, 'parent')->widget(Select2::classname(), [
+        'data' => $model->getRecommendationCategoryOptions(),
+        'options' => ['prompt'=>'设为主分类'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6, 'maxlength' => true]) ?>
 
