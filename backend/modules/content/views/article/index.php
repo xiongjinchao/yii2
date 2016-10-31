@@ -124,7 +124,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pluginOptions' => ['allowClear' => 'true'],
                 ]),
                 'value'=>function($model){
-                    return $model->user->username;
+                    return isset($model->user)?$model->user->username:'';
                 }
             ],
             [

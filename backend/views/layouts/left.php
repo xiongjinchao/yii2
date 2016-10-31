@@ -33,7 +33,7 @@
                     ['label' => '内容管理', 'options' => ['class' => 'header']],
                     [
                         'label' => '内容管理',
-                        'icon' => 'fa fa-folder',
+                        'icon' => 'fa fa-paw',
                         'url' => '#',
                         'items' => [
                             ['label' => '菜单管理', 'icon' => 'fa fa-list text-light-blue', 'url' => ['/content/menu/index']],
@@ -49,6 +49,24 @@
                             ],
                             ['label' => '单页管理', 'icon' => 'fa fa-file-text text-light-blue', 'url' => ['/content/page/index']],
                             ['label' => '推荐管理', 'icon' => 'fa fa-coffee text-light-blue', 'url' => ['/content/recommendation-category/index']],
+                        ],
+                    ],
+                    [
+                        'label' => '商品管理',
+                        'icon' => 'fa fa-fire',
+                        'url' => '#',
+                        'items' => [
+                            [
+                                'label' => '商品管理',
+                                'icon' => 'fa fa-tags text-maroon',
+                                'url' => '#',
+                                'items' => [
+                                    ['label' => '商品管理', 'icon' => 'fa fa-cubes text-maroon', 'url' => ['/product/goods/index']],
+                                    ['label' => '商品分类', 'icon' => 'fa fa-navicon text-maroon', 'url' => ['/product/goods-category/index']],
+                                ],
+                            ],
+                            ['label' => '属性管理', 'icon' => 'fa fa-gears text-maroon', 'url' => ['/product/attribute-name/index']],
+                            ['label' => 'SKU管理', 'icon' => 'fa fa-globe text-maroon', 'url' => ['/product/product/index']],
                         ],
                     ],
                     ['label' => '交易管理', 'options' => ['class' => 'header']],

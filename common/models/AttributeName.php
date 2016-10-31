@@ -6,31 +6,30 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "{{%admin}}".
+ * This is the model class for table "{{%attribute_name}}".
  *
  * @property integer $id
- * @property string $username
- * @property string $auth_key
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $email
+ * @property string $name
+ * @property integer $audit
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
  */
-class Admin extends \yii\db\ActiveRecord
+class AttributeName extends \yii\db\ActiveRecord
 {
-    const STATUS_DELETED = 0;
-    const STATUS_ACTIVE = 10;
-    public $password;
+    const AUDIT_ENABLE = 1;
+    const AUDIT_DISABLE = 0;
+
+    const STATUS_SPU = 0;
+    const STATUS_SKU = 1;
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%admin}}';
+        return '{{%attribute_name}}';
     }
-
 
     public function behaviors()
     {
@@ -38,17 +37,15 @@ class Admin extends \yii\db\ActiveRecord
             TimestampBehavior::className(),
         ];
     }
-
+    
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email'], 'required'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
-            [['auth_key'], 'string', 'max' => 32]
+            [['audit', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['name'], 'string', 'max' => 100],
         ];
     }
 
@@ -59,23 +56,32 @@ class Admin extends \yii\db\ActiveRecord
     {
         return [
             'id' => '编号',
-            'username' => '用户名',
-            'password' => '密码',
-            'auth_key' => '认证码',
-            'password_hash' => '密码',
-            'password_reset_token' => '密码重置校验',
-            'email' => '邮箱',
+            'name' => '属性名称',
+            'audit' => '审核',
             'status' => '状态',
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
         ];
     }
 
+    public static function getAuditOptions($audit = null)
+    {
+        $arr = [
+            self::AUDIT_ENABLE => '已审核',
+            self::AUDIT_DISABLE => '未审核',
+        ];
+        if( $audit === null ){
+            return $arr;
+        }else{
+            return isset($arr[$audit]) ? $arr[$audit] : $audit;
+        }
+    }
+
     public static function getStatusOptions($status = null)
     {
         $arr = [
-            self::STATUS_ACTIVE => '正常',
-            self::STATUS_DELETED => '删除',
+            self::STATUS_SPU => 'SPU',
+            self::STATUS_SKU => 'SKU',
         ];
         if( $status === null ){
             return $arr;

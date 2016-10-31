@@ -5,8 +5,11 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
+const AUDIT_ENABLE = 1;
+const AUDIT_DISABLE = 0;
+
 /**
- * This is the model class for table "{{%article_category}}".
+ * This is the model class for table "{{%goods_category}}".
  *
  * @property integer $id
  * @property string $name
@@ -22,17 +25,14 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class ArticleCategory extends \yii\db\ActiveRecord
+class GoodsCategory extends \yii\db\ActiveRecord
 {
-    const AUDIT_ENABLE = 1;
-    const AUDIT_DISABLE = 0;
-
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%article_category}}';
+        return '{{%goods_category}}';
     }
 
     public function behaviors()
@@ -48,11 +48,10 @@ class ArticleCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['name', 'required'],
-            [['lft', 'rgt', 'parent', 'depth', 'audit'], 'integer'],
+            [['lft', 'rgt', 'parent', 'depth', 'audit', 'created_at', 'updated_at'], 'integer'],
             [['name'], 'string', 'max' => 100],
             [['action'], 'string', 'max' => 50],
-            [['seo_title', 'seo_description', 'seo_keyword'], 'string', 'max' => 255]
+            [['seo_title', 'seo_description', 'seo_keyword'], 'string', 'max' => 255],
         ];
     }
 
@@ -101,7 +100,7 @@ class ArticleCategory extends \yii\db\ActiveRecord
         return ArticleCategory::find()->where(['parent'=>$this->parent])->orderBy('`rgt` DESC')->one();
     }
 
-    public static function getArticleCategoryOptions()
+    public static function getGoodsCategoryOptions()
     {
         $arr = [];
         $articleCategories = ArticleCategory::find()->orderBy(['lft'=>SORT_ASC])->all();
@@ -111,7 +110,7 @@ class ArticleCategory extends \yii\db\ActiveRecord
         return $arr;
     }
 
-    public static function getAuditOptions($audit = null)
+    public function getAuditOptions($audit = null)
     {
         $arr = [
             self::AUDIT_ENABLE => '已审核',
@@ -124,4 +123,3 @@ class ArticleCategory extends \yii\db\ActiveRecord
         }
     }
 }
-
