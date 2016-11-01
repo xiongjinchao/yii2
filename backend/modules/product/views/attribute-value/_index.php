@@ -100,7 +100,6 @@ use yii\widgets\ActiveForm;
 
                 $.post(form.attr('action'), form.serializeArray(), function(data){
                     var status = data.status;
-                    console.log(status);
                     $.post(url, {expandRowKey: expandRowKey}, function (data) {
                         $("body").find('.modal-backdrop:last').remove();
                         content.find(".attribute-value-content").remove();
