@@ -5,6 +5,9 @@
 	/*margin-bottom:1px;*/
 	overflow:hidden;
 }
+html .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+	border:1px solid #eeeeee;
+}
 html .skin-black-light .main-header > .logo{
     border-right:none;
 }
@@ -12,7 +15,6 @@ html .skin-black-light .main-header > .navbar > .sidebar-toggle{
 	border-left:1px solid #eee;
 }
 html .skin-black-light .content-header{
-	
 	min-height:50px;
 	background:#f9fafc;
 	border-bottom:1px solid #eee;
