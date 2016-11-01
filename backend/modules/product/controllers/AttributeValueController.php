@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Json;
 
 /**
  * AttributeValueController implements the CRUD actions for AttributeValue model.
@@ -64,11 +65,17 @@ class AttributeValueController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('info','属性值保存成功！');
+            $result = [
+                'status' => 'success',
+                'data' => ''
+            ];
         } else {
-            Yii::$app->session->setFlash('danger','属性值保存失败！');
+            $result = [
+                'status' => 'error',
+                'data' => $model->getErrors()
+            ];
         }
-        return $this->redirect(['attribute-name/index']);
+        echo Json::encode($result);
     }
 
     /**

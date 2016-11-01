@@ -12,7 +12,7 @@ use yii\helpers\Url;
 $this->title = '属性管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="menu-index">
+<div class="attribute-name-index">
 
     <p>
         <?php Modal::begin([
@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <?= GridView::widget([
+        'id' => 'attribute-name-grid-view',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'layout' => '<div class="box box-primary">
@@ -53,7 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'width'=>'50px',
                 'value'=>function ($model, $key, $index, $column) {
                     return GridView::ROW_COLLAPSED;
-                    //return Url::to(['value','id'=>$model->id]);
                 },
                 'detailUrl' => Url::to(['attribute-value/index']),
                 'headerOptions' => ['class'=>'kartik-sheet-style'],
