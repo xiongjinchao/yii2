@@ -88,8 +88,12 @@ use kartik\widgets\ColorInput;
 
 <?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.config.js',['position' => \yii\web\View::POS_HEAD]);?>
 <?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.all.js',['position' => \yii\web\View::POS_HEAD]);?>
-<script type="text/javascript">
-    var ue = UE.getEditor('article-content',{
-        initialFrameHeight:300
-    });
-</script>
+
+    <script>
+        <?php $this->beginBlock('js') ?>
+        var ue = UE.getEditor('article-content',{
+            initialFrameHeight:300
+        });
+        <?php $this->endBlock(); ?>
+    </script>
+<?php $this->registerJs($this->blocks['js'],\yii\web\View::POS_END);

@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\widgets\Select2;
+use yii\bootstrap\Modal;
+use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -13,8 +16,17 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="menu-index">
 
     <p>
-        <?= Html::a('<i class="fa fa-plus-circle"></i> 创建属性', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php Modal::begin([
+                'toggleButton' => ['label' => '<i class="fa fa-plus-circle"></i> 创建属性', 'class' => 'btn btn-success'],
+                'header' => '<h4><i class="fa fa-edit"></i> 创建属性</h4>',
+                'headerOptions' => ['class'=>'modal-title'],
+                'footer' => '<button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-undo"></i> 取消</button> <button type="button" class="btn btn-primary" id="create-attribute-name"><i class="fa fa-save"></i> 保存</button>',
+            ]);
+        Modal::end();
+        ?>
     </p>
+
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -45,6 +57,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     return [
                         'header' => '名称',
                         'size' => 'md',
+                        'afterInput'=>function ($form, $widget) use ($model, $index) {
+                            return $form->field($model, 'audit')->widget(Select2::classname(), [
+                                'data' => \common\models\AttributeName::getAuditOptions(),
+                                'options' => ['id'=>"audit-{$index}",'placeholder' => '请选择'],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ]
+                            ]).$form->field($model, 'status')->widget(Select2::classname(), [
+                                'data' => \common\models\AttributeName::getStatusOptions(),
+                                'options' => ['id'=>"status-{$index}",'placeholder' => '请选择'],
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ]
+                            ]);
+                        }
                     ];
                 }
             ],
@@ -89,14 +116,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'raw',
                 'width'=>'8%',
                 'value'=>function($model){
-                    return Html::a($model->status == $model::STATUS_SKU?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['status','id'=>$model->id], ['title' => '状态']) ;
+                    return $model->status == $model::STATUS_SKU?'SKU':'SPU';
                 },
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{update} {delete}',
+                'template' => '{delete}',
             ],
         ],
     ]); ?>
-
 </div>
+
+    <script>
+        <?php $this->beginBlock('js') ?>
+        $(function(){
+            $.get("<?= Url::toRoute('create')?>", {}, function (data) {
+                $(".modal-body").html(data);
+            });
+            $("#create-attribute-name").on('click', function(){
+                $(".modal-body form").submit();
+            });
+        });
+        <?php $this->endBlock(); ?>
+    </script>
+<?php $this->registerJs($this->blocks['js'],\yii\web\View::POS_END);
