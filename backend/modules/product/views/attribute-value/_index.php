@@ -49,22 +49,31 @@ use yii\widgets\ActiveForm;
                 'tableOptions' => ['class'=>'table table-striped table-bordered table-hover small'],
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    'id',
+                    [
+                        'attribute'=>'id',
+                        'enableSorting'=>false,
+                    ],
                     [
                         'attribute'=>'value',
                         'value'=> function($model){
                             return '<a class="update-attribute-value" data-value="'.$model->value.'" data-sort="'.$model->sort.'" data-id="'.$model->id.'" href="javascript:void(0)">'.$model->value.'</a>';
                         },
+                        'enableSorting'=>false,
                         'format'=>'raw',
                     ],
-                    'sort',
+                    [
+                        'attribute'=>'sort',
+                        'enableSorting'=>false,
+                    ],
                     [
                         'attribute'=>'created_at',
                         'format'=>['datetime','php:Y-m-d H:i:s'],
+                        'enableSorting'=>false,
                     ],
                     [
                         'attribute'=>'updated_at',
                         'format'=>['datetime','php:Y-m-d H:i:s'],
+                        'enableSorting'=>false,
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
