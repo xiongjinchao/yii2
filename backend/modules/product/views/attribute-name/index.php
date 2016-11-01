@@ -86,34 +86,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'attribute'=>'created_at',
-                'format'=>['datetime','php:Y-m-d H:i:s'],
-                'width'=>'15%',
-            ],
-            [
-                'attribute'=>'updated_at',
-                'format'=>['datetime','php:Y-m-d H:i:s'],
-                'width'=>'15%',
-            ],
-            [
-                'label'=>'审核',
-                'attribute'=>'audit',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'audit',
-                    'data'=> \common\models\AttributeName::getAuditOptions(),
-                    'hideSearch' => true,
-                    'options' => ['prompt' => '所有类别'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
-                'format'=>'raw',
-                'width'=>'8%',
-                'value'=>function($model){
-                    return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
-                },
-            ],
-            [
-                'label'=>'状态',
                 'attribute'=>'status',
                 'filter' => Select2::widget([
                     'model'=> $searchModel,
@@ -127,6 +99,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 'width'=>'8%',
                 'value'=>function($model){
                     return $model->status == $model::STATUS_SKU?'SKU':'SPU';
+                },
+            ],
+            [
+                'attribute'=>'created_at',
+                'format'=>['datetime','php:Y-m-d H:i:s'],
+                'width'=>'15%',
+            ],
+            [
+                'attribute'=>'updated_at',
+                'format'=>['datetime','php:Y-m-d H:i:s'],
+                'width'=>'15%',
+            ],
+            [
+                'attribute'=>'audit',
+                'filter' => Select2::widget([
+                    'model'=> $searchModel,
+                    'attribute'=> 'audit',
+                    'data'=> \common\models\AttributeName::getAuditOptions(),
+                    'hideSearch' => true,
+                    'options' => ['prompt' => '所有类别'],
+                    'pluginOptions' => ['allowClear' => 'true'],
+                ]),
+                'format'=>'raw',
+                'width'=>'8%',
+                'value'=>function($model){
+                    return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
                 },
             ],
             [
