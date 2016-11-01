@@ -144,7 +144,7 @@ class Article extends \yii\db\ActiveRecord
     public static function getContentTypeOptions($type = null)
     {
         $arr = [
-            self::CONTENT_TYPE_EDITOR => '编辑器',
+            self::CONTENT_TYPE_EDITOR => '全文',
             self::CONTENT_TYPE_SECTION => '段落',
         ];
         if( $type === null ){

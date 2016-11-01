@@ -91,4 +91,9 @@ class AttributeName extends \yii\db\ActiveRecord
             return isset($arr[$status]) ? $arr[$status] : $status;
         }
     }
+
+    public function getValues()
+    {
+        return $this->hasMany(AttributeValue::className(), ['attribute_name_id' => 'id']);
+    }
 }

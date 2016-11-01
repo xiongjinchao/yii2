@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\widgets\Select2;
 use yii\bootstrap\Modal;
-use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
@@ -48,6 +47,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'id',
                 'width'=>'5%',
+            ],
+            [
+                'class'=>'kartik\grid\ExpandRowColumn',
+                'width'=>'50px',
+                'value'=>function ($model, $key, $index, $column) {
+                    return GridView::ROW_COLLAPSED;
+                    //return Url::to(['value','id'=>$model->id]);
+                },
+                'detailUrl' => Url::to(['attribute-value/index']),
+                'headerOptions' => ['class'=>'kartik-sheet-style'],
+                'expandOneOnly' => true
             ],
             [
                 'attribute'=>'name',
@@ -130,11 +140,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <script>
         <?php $this->beginBlock('js') ?>
         $(function(){
-            $.get("<?= Url::toRoute('create')?>", {}, function (data) {
+            $.get("<?= Url::to(['create'])?>", {}, function (data) {
                 $(".modal-body").html(data);
             });
             $("#create-attribute-name").on('click', function(){
-                $(".modal-body form").submit();
+                $(this).parents('.modal-content').find(".modal-body form").submit();
             });
         });
         <?php $this->endBlock(); ?>

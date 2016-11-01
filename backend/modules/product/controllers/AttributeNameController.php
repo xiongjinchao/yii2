@@ -5,11 +5,13 @@ namespace backend\modules\product\controllers;
 use yii;
 use common\models\AttributeName;
 use common\models\AttributeNameSearch;
+use common\models\AttributeValue;
 use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+use yii\data\ActiveDataProvider;
 
 /**
  * AttributeNameController implements the CRUD actions for AttributeName model.
@@ -68,6 +70,7 @@ class AttributeNameController extends Controller
         $model->loadDefaultValues();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('info','属性创建成功！');
             return $this->redirect(['index']);
         } else {
             return $this->renderAjax('_create', [
@@ -97,7 +100,7 @@ class AttributeNameController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        Yii::$app->session->setFlash('info','属性删除成功！');
         return $this->redirect(['index']);
     }
 
