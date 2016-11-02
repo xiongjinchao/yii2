@@ -48,7 +48,7 @@ class RecommendationContentController extends Controller
                 Yii::$app->session->setFlash('danger','推荐分类更新失败！');
             }
             echo Json::encode($result);
-            return;
+            Yii::$app->end();
         }
 
         Yii::$app->request->setQueryParams(['RecommendationContentSearch'=>['category_id'=>$category_id]]);

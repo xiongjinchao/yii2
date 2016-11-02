@@ -46,7 +46,7 @@ class AttributeNameController extends Controller
                 Yii::$app->session->setFlash('danger','属性更新失败！');
             }
             echo Json::encode($result);
-            return;
+            Yii::$app->end();
         }
 
         $searchModel = new AttributeNameSearch();

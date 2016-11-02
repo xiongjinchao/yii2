@@ -47,7 +47,7 @@ class ArticleController extends Controller
                 Yii::$app->session->setFlash('danger','文章更新失败！');
             }
             echo Json::encode($result);
-            return;
+            Yii::$app->end();
         }
 
         $searchModel = new ArticleSearch();

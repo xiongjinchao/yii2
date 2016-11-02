@@ -2,9 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
-use common\models\Article;
 use kartik\widgets\Select2;
-use kartik\widgets\DateTimePicker;
 use kartik\daterange\DateRangePicker;
 use kartik\widgets\ColorInput;
 
@@ -42,24 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'=>'id',
-                'width'=>'5%',
+                'width'=>'4%',
             ],
-            /*
-            [
-                'class'=>'kartik\grid\ExpandRowColumn',
-                'width'=>'50px',
-                'value'=>function ($model, $key, $index, $column) {
-                    return GridView::ROW_COLLAPSED;
-                },
-                'detail'=>function ($model, $key, $index, $column) {
-                    return Yii::$app->controller->renderPartial('_detail', ['model'=>$model]);
-                },
-                'headerOptions'=>['class'=>'kartik-sheet-style'],
-                'expandOneOnly'=>true
-            ],
-            */
-
-
             [
                 'attribute' => 'title',
                 'class' => 'kartik\grid\EditableColumn',
@@ -94,9 +76,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'=>'color',
-                'value'=>function ($model, $key, $index, $widget) {
-                    return $model->color == ''? '' : "<span class='badge' style='background-color: ".$model->color."'> </span>  <code>".$model->color.'</code>';
-                },
                 'filter' => ColorInput::widget([
                     'model'=> $searchModel,
                     'attribute'=> 'color',
@@ -111,8 +90,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'palette' => array_chunk(\common\models\Article::getColorOptions(),6),
                     ]
                 ]),
+                'value'=>function ($model, $key, $index, $widget) {
+                    return $model->color == ''? '' : "<span class='badge' style='background-color: ".$model->color."'> </span>  <code>".$model->color.'</code>';
+                },
                 'format'=>'raw',
-                'width'=>'10%',
+                'width'=>'9%',
             ],
             [
                 'attribute' => 'user_id',
@@ -155,6 +137,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
+                'attribute' => 'created_at',
+                'format' =>['datetime','php:Y-m-d H:i:s'],
+                'filter' => DateRangePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'created_at',
+                    'convertFormat'=>true,
+                    'pluginOptions'=>[
+                        'timePicker'=>false,
+                        'timePickerIncrement'=>15,
+                        'locale'=>[
+                            'format'=>'Y-m-d',
+                            'separator'=>' - ',
+                        ],
+                    ]
+                ]),
+                'width'=>'10%',
+            ],
+            [
                 'attribute' => 'updated_at',
                 'format' =>['datetime','php:Y-m-d H:i:s'],
                 'filter' => DateRangePicker::widget([
@@ -170,18 +170,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]
                 ]),
+                'width'=>'10%',
             ],
-            /*
-            [
-                'attribute' => 'updated_at',
-                'format' =>['datetime','php:Y-m-d H:i:s'],
-                'filter' => DateTimePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'updated_at',
-                    'type' => DateTimePicker::TYPE_INPUT,
-                ]),
-            ],
-            */
             [
                 'label'=>'热门',
                 'attribute'=>'hot',
@@ -233,13 +223,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'template' => '{update} {delete}',
-            ],
-            [
-                'format'=>'raw',
-                'value'=>function($model){
-                        return Html::a('<span class="glyphicon glyphicon-th-list"></span>', ['article-section/edit','id'=>$model->id], ['title' => '段落']) ;
-                    }
-            ],
+            ]
         ],
     ]); ?>
 

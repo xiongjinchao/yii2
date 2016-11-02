@@ -11,6 +11,10 @@ use yii\data\ActiveDataProvider;
  */
 class AttributeNameSearch extends AttributeName
 {
+    
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [

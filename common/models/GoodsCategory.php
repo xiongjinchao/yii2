@@ -5,9 +5,6 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
-const AUDIT_ENABLE = 1;
-const AUDIT_DISABLE = 0;
-
 /**
  * This is the model class for table "{{%goods_category}}".
  *
@@ -27,6 +24,10 @@ const AUDIT_DISABLE = 0;
  */
 class GoodsCategory extends \yii\db\ActiveRecord
 {
+
+    const AUDIT_ENABLE = 1;
+    const AUDIT_DISABLE = 0;
+    
     /**
      * @inheritdoc
      */
@@ -89,23 +90,23 @@ class GoodsCategory extends \yii\db\ActiveRecord
     public function getParent()
     {
         if($this->parent>0){
-            return ArticleCategory::findOne($this->parent);
+            return GoodsCategory::findOne($this->parent);
         }else{
-            return new ArticleCategory();
+            return new GoodsCategory();
         }
     }
 
     public function getLastBrother()
     {
-        return ArticleCategory::find()->where(['parent'=>$this->parent])->orderBy('`rgt` DESC')->one();
+        return GoodsCategory::find()->where(['parent'=>$this->parent])->orderBy('`rgt` DESC')->one();
     }
 
     public static function getGoodsCategoryOptions()
     {
         $arr = [];
-        $articleCategories = ArticleCategory::find()->orderBy(['lft'=>SORT_ASC])->all();
-        foreach($articleCategories as $articleCategory){
-            $arr[$articleCategory->id] = $articleCategory->getSpace().$articleCategory->name;
+        $goodsCategories = GoodsCategory::find()->orderBy(['lft'=>SORT_ASC])->all();
+        foreach($goodsCategories as $goodsCategory){
+            $arr[$goodsCategory->id] = $goodsCategory->getSpace().$goodsCategory->name;
         }
         return $arr;
     }
