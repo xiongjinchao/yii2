@@ -120,7 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
                 'value'=>function($model){
                     return $model->getArticleCategoryNames();
-                }
+                },
             ],
             [
                 'attribute' => 'content_type',
@@ -154,6 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
                 'width'=>'10%',
             ],
+            /*
             [
                 'attribute' => 'updated_at',
                 'format' =>['datetime','php:Y-m-d H:i:s'],
@@ -172,6 +173,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
                 'width'=>'10%',
             ],
+            */
             [
                 'label'=>'热门',
                 'attribute'=>'hot',

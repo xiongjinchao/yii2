@@ -48,6 +48,12 @@ return [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
+//                [
+//                    'class' => 'yii\log\DbTarget',
+//                    'levels' => ['profile'],
+//                    'logVars' => ['_POST'],
+//                    'categories' => ['yii\db\Command::query'],
+//                ],
             ],
         ],
         'errorHandler' => [
