@@ -22,7 +22,7 @@ use kartik\widgets\ColorInput;
 
     <?= $form->field($model, 'category_id')->widget(Select2::classname(), [
         'data' => ArticleCategory::getArticleCategoryOptions(),
-        'options' => ['prompt' => '请选择','multiple'=>'true'],
+        'options' => ['placeholder' => '请选择','multiple'=>'true'],
         'pluginOptions' => [
             'allowClear' => true
         ],
@@ -59,7 +59,7 @@ use kartik\widgets\ColorInput;
 
     <?= $form->field($model, 'user_id')->widget(Select2::classname(), [
         'data' => User::getUserOptions(),
-        'options' => ['prompt' => '请选择'],
+        'options' => ['placeholder' => '请选择'],
         'pluginOptions' => [
             'allowClear' => true
         ],

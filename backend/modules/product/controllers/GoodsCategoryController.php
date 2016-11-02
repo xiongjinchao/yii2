@@ -39,10 +39,10 @@ class GoodsCategoryController extends Controller
             $model = $this->findModel(Yii::$app->request->post('editableKey'));
             if ($model->load( $_POST ) && $model->load( ['GoodsCategory' => current($_POST['GoodsCategory'])] ) && $model->save()) {
                 $result = ['output'=>'', 'message'=>''];
-                Yii::$app->session->setFlash('info','分类更新成功！');
+                Yii::$app->session->setFlash('info','商品分类更新成功！');
             }else{
                 $result = ['output'=>'', 'message'=> current($model->getFirstErrors())];
-                Yii::$app->session->setFlash('danger','分类更新失败！');
+                Yii::$app->session->setFlash('danger','商品分类更新失败！');
             }
             echo Json::encode($result);
             Yii::$app->end();

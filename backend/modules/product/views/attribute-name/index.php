@@ -168,11 +168,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 $.post(form.attr('action'), form.serializeArray(), function(data){
                     var status = data.status;
-                    $("body").find('.modal-backdrop:last').remove();
-                    $("body").removeClass('modal-open');
                     $.post(url, {expandRowKey: expandRowKey}, function (data) {
                         content.find(".attribute-value-content").remove();
                         content.append(data);
+                        $("body").find('.modal-backdrop:last').remove();
+                        $("body").removeClass('modal-open');
                         if(status == 'success'){
                             content.find(".attribute-value-content h4:first").after(
                                 '<div class="alert-info callout alert fade in">' +
