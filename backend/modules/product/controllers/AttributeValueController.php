@@ -36,8 +36,8 @@ class AttributeValueController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => AttributeValue::find()->where(['attribute_name_id'=>Yii::$app->request->post('expandRowKey')])->orderBy(['sort'=>SORT_DESC]),
-            'pagination' => ['pageSize' => 20],
+            'query' => AttributeValue::find()->where(['attribute_name_id'=>Yii::$app->request->post('expandRowKey')])->orderBy(['sort'=>SORT_DESC, 'id'=>SORT_ASC]),
+            'pagination' => ['pageSize' => 2],
         ]);
         $model = new AttributeValue();
         $model->attribute_name_id = Yii::$app->request->post('expandRowKey');
