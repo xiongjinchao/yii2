@@ -7,41 +7,70 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Goods */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Goods', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '商品管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="goods-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'category_id',
-            'content:ntext',
-            'audit',
-            'hot',
-            'recommend',
-            'hit',
-            'seo_title',
-            'seo_description',
-            'seo_keyword',
-            'created_at',
-            'updated_at',
-        ],
-    ]) ?>
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <span class="pull-right">
+                <?= Html::a('<i class="fa fa-save"></i> 更新', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('<i class="glyphicon glyphicon-trash"></i> 删除', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-default',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to delete this item?',
+                        'method' => 'post',
+                    ],
+                ]) ?>
+            </span>
+        </div>
+        <div class="box-body">
+            <?= DetailView::widget([
+                'model' => $model,
+                'options' => ['class' => 'table table-striped table-bordered table-hover detail-view'],
+                'template' => '<tr><th width="200">{label}</th><td>{value}</td></tr>',
+                'attributes' => [
+                    'id',
+                    'name',
+                    [
+                        'attribute'=>'category_id',
+                        'value'=>isset($model->category->name)?$model->category->name:'',
+                    ],
+                    'content:ntext',
+                    [
+                        'attribute'=>'audit',
+                        'value'=>$model->getAuditOptions($model->audit),
+                    ],
+                    [
+                        'attribute'=>'hot',
+                        'value'=>$model->getHotOptions($model->hot),
+                    ],
+                    [
+                        'attribute'=>'recommend',
+                        'value'=>$model->getRecommendOptions($model->recommend),
+                    ],
+                    'hit',
+                    [
+                        'attribute'=>'color',
+                        'value'=>$model->color == ''? '' : "<span class='badge' style='background-color: ".$model->color."'> </span>  <code>".$model->color.'</code>',
+                        'format'=>'raw',
+                    ],
+                    'seo_title',
+                    'seo_description',
+                    'seo_keyword',
+                    [
+                        'attribute'=>'created_at',
+                        'format'=>['datetime','php:Y-m-d H:i:s'],
+                    ],
+                    [
+                        'attribute'=>'updated_at',
+                        'format'=>['datetime','php:Y-m-d H:i:s'],
+                    ],
+                ],
+            ]) ?>
+        </div>
+        <div class="box-footer"></div>
+    </div>
 
 </div>
