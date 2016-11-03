@@ -9,15 +9,13 @@ use html5\models\SignupForm;
 use html5\models\ContactForm;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\components\ranger\RangerHtml5;
 
 /**
  * Site controller
  */
-class SiteController extends Controller
+class SiteController extends RangerController
 {
     /**
      * @inheritdoc
@@ -79,7 +77,7 @@ class SiteController extends Controller
         $query = Yii::$app->request->post('query') != null? Yii::$app->request->post('query'):[];
         $params = Yii::$app->request->post('params') != null? Yii::$app->request->post('params'):[];
         $params['format'] = 'json';
-        print_r(RangerHtml5::api($method, $query, $params));
+        print_r(parent::api($method, $query, $params));
         Yii::$app->end();
     }
 

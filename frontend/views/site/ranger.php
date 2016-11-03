@@ -8,10 +8,10 @@
 
 <script>
     $(function(){
-        $("#request").text(JSON.stringify({method:'ranger.article.list',query:{where:[['<','id',230]],page:1,page_size:2},params:{format:'json'}},null,"\t"));
+        $("#request").text(JSON.stringify({method:'ranger.article.list',query:{where:[['<>','id',230]],page:1,page_size:2},params:{format:'json'}},null,"\t"));
         var response = Ranger.api.request(
             'ranger.article.list',
-            {where:[['<','id',230]],page:1,page_size:2},
+            {where:[['<>','id',230]],page:1,page_size:2},
             {format:'json'}
         );
         $("#response").text(JSON.stringify(response,null,"\t"));

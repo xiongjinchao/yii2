@@ -12,12 +12,11 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\components\ranger\RangerHtml5;
 
 /**
  * Site controller
  */
-class SiteController extends Controller
+class SiteController extends RangerController
 {
     /**
      * @inheritdoc
@@ -76,9 +75,10 @@ class SiteController extends Controller
     public function actionApi()
     {
         $method = Yii::$app->request->post('method');
-        $params = Yii::$app->request->post('params');
+        $query = Yii::$app->request->post('query') != null? Yii::$app->request->post('query'):[];
+        $params = Yii::$app->request->post('params') != null? Yii::$app->request->post('params'):[];
         $params['format'] = 'json';
-        echo RangerHtml5::api($method,$params);
+        print_r(parent::api($method, $query, $params));
         Yii::$app->end();
     }
 
