@@ -33,7 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
             [
-                'class' => 'yii\grid\SerialColumn',
+                'class' => '\kartik\grid\SerialColumn',
+                'vAlign'=>'middle',
             ],
             [
                 'class' => '\kartik\grid\RadioColumn'
@@ -41,11 +42,20 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'id',
                 'width'=>'4%',
+                'vAlign'=>'middle',
+            ],
+            [
+                'attribute' => 'picture_id',
+                'value' => function($model){
+                    return $model->picture_id>0?'<img src="'.$model->picture->url.'" height="60">':'';
+                },
+                'format' => 'raw'
             ],
             [
                 'attribute' => 'name',
                 'class' => 'kartik\grid\EditableColumn',
                 'refreshGrid' => true,
+                'vAlign'=>'middle',
                 'editableOptions' => function ($model, $key, $index) {
                     return [
                         'header' => '商品名称',
@@ -99,6 +109,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>function ($model, $key, $index, $widget) {
                     return $model->color == ''? '' : "<span class='badge' style='background-color: ".$model->color."'> </span>  <code>".$model->color.'</code>';
                 },
+                'vAlign'=>'middle',
                 'format'=>'raw',
                 'width'=>'9%',
             ],
@@ -111,6 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'options' => ['placeholder' => '所有分类'],
                     'pluginOptions' => ['allowClear' => 'true'],
                 ]),
+                'vAlign'=>'middle',
                 'value'=>function($model){
                     return isset($model->category->name)?$model->category->name:'';
                 },
@@ -131,6 +143,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]
                 ]),
+                'vAlign'=>'middle',
             ],
             [
                 'attribute' => 'updated_at',
@@ -148,56 +161,87 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]
                 ]),
+                'vAlign'=>'middle',
             ],
             [
-                'label'=>'热门',
-                'attribute'=>'hot',
+                'attribute'=>'sale_mode',
                 'filter' => Select2::widget([
                     'model'=> $searchModel,
-                    'attribute'=> 'hot',
-                    'data'=> \common\models\Goods::getHotOptions(),
+                    'attribute'=> 'sale_mode',
+                    'data'=> \common\models\Goods::getSaleModeOptions(),
                     'hideSearch' => true,
                     'options' => ['placeholder' => '所有类别'],
                     'pluginOptions' => ['allowClear' => 'true'],
                 ]),
                 'format'=>'raw',
+                'vAlign'=>'middle',
                 'value'=>function($model){
-                    return Html::a($model->hot == $model::HOT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['hot','id'=>$model->id], ['title' => '审核']) ;
+                    return $model->getSaleModeOptions($model->sale_mode);
                 },
             ],
             [
-                'label'=>'推荐',
-                'attribute'=>'recommend',
+                'attribute'=>'goods_type',
                 'filter' => Select2::widget([
                     'model'=> $searchModel,
-                    'attribute'=> 'recommend',
-                    'data'=> \common\models\Goods::getRecommendOptions(),
+                    'attribute'=> 'goods_type',
+                    'data'=> \common\models\Goods::getGoodsTypeOptions(),
                     'hideSearch' => true,
                     'options' => ['placeholder' => '所有类别'],
                     'pluginOptions' => ['allowClear' => 'true'],
                 ]),
                 'format'=>'raw',
+                'vAlign'=>'middle',
                 'value'=>function($model){
-                    return Html::a($model->recommend == $model::RECOMMEND_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['recommend','id'=>$model->id], ['title' => '审核']) ;
+                    return $model->getGoodsTypeOptions($model->goods_type);
                 },
             ],
             [
-                'label'=>'审核',
+                'attribute'=>'origin_price',
+                'hAlign'=>'right',
+                'vAlign'=>'middle',
+            ],
+            [
+                'attribute'=>'sale_price',
+                'hAlign'=>'right',
+                'vAlign'=>'middle',
+            ],
+            [
+                'attribute'=>'presell',
+                'filter' => Select2::widget([
+                    'model'=> $searchModel,
+                    'attribute'=> 'presell',
+                    'data'=> \common\models\Goods::getPresellOptions(),
+                    'hideSearch' => true,
+                    'options' => ['placeholder' => '所有类别'],
+                    'pluginOptions' => ['allowClear' => 'true'],
+                ]),
+                'format'=>'raw',
+                'vAlign'=>'middle',
+                'value'=>function($model){
+                    return $model->getPresellOptions($model->sale_mode);
+                },
+            ],
+            [
                 'attribute'=>'audit',
                 'filter' => Select2::widget([
                     'model'=> $searchModel,
                     'attribute'=> 'audit',
                     'data'=> \common\models\Goods::getAuditOptions(),
                     'hideSearch' => true,
-                    'options' => ['placeholder' => '所有类别'],
+                    'options' => ['placeholder' => '所有状态'],
                     'pluginOptions' => ['allowClear' => 'true'],
                 ]),
                 'format'=>'raw',
+                'vAlign'=>'middle',
                 'value'=>function($model){
-                    return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
+                    return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '上下架']) ;
                 },
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'kartik\grid\ActionColumn'],
+            [
+                'class'=>'kartik\grid\CheckboxColumn',
+                'headerOptions'=>['class'=>'kartik-sheet-style'],
+            ],
         ],
     ]); ?>
 </div>

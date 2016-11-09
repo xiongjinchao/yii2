@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -22,10 +22,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box-body">{items}</div>
             <div class="box-footer">{pager}</div>
             </div>',
+        'export' => false,
+        //'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
+            ['class' => '\kartik\grid\SerialColumn'],
+            [
+                'class' => '\kartik\grid\RadioColumn'
+            ],
             [
                 'attribute'=>'id',
                 'headerOptions'=>['style'=>'width:5%'],
@@ -61,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'seo_description',
             // 'seo_keyword',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => '\kartik\grid\ActionColumn'],
             [
                 'format'=>'raw',
                 'value'=>function($model){

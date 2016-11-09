@@ -1,8 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\bootstrap\Tabs;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -37,8 +36,13 @@ $this->params['breadcrumbs'][] = '更新';
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
+                    'export' => false,
+                    //'pjax'=>true,
                     'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
+                        ['class' => '\kartik\grid\SerialColumn'],
+                        [
+                            'class' => '\kartik\grid\RadioColumn'
+                        ],
                         [
                             'attribute'=>'id',
                             'headerOptions'=>['style'=>'width:80px'],
@@ -70,7 +74,7 @@ $this->params['breadcrumbs'][] = '更新';
                             },
                         ],
                         'sort',
-                        ['class' => 'yii\grid\ActionColumn'],
+                        ['class' => '\kartik\grid\ActionColumn'],
                     ],
                 ]); ?>
             </div>

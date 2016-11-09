@@ -37,18 +37,29 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute'=>'category_id',
                         'value'=>isset($model->category->name)?$model->category->name:'',
                     ],
+                    'origin_price',
+                    'sale_price',
+                    [
+                        'attribute' => 'picture_id',
+                        'value' => $model->picture_id>0?'<img src="'.$model->picture->url.'" height="100">':'',
+                        'format' => 'raw',
+                    ],
                     'content:ntext',
+                    [
+                        'attribute'=>'sale_mode',
+                        'value'=>$model->getSaleModeOptions($model->sale_mode),
+                    ],
+                    [
+                        'attribute'=>'goods_type',
+                        'value'=>$model->getGoodsTypeOptions($model->goods_type),
+                    ],
                     [
                         'attribute'=>'audit',
                         'value'=>$model->getAuditOptions($model->audit),
                     ],
                     [
-                        'attribute'=>'hot',
-                        'value'=>$model->getHotOptions($model->hot),
-                    ],
-                    [
-                        'attribute'=>'recommend',
-                        'value'=>$model->getRecommendOptions($model->recommend),
+                        'attribute'=>'presell',
+                        'value'=>$model->getPresellOptions($model->presell),
                     ],
                     'hit',
                     [

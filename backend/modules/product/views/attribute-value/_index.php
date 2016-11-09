@@ -48,7 +48,7 @@ use yii\widgets\ActiveForm;
                 //'pjax'=>true,
                 'tableOptions' => ['class'=>'table table-striped table-bordered table-hover small'],
                 'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
+                    ['class' => '\kartik\grid\SerialColumn'],
                     [
                         'attribute'=>'id',
                         'enableSorting'=>false,
@@ -76,7 +76,7 @@ use yii\widgets\ActiveForm;
                         'enableSorting'=>false,
                     ],
                     [
-                        'class' => 'yii\grid\ActionColumn',
+                        'class' => '\kartik\grid\ActionColumn',
                         'template' => '{delete}',
                     ],
                 ],

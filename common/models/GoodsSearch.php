@@ -18,8 +18,8 @@ class GoodsSearch extends Goods
     public function rules()
     {
         return [
-            [['id', 'category_id', 'audit', 'hot', 'recommend', 'hit', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'color', 'content', 'seo_title', 'seo_description', 'seo_keyword'], 'safe'],
+            [['id', 'category_id', 'audit', 'sale_mode', 'goods_type',  'presell', 'master_picture', 'hit', 'created_at', 'updated_at'], 'integer'],
+            [['name', 'color', 'content', 'origin_price', 'sale_price', 'sale_url', 'seo_title', 'seo_description', 'seo_keyword'], 'safe'],
         ];
     }
 
@@ -62,11 +62,15 @@ class GoodsSearch extends Goods
             'id' => $this->id,
             'category_id' => $this->category_id,
             'audit' => $this->audit,
-            'hot' => $this->hot,
-            'recommend' => $this->recommend,
-            'hit' => $this->hit,
+            'sale_mode' => $this->sale_mode,
+            'goods_type' => $this->goods_type,
+            'presell' => $this->presell,
             'color' => $this->color,
         ]);
+
+        if($this->created_at!=''){
+            $query->andWhere('created_at>=:created_at_start and created_at<:created_at_end',[':created_at_start'=>strtotime(explode(' - ',$this->created_at)[0]),':created_at_end'=>strtotime(explode(' - ',$this->created_at)[1])]);
+        }
 
         if($this->updated_at!=''){
             $query->andWhere('updated_at>=:updated_at_start and updated_at<:updated_at_end',[':updated_at_start'=>strtotime(explode(' - ',$this->updated_at)[0]),':updated_at_end'=>strtotime(explode(' - ',$this->updated_at)[1])]);

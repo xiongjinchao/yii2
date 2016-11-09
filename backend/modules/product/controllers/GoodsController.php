@@ -9,6 +9,7 @@ use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use common\helpers\UploadHelper;
 
 /**
  * GoodsController implements the CRUD actions for Goods model.
@@ -78,14 +79,27 @@ class GoodsController extends Controller
     public function actionCreate()
     {
         $model = new Goods();
+        $model->loadDefaultValues();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                $picture = UploadHelper::upload($model, 'master_picture', null, 'goods');
+            }catch (\Exception $e){
+                $picture = '';
+            }
+            if($picture!=''){
+                $model->picture_id = $picture->id;
+            }
+            if($model->save()){
+                Yii::$app->session->setFlash('info','商品创建成功！');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+                Yii::$app->session->setFlash('danger','商品创建失败！');
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -98,13 +112,37 @@ class GoodsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            try {
+                $picture = UploadHelper::upload($model, 'master_picture', null, 'goods');
+            }catch (\Exception $e){
+                $picture = '';
+            }
+            if($picture!=''){
+                $model->picture_id = $picture->id;
+            }
+            if($model->save()){
+                Yii::$app->session->setFlash('info','商品更新成功！');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+                Yii::$app->session->setFlash('danger','商品更新失败！');
+            }
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionAudit($id)
+    {
+        $model = $this->findModel($id);
+        $model->audit = 1- $model->audit;
+        if($model->save()){
+            Yii::$app->session->setFlash('info','上下架提交成功！');
+        }else{
+            Yii::$app->session->setFlash('danger','上下架提交失败！');
+        }
+        return $this->redirect(['index']);
     }
 
     /**

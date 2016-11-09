@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -22,33 +22,50 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box-body">{items}</div>
             <div class="box-footer">{pager}</div>
             </div>',
+        'export' => false,
+        //'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
+            ['class' => '\kartik\grid\SerialColumn'],
+            [
+                'class' => '\kartik\grid\RadioColumn'
+            ],
             [
                 'attribute'=>'id',
                 'headerOptions'=>['width'=>'80px'],
+                'vAlign'=>'middle',
             ],
             [
                 'attribute'=>'picture_id',
                 'value'=>function($model){
-                    return $model->picture_id>0?'<img src="'.$model->picture->url.'" height="16">':'';
+                    return $model->picture_id>0?'<img src="'.$model->picture->url.'" height="60">':'';
                 },
                 'headerOptions'=>['width'=>'80px'],
+                'vAlign'=>'middle',
                 'format'=>'raw',
             ],
-            'username',
-            'mobile',
-            'email:email',
+            [
+                'attribute'=>'username',
+                'vAlign'=>'middle',
+            ],
+            [
+                'attribute'=>'mobile',
+                'vAlign'=>'middle',
+            ],
+            [
+                'attribute'=>'email',
+                'vAlign'=>'middle',
+            ],
             [
                 'attribute'=>'created_at',
                 'format'=>['datetime','php:Y-m-d H:i:s'],
+                'vAlign'=>'middle',
             ],
             [
                 'attribute'=>'updated_at',
                 'format'=>['datetime','php:Y-m-d H:i:s'],
+                'vAlign'=>'middle',
             ],
             [
                 'attribute'=>'status',
@@ -57,9 +74,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->status ==$model::STATUS_ACTIVE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['status','id'=>$model->id], ['title' => '状态']) ;
                 },
                 'headerOptions'=>['width'=>'80px'],
+                'vAlign'=>'middle',
                 'filter'=>false
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => '\kartik\grid\ActionColumn'],
         ],
     ]); ?>
 

@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
                     'columns' => [
                         [
-                            'class' => 'yii\grid\SerialColumn',
+                            'class' => '\kartik\grid\SerialColumn',
                         ],
                         [
                             'class' => '\kartik\grid\RadioColumn'
@@ -113,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                         ],
                         [
-                            'class' => 'yii\grid\ActionColumn',
+                            'class' => '\kartik\grid\ActionColumn',
                             'template' => '{update} {delete}',
                         ],
                     ],

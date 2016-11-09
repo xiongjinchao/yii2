@@ -29,7 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
         //'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => '\kartik\grid\SerialColumn'
+            ],
 
             [
                 'attribute'=>'id',
@@ -111,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
                 },
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => '\kartik\grid\ActionColumn'],
             [
                 'format'=>'raw',
                 'value'=>function($model){

@@ -67,25 +67,27 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->password = $_POST['User']['password'];
             try {
-                $avatar = UploadHelper::upload($model, 'avatar', null, 'avatar');
+                $picture = UploadHelper::upload($model, 'avatar', null, 'avatar');
             }catch (\Exception $e){
-                $avatar = '';
+                $picture = '';
             }
-            if($avatar!=''){
-                $model->picture_id = $avatar->id;
+            if($picture!=''){
+                $model->picture_id = $picture->id;
             }
             if($model->password!=''){
                 $model->password_hash = Yii::$app->security->generatePasswordHash($model->password);
                 $model->auth_key = Yii::$app->security->generateRandomString();
             }
-            $model->save();
-            Yii::$app->session->setFlash('info','用户创建成功！');
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            if($model->save()) {
+                Yii::$app->session->setFlash('info', '用户创建成功！');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+                Yii::$app->session->setFlash('danger', '用户创建失败！');
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -101,25 +103,27 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->password = $_POST['User']['password'];
             try {
-                $avatar = UploadHelper::upload($model, 'avatar', null, 'avatar');
+                $picture = UploadHelper::upload($model, 'avatar', null, 'avatar');
             }catch (\Exception $e){
-                $avatar = '';
+                $picture = '';
             }
-            if($avatar!=''){
-                $model->picture_id = $avatar->id;
+            if($picture!=''){
+                $model->picture_id = $picture->id;
             }
             if($model->password!=''){
                 $model->password_hash = Yii::$app->security->generatePasswordHash($model->password);
                 $model->auth_key = Yii::$app->security->generateRandomString();
             }
-            $model->save();
-            Yii::$app->session->setFlash('info','用户更新成功！');
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            if($model->save()){
+                Yii::$app->session->setFlash('info','用户更新成功！');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }else{
+                Yii::$app->session->setFlash('danger','用户更新失败！');
+            }
         }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
 
     public function actionStatus($id)

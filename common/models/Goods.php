@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use backend\models\Picture;
 
 /**
  * This is the model class for table "{{%goods}}".
@@ -13,8 +14,6 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $category_id
  * @property string $content
  * @property integer $audit
- * @property integer $hot
- * @property integer $recommend
  * @property integer $hit
  * @property string $color
  * @property string $seo_title
@@ -25,14 +24,20 @@ use yii\behaviors\TimestampBehavior;
  */
 class Goods extends \yii\db\ActiveRecord
 {
-    const AUDIT_ENABLE = 1;
     const AUDIT_DISABLE = 0;
+    const AUDIT_ENABLE = 1;
 
-    const HOT_ENABLE = 1;
-    const HOT_DISABLE = 0;
+    const SALE_MODE_APP = 0;
+    const SALE_MODE_OUTSIDE = 1;
 
-    const RECOMMEND_ENABLE = 1;
-    const RECOMMEND_DISABLE = 0;
+    const GOODS_TYPE_MATTER = 0;
+    const GOODS_TYPE_VIRTUAL = 1;
+    const GOODS_TYPE_CARD = 2;
+
+    const PRESELL_DISABLE = 0;
+    const PRESELL_ENABLE = 1;
+
+    public $master_picture;
 
     /**
      * @inheritdoc
@@ -56,9 +61,11 @@ class Goods extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'category_id'], 'required'],
-            [['category_id', 'audit', 'hot', 'recommend', 'hit', 'created_at', 'updated_at'], 'integer'],
-            [['color','content'], 'string'],
+            [['category_id', 'sale_mode', 'goods_type', 'presell', 'picture_id', 'audit', 'hot', 'recommend', 'hit', 'created_at', 'updated_at'], 'integer'],
+            [['color', 'content', 'sale_url'], 'string'],
+            [['origin_price','sale_price'], 'double'],
             [['name', 'seo_title', 'seo_description', 'seo_keyword'], 'string', 'max' => 255],
+            [['master_picture'], 'file'],
         ];
     }
 
@@ -72,9 +79,15 @@ class Goods extends \yii\db\ActiveRecord
             'name' => '商品名称',
             'category_id' => '所属分类',
             'content' => '商品详情',
-            'audit' => '审核状态',
-            'hot' => '热门状态',
-            'recommend' => '推荐状态',
+            'sale_mode' => '售卖方式',
+            'goods_type' => '商品类型',
+            'presell' => '预售商品',
+            'origin_price' => '原价',
+            'sale_price' => '售价',
+            'picture_id' => '商品主图',
+            'master_picture' => '商品主图',
+            'sale_url' => '外部购买地址',
+            'audit' => '上架状态',
             'color' => '标记颜色',
             'hit' => '点击次数',
             'seo_title' => 'SEO标题',
@@ -88,8 +101,8 @@ class Goods extends \yii\db\ActiveRecord
     public static function getAuditOptions($audit = null)
     {
         $arr = [
-            self::AUDIT_ENABLE => '已审核',
-            self::AUDIT_DISABLE => '未审核',
+            self::AUDIT_ENABLE => '上架',
+            self::AUDIT_DISABLE => '下架',
         ];
         if( $audit === null ){
             return $arr;
@@ -98,29 +111,43 @@ class Goods extends \yii\db\ActiveRecord
         }
     }
 
-    public static function getHotOptions($hot = null)
+    public static function getSaleModeOptions($mode = null)
     {
         $arr = [
-            self::HOT_ENABLE => '已置热',
-            self::HOT_DISABLE => '未置热',
+            self::SALE_MODE_APP => '应用内部购买',
+            self::SALE_MODE_OUTSIDE => '连接到外部购买',
         ];
-        if( $hot === null ){
+        if( $mode === null ){
             return $arr;
         }else{
-            return isset($arr[$hot]) ? $arr[$hot] : $hot;
+            return isset($arr[$mode]) ? $arr[$mode] : $mode;
         }
     }
 
-    public static function getRecommendOptions($recommend = null)
+    public static function getGoodsTypeOptions($type = null)
     {
         $arr = [
-            self::RECOMMEND_ENABLE => '已推荐',
-            self::RECOMMEND_DISABLE => '未推荐',
+            self::GOODS_TYPE_MATTER => '实物商品',
+            self::GOODS_TYPE_VIRTUAL => '虚拟商品',
+            self::GOODS_TYPE_CARD => '电子卡券',
         ];
-        if( $recommend === null ){
+        if( $type === null ){
             return $arr;
         }else{
-            return isset($arr[$recommend]) ? $arr[$recommend] : $recommend;
+            return isset($arr[$type]) ? $arr[$type] : $type;
+        }
+    }
+
+    public static function getPresellOptions($presell = null)
+    {
+        $arr = [
+            self::PRESELL_DISABLE => '非预售',
+            self::PRESELL_ENABLE => '预售商品',
+        ];
+        if( $presell === null ){
+            return $arr;
+        }else{
+            return isset($arr[$presell]) ? $arr[$presell] : $presell;
         }
     }
 
@@ -137,5 +164,10 @@ class Goods extends \yii\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(GoodsCategory::className(), ['id' => 'category_id']);
+    }
+
+    public function getPicture()
+    {
+        return $this->hasOne(Picture::className(), ['id' => 'picture_id']);
     }
 }

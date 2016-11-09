@@ -22,7 +22,6 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group field-user-avatar">
         <label class="control-label" for="user-avatar"><?= $model->getAttributeLabel('avatar'); ?></label>
-        <?= Html::activeHiddenInput($model,'avatar',['id'=>null]); ?>
         <?= Html::activeFileInput($model,'avatar',['style'=>'display:none']); ?>
         <div>
             <a class="btn btn-info upload"><i class="fa fa-image"></i> 选择图片</a>
@@ -40,8 +39,11 @@ use yii\widgets\ActiveForm;
 
 </div>
 
-<script>
-    $(".upload").click(function(){
-        $("#user-user_face").trigger('click');
-    })
-</script>
+    <script>
+        <?php $this->beginBlock('js') ?>
+        $(".upload").click(function(){
+            $("#user-avatar").trigger('click');
+        });
+        <?php $this->endBlock(); ?>
+    </script>
+<?php $this->registerJs($this->blocks['js'],\yii\web\View::POS_END);

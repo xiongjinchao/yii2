@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -22,10 +22,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box-body">{items}</div>
             <div class="box-footer">{pager}</div>
             </div>',
+        'export' => false,
+        //'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
+            ['class' => '\kartik\grid\SerialColumn'],
+            [
+                'class' => '\kartik\grid\RadioColumn'
+            ],
             'name:text:角色名称',
             'description:text:描述',
             [
@@ -45,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>['datetime','php:Y-m-d H:i:s'],
             ],
             [
-                'class' => 'yii\grid\ActionColumn',
+                'class' => '\kartik\grid\ActionColumn',
                 'template' => '{view} {update} {delete}',
                 'buttons' => [
                     'view' => function ($url, $model, $key) {

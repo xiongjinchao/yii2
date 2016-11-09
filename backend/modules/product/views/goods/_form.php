@@ -13,7 +13,7 @@ use common\models\GoodsCategory;
 
 <div class="goods-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -26,15 +26,33 @@ use common\models\GoodsCategory;
     ]);
     ?>
 
+    <?= $form->field($model, 'origin_price')->textInput() ?>
+
+    <?= $form->field($model, 'sale_price')->textInput() ?>
+
+    <div class="form-group field-goods-master_picture">
+        <label class="control-label" for="user-master_picture"><?= $model->getAttributeLabel('master_picture'); ?></label>
+        <?= Html::activeHiddenInput($model,'master_picture',['id'=>null]); ?>
+        <?= Html::activeFileInput($model,'master_picture',['style'=>'display:none']); ?>
+        <div>
+            <a class="btn btn-info upload"><i class="fa fa-image"></i> 选择图片</a>
+        </div>
+        <div class="help-block"></div>
+    </div>
+
     <?= $form->field($model, 'content')->textarea(['rows' => 6, 'class' => 'ueditor']) ?>
+
+    <?= $form->field($model, 'sale_mode')->radioList($model->getSaleModeOptions());?>
+
+    <?= $form->field($model, 'goods_type')->radioList($model->getGoodsTypeOptions());?>
+
+    <?= $form->field($model, 'presell')->radioList($model->getPresellOptions());?>
 
     <?= $form->field($model, 'audit')->radioList($model->getAuditOptions());?>
 
-    <?= $form->field($model, 'hot')->radioList($model->getHotOptions());?>
-
-    <?= $form->field($model, 'recommend')->radioList($model->getRecommendOptions());?>
-
     <?= $form->field($model, 'hit')->textInput() ?>
+
+    <?= $form->field($model, 'sale_url')->textInput(['placeholder'=>'http://']) ?>
 
     <?= $form->field($model, "color")->widget(ColorInput::classname(), [
         'showDefaultPalette'=>false,
@@ -70,6 +88,9 @@ use common\models\GoodsCategory;
         <?php $this->beginBlock('js') ?>
         var ue = UE.getEditor('goods-content',{
             initialFrameHeight:300
+        });
+        $(".upload").click(function(){
+            $("#goods-master_picture").trigger('click');
         });
         <?php $this->endBlock(); ?>
     </script>
