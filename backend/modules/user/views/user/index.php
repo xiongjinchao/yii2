@@ -33,13 +33,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'=>'id',
-                'headerOptions'=>['width'=>'80px'],
+                'headerOptions'=>['width'=>'4%'],
                 'vAlign'=>'middle',
             ],
             [
                 'attribute'=>'picture_id',
                 'value'=>function($model){
-                    return $model->picture_id>0?'<img src="'.$model->picture->url.'" height="60">':'';
+                    return $model->picture_id>0?'<img src="'.$model->picture->url.'" height="50">':'';
                 },
                 'headerOptions'=>['width'=>'80px'],
                 'vAlign'=>'middle',

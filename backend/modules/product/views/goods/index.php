@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'picture_id',
                 'value' => function($model){
-                    return $model->picture_id>0?'<img src="'.$model->picture->url.'" height="60">':'';
+                    return $model->picture_id>0?'<img src="'.$model->picture->url.'" height="50">':'';
                 },
                 'format' => 'raw'
             ],
@@ -88,7 +88,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]);
                         }
                     ];
-                }
+                },
+                'width'=>'10%',
             ],
             [
                 'attribute'=>'color',
@@ -196,15 +197,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
-                'attribute'=>'origin_price',
-                'hAlign'=>'right',
-                'vAlign'=>'middle',
-            ],
-            [
                 'attribute'=>'sale_price',
                 'hAlign'=>'right',
                 'vAlign'=>'middle',
+                'format'=> 'raw',
+                'value' => function($model){
+                    return '<span>'.$model->sale_price.'</span><br/><span style="text-decoration:line-through;color:#999">'.$model->origin_price.'</span>';
+                }
             ],
+            /*
             [
                 'attribute'=>'presell',
                 'filter' => Select2::widget([
@@ -221,6 +222,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->getPresellOptions($model->sale_mode);
                 },
             ],
+            */
             [
                 'attribute'=>'audit',
                 'filter' => Select2::widget([

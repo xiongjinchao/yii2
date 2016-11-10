@@ -1,3 +1,15 @@
+html .main-header .logo{
+	width:180px;
+}
+html .main-sidebar, html .left-side{
+	width:180px;
+}
+html .main-header .navbar{
+	margin-left:180px;
+}
+html .content-wrapper, html .right-side, html .main-footer{
+	margin-left:180px;
+}
 .summary{
     height:24px;
     line-height:24px;

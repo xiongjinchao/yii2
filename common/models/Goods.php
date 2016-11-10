@@ -86,7 +86,7 @@ class Goods extends \yii\db\ActiveRecord
             'sale_price' => '售价',
             'picture_id' => '商品主图',
             'master_picture' => '商品主图',
-            'sale_url' => '外部购买地址',
+            'sale_url' => '购买地址',
             'audit' => '上架状态',
             'color' => '标记颜色',
             'hit' => '点击次数',
@@ -114,8 +114,8 @@ class Goods extends \yii\db\ActiveRecord
     public static function getSaleModeOptions($mode = null)
     {
         $arr = [
-            self::SALE_MODE_APP => '应用内部购买',
-            self::SALE_MODE_OUTSIDE => '连接到外部购买',
+            self::SALE_MODE_APP => '应用内部',
+            self::SALE_MODE_OUTSIDE => '应用外部',
         ];
         if( $mode === null ){
             return $arr;

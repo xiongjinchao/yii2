@@ -174,6 +174,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'width'=>'10%',
             ],
             */
+            /*
             [
                 'label'=>'热门',
                 'attribute'=>'hot',
@@ -190,6 +191,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->hot == $model::HOT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['hot','id'=>$model->id], ['title' => '审核']) ;
                 },
             ],
+            */
+            /*
             [
                 'label'=>'推荐',
                 'attribute'=>'recommend',
@@ -206,6 +209,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->recommend == $model::RECOMMEND_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['recommend','id'=>$model->id], ['title' => '审核']) ;
                 },
             ],
+            */
             [
                 'label'=>'审核',
                 'attribute'=>'audit',
