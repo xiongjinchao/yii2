@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'headerOptions'=>['width'=>'80px'],
                 'vAlign'=>'middle',
+                'filter'=>false,
                 'format'=>'raw',
             ],
             [
@@ -71,10 +72,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'status',
                 'format'=>'raw',
                 'value'=>function($model){
-                    return Html::a($model->status ==$model::STATUS_ACTIVE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['status','id'=>$model->id], ['title' => '状态']) ;
+                    return Html::a($model->status ==$model::STATUS_ACTIVE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['status','id'=>$model->id], ['title' => '状态']) ;
                 },
                 'headerOptions'=>['width'=>'80px'],
                 'vAlign'=>'middle',
+                'hAlign'=>'center',
                 'filter'=>false
             ],
             ['class' => '\kartik\grid\ActionColumn'],

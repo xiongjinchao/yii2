@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             if(isset($model->comments)&&$model->comments!=null){
                 $comments = '';
                 foreach($model->comments as $comment){
-                    $class = $comment->audit == 1?'glyphicon glyphicon-ok':'glyphicon glyphicon-remove';
+                    $class = $comment->audit == 1?'glyphicon glyphicon-ok text-success':'glyphicon glyphicon-remove text-danger';
                     $comments.='<tr><td class="warning">&nbsp;</td><td>'.$comment->id.'</td><td>'.$comment->parent_id.'</td><td>'.$comment->user_id.'</td><td>'.$comment->model_name.'</td><td>'.$comment->model_id.'</td><td>'.date("Y-m-d H:i:s",$comment->created_at).'</td><td>'.date("Y-m-d H:i:s",$comment->updated_at).'</td><td><a title="审核" href="/index.php?r=content%2Fcomment%2Faudit&amp;id='.$comment->id.'"><span class="'.$class.'"></span></a></td><td><a data-pjax="0" aria-label="查看" title="查看" href="/index.php?r=content%2Fcomment%2Fview&amp;id='.$comment->id.'"><span class="glyphicon glyphicon-eye-open"></span></a> <a data-pjax="0" aria-label="更新" title="更新" href="/index.php?r=content%2Fcomment%2Fupdate&amp;id='.$comment->id.'"><span class="glyphicon glyphicon-pencil"></span></a> <a data-pjax="0" data-method="post" data-confirm="您确定要删除此项吗？" aria-label="删除" title="删除" href="/index.php?r=content%2Fcomment%2Fdelete&amp;id='.$comment->id.'"><span class="glyphicon glyphicon-trash"></span></a></td></tr>';
                 }
                 return $comments;
@@ -82,9 +82,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label'=>'审核',
                 'attribute'=>'audit',
+                'hAlign'=>'center',
                 'format'=>'raw',
                 'value'=>function($model){
-                    return Html::a($model->audit == 1?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
+                    return Html::a($model->audit == 1?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
                 },
                 'headerOptions'=>['style'=>'width:5%']
             ],

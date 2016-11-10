@@ -53,15 +53,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'visible',
                 'format'=>'raw',
                 'value'=>function($model){
-                    return Html::a($model->visible == $model::VISIBLE_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['visible','id'=>$model->id], ['title' => '可见']) ;
+                    return Html::a($model->visible == $model::VISIBLE_ENABLE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['visible','id'=>$model->id], ['title' => '可见']) ;
                 },
                 'headerOptions'=>['style'=>'width:5%']
             ],
             [
                 'attribute'=>'audit',
+                'hAlign'=>'center',
                 'format'=>'raw',
                 'value'=>function($model){
-                    return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
+                    return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
                 },
                 'headerOptions'=>['style'=>'width:5%']
             ],

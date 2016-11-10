@@ -108,8 +108,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'pluginOptions' => ['allowClear' => 'true'],
                             ]),
                             'format'=>'raw',
+                            'hAlign'=>'center',
                             'value'=>function($model){
-                                return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok"></span>':'<span class="glyphicon glyphicon-remove"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
+                                return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
                             },
                         ],
                         [
