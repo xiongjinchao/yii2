@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="attribute-value-content" style="width:92%;margin:0 auto;">
-    <h4>属性值管理 <small>Attribute Value<?=$model->attribute_name_id;?></small></h4>
+    <h4>属性值管理 <small>Attribute Value</small></h4>
     <div class="row">
         <div class="col-lg-12">
             <p>
