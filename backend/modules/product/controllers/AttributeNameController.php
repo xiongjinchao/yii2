@@ -18,6 +18,13 @@ use yii\data\ActiveDataProvider;
  */
 class AttributeNameController extends Controller
 {
+    private $auth = [
+        0  => '属性管理',
+        'Index' => '列表',
+        'Create' => '创建',
+        'Audit' => '审核',
+        'Delete' => '删除',
+    ];
     public function behaviors()
     {
         return ArrayHelper::merge([

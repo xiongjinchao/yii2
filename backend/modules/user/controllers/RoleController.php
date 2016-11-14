@@ -15,6 +15,17 @@ use yii\helpers\ArrayHelper;
 class RoleController extends Controller
 {
 
+    private $auth = [
+        0  => '角色管理',
+        'Index' => '列表',
+        'Create' => '创建',
+        'Update' => '更新',
+        'Assignment' => '授权',
+        'AuthInitialize' => '权限索引',
+        'View' => '查看',
+        'Delete' => '删除',
+    ];
+
     public function behaviors()
     {
         return ArrayHelper::merge([

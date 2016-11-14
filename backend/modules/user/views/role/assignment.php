@@ -25,22 +25,22 @@ $this->params['breadcrumbs'][] = $role->name;
                 </span>
             </div>
 
-            <div class="box-body">
+            <div class="box-body" style="padding:0 20px">
                 <div class="role_list row">
                 <?php foreach($dataProvider->models as $key=>$model){?>
-                    <div class="role_item col-md-4">
+                    <div class="role_item col-md-2">
                         <h4 class="role_title">
                             <input type="checkbox" name="roles[]" value="<?=$model['name']?>"/>
-                            <?=$model['name'];?>
+                            <?=$model['description'];?>
                         </h4>
                         <?php foreach($auth->getChildren($model['name']) as $item){?>
                             <div>
                                 <input type="checkbox" class="checkbox_permission" name="permissions[]" value="<?php echo $item->name; ?>" <?php echo $auth->hasChild($role,$auth->getPermission($item->name))?'checked':''; ?> />
-                                <?php echo $item->name; ?>
+                                <?php echo $item->description; ?>
                             </div>
                         <?php }?>
                     </div>
-                    <?php if(($key+1)%3==0 && ($key+1)<$dataProvider->totalCount){?>
+                    <?php if(($key+1)%6==0 && ($key+1)<$dataProvider->totalCount){?>
                         </div><div class="role_list row">
                     <?php }?>
                 <?php }?>

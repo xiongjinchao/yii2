@@ -19,6 +19,18 @@ use yii\helpers\ArrayHelper;
  */
 class AdminController extends Controller
 {
+    private $auth = [
+        0  => '员工管理',
+        'Index' => '列表',
+        'Create' => '创建',
+        'Update' => '更新',
+        'Status' => '状态',
+        'View' => '查看',
+        'Assignment' => '授权',
+        'Reset' => '重置权限',
+        'Delete' => '删除',
+    ];
+
     public function behaviors()
     {
         return ArrayHelper::merge([

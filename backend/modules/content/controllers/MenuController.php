@@ -16,6 +16,19 @@ use yii\db\Exception;
  */
 class MenuController extends Controller
 {
+    private $auth = [
+        0  => '菜单管理',
+        'Index' => '列表',
+        'Create' => '创建',
+        'Update' => '更新',
+        'MoveUp' => '上移',
+        'MoveDown' => '下移',
+        'Audit' => '审核',
+        'Visible' => '可见',
+        'View' => '查看',
+        'Delete' => '删除',
+    ];
+
     public function behaviors()
     {
         return ArrayHelper::merge([

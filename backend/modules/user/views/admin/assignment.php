@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $admin->username;
                 </span>
             </div>
 
-            <div class="box-body">
+            <div class="box-body" style="padding:0 20px;">
                 <div class="role_list row">
                 <?php foreach($dataProvider->models as $key=>$model){?>
                     <div class="role_item col-md-4">

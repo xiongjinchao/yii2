@@ -14,6 +14,16 @@ use yii\filters\VerbFilter;
  */
 class CommentController extends Controller
 {
+    private $auth = [
+        0  => '评论管理',
+        'Index' => '列表',
+        'Create' => '创建',
+        'Update' => '更新',
+        'Audit' => '审核',
+        'View' => '查看',
+        'Delete' => '删除',
+    ];
+
     public function behaviors()
     {
         return [

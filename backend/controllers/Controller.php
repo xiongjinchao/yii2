@@ -96,21 +96,24 @@ class Controller extends \yii\web\Controller
         $name = str_replace('modules/','',$module).str_replace('Controller.php','',$file);
         $role = $auth->getRole($name);
 
+        $controller = new \ReflectionClass('backend\\'.str_replace('/','\\',$module).str_replace('.php','',$file));
+        $properties = $controller->getDefaultProperties();
+
         if($role === null){
             $role = $auth->createRole($name);
-            $role->description = $name;
+            $role->description = isset($properties['auth'][0])?$properties['auth'][0]:$name;
             $role->data = 'system';
             $auth->add($role);
             $auth->addChild($admin, $role);
         }
 
-        $controller = new \ReflectionClass('backend\\'.str_replace('/','\\',$module).str_replace('.php','',$file));
         foreach($controller->getMethods() as $method){
             if($method->class==$controller->name&&strstr($method->name,'action')
                 &&!strstr($method->name,'Ajax')&&$method->name!='actions'){
                 if($auth->getPermission($name.'/'.str_replace('action','',$method->name)) === null){
                     $permission = $auth->createPermission($name.'/'.str_replace('action','',$method->name));
-                    $permission->description = $name.'/'.str_replace('action','',$method->name);
+                    $description = isset($properties['auth'][str_replace('action','',$method->name)])?$properties['auth'][str_replace('action','',$method->name)]:$name.'/'.str_replace('action','',$method->name);
+                    $permission->description = $description;
                     $permission->data = 'system';
                     $auth->add($permission);
 

@@ -16,6 +16,16 @@ use common\helpers\UploadHelper;
  */
 class GoodsController extends Controller
 {
+    private $auth = [
+        0  => '商品管理',
+        'Index' => '列表',
+        'Create' => '创建',
+        'Update' => '更新',
+        'Audit' => '审核',
+        'View' => '查看',
+        'Delete' => '删除',
+    ];
+
     /**
      * @inheritdoc
      */
