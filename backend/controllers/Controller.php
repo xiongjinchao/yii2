@@ -100,25 +100,36 @@ class Controller extends \yii\web\Controller
         $properties = $controller->getDefaultProperties();
 
         if($role === null){
+            //创建角色
             $role = $auth->createRole($name);
             $role->description = isset($properties['auth'][0])?$properties['auth'][0]:$name;
             $role->data = 'system';
             $auth->add($role);
             $auth->addChild($admin, $role);
+        }else{
+            //更新角色描述
+            $role->description = isset($properties['auth'][0])?$properties['auth'][0]:$name;
+            $auth->update($name,$role);
         }
 
         foreach($controller->getMethods() as $method){
             if($method->class==$controller->name&&strstr($method->name,'action')
                 &&!strstr($method->name,'Ajax')&&$method->name!='actions'){
-                if($auth->getPermission($name.'/'.str_replace('action','',$method->name)) === null){
+                $permission = $auth->getPermission($name.'/'.str_replace('action','',$method->name));
+                $description = isset($properties['auth'][str_replace('action','',$method->name)])?trim($role->description,'管理').'-'.$properties['auth'][str_replace('action','',$method->name)]:$name.'/'.str_replace('action','',$method->name);
+                if($permission === null){
+                    //创建权限
                     $permission = $auth->createPermission($name.'/'.str_replace('action','',$method->name));
-                    $description = isset($properties['auth'][str_replace('action','',$method->name)])?$properties['auth'][str_replace('action','',$method->name)]:$name.'/'.str_replace('action','',$method->name);
-                    $permission->description = trim($role->description,'管理').'-'.$description;
+                    $permission->description = $description;
                     $permission->data = 'system';
                     $auth->add($permission);
 
                     $auth->addChild($superAdmin, $permission);
                     $auth->addChild($role, $permission);
+                }else{
+                    //更新权限描述
+                    $permission->description = $description;
+                    $auth->update($name.'/'.str_replace('action','',$method->name),$permission);
                 }
             }
         }
