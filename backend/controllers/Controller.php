@@ -113,7 +113,7 @@ class Controller extends \yii\web\Controller
                 if($auth->getPermission($name.'/'.str_replace('action','',$method->name)) === null){
                     $permission = $auth->createPermission($name.'/'.str_replace('action','',$method->name));
                     $description = isset($properties['auth'][str_replace('action','',$method->name)])?$properties['auth'][str_replace('action','',$method->name)]:$name.'/'.str_replace('action','',$method->name);
-                    $permission->description = $description;
+                    $permission->description = trim($role->description,'管理').'-'.$description;
                     $permission->data = 'system';
                     $auth->add($permission);
 

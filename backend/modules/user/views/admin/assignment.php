@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $admin->username;
                             <?=$model['name'];?>
                         </h5>
                         <?php foreach($auth->getChildren($model['name']) as $item){?>
-                            <div><?php echo $item->type == \yii\rbac\Item::TYPE_ROLE?'[角色]':'[权限]';?><?php echo $item->name; ?></div>
+                            <div><?php echo $item->type == \yii\rbac\Item::TYPE_ROLE?'[角色]':'[权限]';?><?php echo $item->description; ?></div>
                         <?php }?>
                     </div>
                     <?php if(($key+1)%3==0 && ($key+1)<$dataProvider->totalCount){?>
