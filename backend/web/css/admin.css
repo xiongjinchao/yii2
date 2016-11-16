@@ -74,6 +74,9 @@ html .badge{
 .selected-picture{
 	margin:20px 0 0 0;
 }
-.selected-picture img{
+html .selected-picture img{
 	margin-right:20px;
+}
+html .modal-content{
+	border-radius: 4px;
 }

@@ -36,7 +36,7 @@
     margin-top:20px;
     padding:0 10px 10px 10px;
     border-radius:4px;
-    min-height:96px;
+    min-height:130px;
     background:url(./images/bg.png);
 }
 .picture-wrapper{
@@ -44,9 +44,10 @@
     cursor:pointer;
 }
 .picture-list{
-    padding:10px 10px 0 10px;
-    border-radius:4px;
-    background:url(./images/bg.png);
+    padding:10px 0 0 0;
+}
+.text-center .pagination {
+    margin-bottom:0px;
 }
 .picture_choose_icon{
     position:absolute;
@@ -58,7 +59,7 @@
 .file-item {
     float: left;
     position: relative;
-    margin:10px 30px 0 0;
+    margin:10px 36px 0 0;
     padding: 4px;
 }
 .file-item:nth-child(4n+0){

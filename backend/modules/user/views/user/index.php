@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute'=>'picture_id',
                 'value'=>function($model){
-                    return isset($model->picture)?Html::img('http://'.Yii::$app->params['domain']['image'].$model->picture->path,['height'=>'50']):'';
+                    return isset($model->picture)?Html::img('http://'.Yii::$app->params['domain']['image'].$model->picture->path,['class'=>'img-responsive img-thumbnail','width'=>'60','height'=>'60']):'';
                 },
                 'headerOptions'=>['width'=>'80px'],
                 'vAlign'=>'middle',

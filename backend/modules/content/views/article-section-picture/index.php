@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = '更新';
                         [
                             'attribute'=>'picture_id',
                             'value'=>function($model){
-                                return isset($model->picture)?Html::img('http://'.Yii::$app->params['domain']['image'].$model->picture->path,['height'=>'50']):'';
+                                return isset($model->picture)?Html::img('http://'.Yii::$app->params['domain']['image'].$model->picture->path,['class'=>'img-responsive img-thumbnail','width'=>'60','height'=>'60']):'';
                             },
                             'format'=>'raw',
                         ],
