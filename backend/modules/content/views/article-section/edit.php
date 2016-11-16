@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = '更新';
                                             if($pictures!=null){
                                                 foreach($pictures as $k=>$picture){
                                                     echo'<div class="file-item thumbnail upload-state-done">';
-                                                    echo'<div class="img-thumb"><img src="'.$picture->picture->url.'"></div>';
+                                                    echo'<div class="img-thumb"><img src="http://'.Yii::$app->params['domain']['image'].$picture->picture->path.'"></div>';
                                                     echo'<div class="info"><span class="cancel"></span></div>';
                                                     echo'<input type="hidden" class="section_picture_id" value="'.$picture->id.'" name="ArticleSection['.$key.'][ArticleSectionPicture]['.$k.'][id]">';
                                                     echo'<input type="text" class="picture_title form-control" value="'.$picture->picture_title.'" placeholder="标题" name="ArticleSection['.$key.'][ArticleSectionPicture]['.$k.'][picture_title]">';

@@ -41,12 +41,10 @@ class UploadHelper
             $path.='/'.$image->name;
             if($image->saveAs(Yii::$app->params['uploads'].$path,true)){
                 $info = getimagesize(Yii::$app->params['uploads'].$path);
-                $url = 'http://'.Yii::$app->params['domain']['image'].$path;
 
                 $picture = new Picture;
                 $picture->name = $image->name;
                 $picture->category = $category;
-                $picture->url = $url;
                 $picture->width = $info['0'];
                 $picture->height = $info['1'];
                 $picture->ratio = sprintf("%.2f",$info['0']/$info['1']);

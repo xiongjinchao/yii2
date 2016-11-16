@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'picture_id',
                 'value' => function($model){
-                    return $model->picture_id>0?'<img src="'.$model->picture->url.'" height="50">':'';
+                    return isset($model->picture)?Html::img('http://'.Yii::$app->params['domain']['image'].$model->picture->path,['height'=>'50']):'';
                 },
                 'format' => 'raw'
             ],

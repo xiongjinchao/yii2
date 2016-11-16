@@ -11,7 +11,6 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $id
  * @property string $name
  * @property integer $category
- * @property string $url
  * @property integer $width
  * @property integer $height
  * @property string $type
@@ -44,11 +43,11 @@ class Picture extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'url', 'type', 'path'], 'required'],
+            [['name', 'type', 'path'], 'required'],
             [['width', 'height', 'file_size', 'status', 'source', 'user_id', 'created_at'], 'integer'],
             [['ratio'], 'number'],
             [['name', 'category', 'type'], 'string', 'max' => 50],
-            [['url', 'path'], 'string', 'max' => 512]
+            [['path'], 'string', 'max' => 512]
         ];
     }
 
@@ -61,7 +60,6 @@ class Picture extends \yii\db\ActiveRecord
             'id' => '图片编号',
             'name' => '图片名称',
             'category' => '图片分类',
-            'url' => '链接',
             'width' => '宽度',
             'height' => '高度',
             'type' => '图片类型',

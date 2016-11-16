@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'sale_price',
                     [
                         'attribute' => 'picture_id',
-                        'value' => $model->picture_id>0?'<img src="'.$model->picture->url.'" height="100">':'',
+                        'value' => $model->picture_id>0?'<img src="http://'.Yii::$app->params['domain']['image'].$model->picture->path.'" height="100">':'',
                         'format' => 'raw',
                     ],
                     'content:ntext',
