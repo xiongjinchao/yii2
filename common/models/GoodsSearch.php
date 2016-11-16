@@ -18,7 +18,7 @@ class GoodsSearch extends Goods
     public function rules()
     {
         return [
-            [['id', 'category_id', 'audit', 'sale_mode', 'goods_type',  'presell', 'master_picture', 'hit', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'category_id', 'audit', 'sale_mode', 'goods_type',  'presell', 'picture_id', 'hit', 'created_at', 'updated_at'], 'integer'],
             [['name', 'color', 'content', 'origin_price', 'sale_price', 'sale_url', 'seo_title', 'seo_description', 'seo_keyword'], 'safe'],
         ];
     }

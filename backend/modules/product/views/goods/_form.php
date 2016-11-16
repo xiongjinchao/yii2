@@ -5,6 +5,8 @@ use yii\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use kartik\widgets\ColorInput;
 use common\models\GoodsCategory;
+use yii\helpers\Url;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Goods */
@@ -13,7 +15,7 @@ use common\models\GoodsCategory;
 
 <div class="goods-form">
 
-    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -30,12 +32,22 @@ use common\models\GoodsCategory;
 
     <?= $form->field($model, 'sale_price')->textInput() ?>
 
-    <div class="form-group field-goods-master_picture">
-        <label class="control-label" for="user-master_picture"><?= $model->getAttributeLabel('master_picture'); ?></label>
-        <?= Html::activeHiddenInput($model,'master_picture',['id'=>null]); ?>
-        <?= Html::activeFileInput($model,'master_picture',['style'=>'display:none']); ?>
+    <div class="form-group field-goods-picture_id">
+        <label class="control-label" for="goods-picture_id"><?= $model->getAttributeLabel('picture_id'); ?></label>
         <div>
-            <a class="btn btn-info upload"><i class="fa fa-image"></i> 选择图片</a>
+            <?= Html::activeInput('hidden',$model,'picture_id'); ?>
+            <?php Modal::begin([
+                'toggleButton' => ['label' => '<i class="fa fa-image"></i> 上传图片', 'class' => 'btn btn-info', 'id' => 'uploader','data-url'=> Url::to(['/uploader/modal','category'=>'goods','max'=>1])],
+                'header' => '<h4><i class="fa fa-image"></i> 上传图片</h4>',
+                'id' => 'uploader-modal',
+                'headerOptions' => ['class'=>'modal-title'],
+                'footer' => '<button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-undo"></i> 取消</button> <button type="button" class="btn btn-primary" id="modal-submit"><i class="fa fa-save"></i> 确认</button>',
+            ]);
+            Modal::end();
+            ?>
+        </div>
+        <div class="selected-picture" id="selected-picture">
+            <?=isset($model->picture)?Html::img('http://'.Yii::$app->params['domain']['image'].$model->picture->path,['class'=>'img-responsive img-thumbnail','width'=>100,'height'=>100]):'';?>
         </div>
         <div class="help-block"></div>
     </div>
@@ -89,8 +101,35 @@ use common\models\GoodsCategory;
         var ue = UE.getEditor('goods-content',{
             initialFrameHeight:300
         });
-        $(".upload").click(function(){
-            $("#goods-master_picture").trigger('click');
+        $("#uploader").click(function(){
+            $("#uploader-modal .modal-body").load($(this).data('url'));
+        });
+        $("#modal-submit").click(function(){
+            if($("#uploader-modal .uploader-list .file-item").length == 0){
+                $(".alert").remove();
+                $(".uploader-modal").prepend( '<div class="alert-warning callout alert fade in">'
+                +'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'
+                +'<i class="icon fa fa-ban"></i> 请上传图片'
+                +'</div>');
+                return false;
+            }else if($("#uploader-modal .uploader-list .file-item").length > $("#max").val()){
+                $(".alert").remove();
+                $(".uploader-modal").prepend( '<div class="alert-warning callout alert fade in">'
+                +'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'
+                +'<i class="icon fa fa-ban"></i> 最多允许使用 '+$("#max").val()+' 张图片'
+                +'</div>');
+                return false;
+            }
+
+            $("#selected-picture").empty();
+            $("#goods-picture_id").val('');
+            var picture_id = [];
+            $("#uploader-modal .uploader-list .file-item").each(function(i,item){
+                picture_id.push($(item).find(".picture_id").val());
+                $("#selected-picture").append('<img class="img-responsive img-thumbnail" src="'+$(item).find("img").attr("src")+'" width="100" height="100">');
+            });
+            $("#goods-picture_id").val(picture_id.join(','));
+            $("#uploader-modal").modal('hide');
         });
         <?php $this->endBlock(); ?>
     </script>

@@ -71,3 +71,9 @@ html .kv-editable-link{
 html .badge{
 	min-height:14px;
 }
+.selected-picture{
+	margin:20px 0 0 0;
+}
+.selected-picture img{
+	margin-right:20px;
+}

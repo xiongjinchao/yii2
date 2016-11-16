@@ -12,7 +12,7 @@ use yii\helpers\Url;
 
 <div class="admin-form">
 
-    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
@@ -22,27 +22,22 @@ use yii\helpers\Url;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <div class="form-group field-user-avatar">
-        <label class="control-label" for="user-avatar"><?= $model->getAttributeLabel('avatar'); ?></label>
-        <?= Html::activeFileInput($model,'avatar',['style'=>'display:none']); ?>
+    <div class="form-group field-user-picture_id">
+        <label class="control-label" for="user-avatar"><?= $model->getAttributeLabel('picture_id'); ?></label>
         <div>
-            <a class="btn btn-info upload"><i class="fa fa-image"></i> 选择图片</a>
-        </div>
-        <div class="help-block"></div>
-    </div>
-
-    <div class="form-group field-user-avatar">
-        <label class="control-label" for="user-avatar"><?= $model->getAttributeLabel('avatar'); ?></label>
-        <div>
+            <?= Html::activeInput('hidden',$model,'picture_id'); ?>
             <?php Modal::begin([
-                'toggleButton' => ['label' => '<i class="fa fa-image"></i> 上传图片', 'class' => 'btn btn-info', 'id' => 'uploader','data-url'=> Url::to(['/uploader/modal','category'=>'user_face','max'=>20])],
+                'toggleButton' => ['label' => '<i class="fa fa-image"></i> 上传图片', 'class' => 'btn btn-info', 'id' => 'uploader','data-url'=> Url::to(['/uploader/modal','category'=>'user_face','max'=>1])],
                 'header' => '<h4><i class="fa fa-image"></i> 上传图片</h4>',
                 'id' => 'uploader-modal',
                 'headerOptions' => ['class'=>'modal-title'],
-                'footer' => '<button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-undo"></i> 取消</button> <button type="button" class="btn btn-primary" id="create-attribute-name"><i class="fa fa-save"></i> 确认</button>',
+                'footer' => '<button type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-undo"></i> 取消</button> <button type="button" class="btn btn-primary" id="modal-submit"><i class="fa fa-save"></i> 确认</button>',
             ]);
             Modal::end();
             ?>
+        </div>
+        <div class="selected-picture" id="selected-picture">
+            <?=isset($model->picture)?Html::img('http://'.Yii::$app->params['domain']['image'].$model->picture->path,['class'=>'img-responsive img-thumbnail','width'=>100,'height'=>100]):'';?>
         </div>
         <div class="help-block"></div>
     </div>
@@ -59,11 +54,35 @@ use yii\helpers\Url;
 
     <script>
         <?php $this->beginBlock('js') ?>
-        $(".upload").click(function(){
-            $("#user-avatar").trigger('click');
-        });
         $("#uploader").click(function(){
             $("#uploader-modal .modal-body").load($(this).data('url'));
+        });
+        $("#modal-submit").click(function(){
+            if($("#uploader-modal .uploader-list .file-item").length == 0){
+                $(".alert").remove();
+                $(".uploader-modal").prepend( '<div class="alert-warning callout alert fade in">'
+                +'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'
+                +'<i class="icon fa fa-ban"></i> 请上传图片'
+                +'</div>');
+                return false;
+            }else if($("#uploader-modal .uploader-list .file-item").length > $("#max").val()){
+                $(".alert").remove();
+                $(".uploader-modal").prepend( '<div class="alert-warning callout alert fade in">'
+                +'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'
+                +'<i class="icon fa fa-ban"></i> 最多允许使用 '+$("#max").val()+' 张图片'
+                +'</div>');
+                return false;
+            }
+
+            $("#selected-picture").empty();
+            $("#user-picture_id").val('');
+            var picture_id = [];
+            $("#uploader-modal .uploader-list .file-item").each(function(i,item){
+                picture_id.push($(item).find(".picture_id").val());
+                $("#selected-picture").append('<img class="img-responsive img-thumbnail" src="'+$(item).find("img").attr("src")+'" width="100" height="100">');
+            });
+            $("#user-picture_id").val(picture_id.join(','));
+            $("#uploader-modal").modal('hide');
         });
         <?php $this->endBlock(); ?>
     </script>

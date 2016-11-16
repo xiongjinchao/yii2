@@ -92,14 +92,6 @@ class GoodsController extends Controller
         $model->loadDefaultValues();
 
         if ($model->load(Yii::$app->request->post())) {
-            try {
-                $picture = UploadHelper::upload($model, 'master_picture', null, 'goods');
-            }catch (\Exception $e){
-                $picture = '';
-            }
-            if($picture!=''){
-                $model->picture_id = $picture->id;
-            }
             if($model->save()){
                 Yii::$app->session->setFlash('info','商品创建成功！');
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -123,14 +115,6 @@ class GoodsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            try {
-                $picture = UploadHelper::upload($model, 'master_picture', null, 'goods');
-            }catch (\Exception $e){
-                $picture = '';
-            }
-            if($picture!=''){
-                $model->picture_id = $picture->id;
-            }
             if($model->save()){
                 Yii::$app->session->setFlash('info','商品更新成功！');
                 return $this->redirect(['view', 'id' => $model->id]);

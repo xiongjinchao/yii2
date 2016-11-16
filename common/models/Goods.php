@@ -37,8 +37,6 @@ class Goods extends \yii\db\ActiveRecord
     const PRESELL_DISABLE = 0;
     const PRESELL_ENABLE = 1;
 
-    public $master_picture;
-
     /**
      * @inheritdoc
      */
@@ -65,7 +63,6 @@ class Goods extends \yii\db\ActiveRecord
             [['color', 'content', 'sale_url'], 'string'],
             [['origin_price','sale_price'], 'double'],
             [['name', 'seo_title', 'seo_description', 'seo_keyword'], 'string', 'max' => 255],
-            [['master_picture'], 'file'],
         ];
     }
 
@@ -85,7 +82,6 @@ class Goods extends \yii\db\ActiveRecord
             'origin_price' => '原价',
             'sale_price' => '售价',
             'picture_id' => '商品主图',
-            'master_picture' => '商品主图',
             'sale_url' => '购买地址',
             'audit' => '上架状态',
             'color' => '标记颜色',

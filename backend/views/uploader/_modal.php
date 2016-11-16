@@ -24,8 +24,6 @@ dmstr\web\AdminLteAsset::register($this);
                 <div class="uploader" style="display:none">
                     <label class="control-label"><div id="file-picker"><i class="fa fa-image"></i> 选择图片</div></label>
                 </div>
-                <div class="uploader-list">
-                </div>
 
             </div>
             <div class="tab-pane" id="select-picture">
@@ -49,15 +47,18 @@ dmstr\web\AdminLteAsset::register($this);
                 </div>
             </div>
             <div class="tab-pane" id="remote-picture">
-                <div class="form-group field-remote-picture">
-                    <label class="control-label" for="upload-remote-picture">远程地址</label>
-                    <?= Html::Input('text','remote-picture','',['class' => 'form-control','placeholder' => 'http://']); ?>
+                <div class="form-group">
+                    <label class="control-label">远程地址</label>
+                    <?= Html::Input('text','remote-url','',['class' => 'form-control','placeholder' => 'http://']); ?>
                     <div class="help-block"></div>
                 </div>
+                <div class="text-center"><?=Html::Button('<i class="fa fa-cloud-download"></i> 获取图片', ['class'=>'btn btn-success', 'id'=>'fetch-picture'])?></div>
             </div>
         </div>
     </div>
-    <input id="max" type="hidden" name="max" value="<?=$max?>">
+    <input type="hidden" id="max" value="<?=$max;?>">
+    <div class="uploader-list">
+    </div>
 </div>
 
 <?php $this->registerCssFile('@web/plug-in/webuploader/webuploader.css');?>
@@ -69,19 +70,52 @@ dmstr\web\AdminLteAsset::register($this);
     $(function(){
         //选择图片库中的图片
         $("#select-picture").on('click', ".picture-wrapper", function(){
-            var max = $("#max").val();
-            if($(this).find("i:visible").length == 1){
-                $(this).find("i").hide();
-            }else if($("#select-picture").find("i:visible").length < max) {
-                $(this).find("i").show();
+            var src = $(this).find("img").attr("src");
+            var picture_id = $(this).find("img").data("picture_id");
+            if($(".uploader-list .picture_id[value='"+picture_id+"']").length >0){
+                return false;
             }else{
-                alert("最多只能选择"+max+"张图片");
+                var key = $(".uploader-list").find(".file-item").length+1;
+                $(".uploader-list").append('<div id="WU_FILE_'+(key+1)+'" class="file-item thumbnail upload-state-done">'
+                +'<div class="img-thumb"><img src="'+src+'" width="100" height="100"></div><div class="info"><span class="cancel"></span></div>'
+                +'<input class="picture_id" name="Picture['+key+'][id]" value="'+picture_id+'" type="hidden">'
+                +'<input class="sort" name="Picture['+key+'][sort]" value="'+(key+1)+'" type="hidden"></div>');
+                $(this).find("i").show();
+                $(".alert").remove();
             }
         });
         //分页
         $("#select-picture").on('click', ".pagination a", function(e){
             e.preventDefault();
             $("#select-picture").load($(this).attr("href")+" #select-picture");
+        });
+
+        //获取远程图像
+        $("#fetch-picture").click(function(){
+            var remote_url = $("input[name='remote-url']").val();
+            if(remote_url == ''){
+                return false;
+            }
+            $.post("<?= Yii::$app->urlManager->createUrl(['uploader/remote','category'=>$category]);?>",{remote_url:remote_url},function(json){
+                if(json.status == 'success'){
+                    var src = json.url;
+                    var picture_id = json.picture_id;
+                    var key = $(".uploader-list").find(".file-item").length+1;
+                    $(".uploader-list").append('<div id="WU_FILE_'+(key+1)+'" class="file-item thumbnail upload-state-done">'
+                    +'<div class="img-thumb"><img src="'+src+'" width="100" height="100"></div><div class="info"><span class="cancel"></span></div>'
+                    +'<input class="picture_id" name="Picture['+key+'][id]" value="'+picture_id+'" type="hidden">'
+                    +'<input class="sort" name="Picture['+key+'][sort]" value="'+(key+1)+'" type="hidden"></div>');
+
+                    $("input[name='remote-url']").val("");
+                    $(".alert").remove();
+                }else{
+                    $(".alert").remove();
+                    $(".uploader-modal").prepend( '<div class="alert-danger callout alert fade in">'
+                    +'<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>'
+                    +'<i class="icon fa fa-ban"></i> 获取图片信息失败'
+                    +'</div>');
+                }
+            },'json');
         });
 
         //WebUpload
@@ -118,7 +152,6 @@ dmstr\web\AdminLteAsset::register($this);
             }, thumbnailWidth, thumbnailHeight );
             $cancel.on( 'click', 'span', function() {
                 uploader.removeFile( file,true);
-                //$li.off().find('.info').off().end().remove();
             })
         });
 
@@ -136,10 +169,9 @@ dmstr\web\AdminLteAsset::register($this);
             var key = $li.parents('.uploader-list').find('.file-item').index($li);
             $li.addClass('upload-state-done');
             if(response.status == 'success'){
-                //$li.append('<input type="text" class="picture_title form-control" name="Picture['+key+'][picture_title]" placeholder="标题" value="">');
-                $li.append('<input type="hidden" class="picture_id" name="Picture['+key+'][id]" value="0">');
-                $li.append('<input type="hidden" class="picture_id" name="Picture['+key+'][picture_id]" value="'+response.picture_id+'">');
+                $li.append('<input type="hidden" class="picture_id" name="Picture['+key+'][id]" value="'+response.picture_id+'">');
                 $li.append('<input type="hidden" class="sort" name="Picture['+key+'][sort]" value="0">');
+                $(".alert").remove();
             }
         });
 
@@ -169,9 +201,7 @@ dmstr\web\AdminLteAsset::register($this);
         $(".uploader-list").on("click",".cancel",function(){
             var picture_id = $(this).parents('.file-item').find('.picture_id').val();
             var uploader_list = $(this).parents('.uploader-list');
-            if(picture_id>0){
-                $.post('<?= Yii::$app->urlManager->createUrl(['content/recommendation-picture/delete']);?>', { id:picture_id });
-            }
+            $(".img-thumbnail[data-picture_id='"+picture_id+"']").next("i").hide();
             $(this).parents('.file-item').remove();
             var length = uploader_list.find('.file-item').length;
             uploader_list.find('.file-item').each(function( index, item ){

@@ -25,7 +25,6 @@ class User extends \yii\db\ActiveRecord
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
     public $password;
-    public $avatar;
 
     /**
      * @inheritdoc
@@ -55,7 +54,6 @@ class User extends \yii\db\ActiveRecord
             [['email','mobile','username'], 'unique'],
             [['auth_key'], 'string', 'max' => 32],
             [['mobile'], 'string', 'max' => 20],
-            [['avatar'], 'file'],
         ];
     }
 
@@ -74,7 +72,6 @@ class User extends \yii\db\ActiveRecord
             'email' => '邮箱',
             'mobile' => '手机',
             'picture_id' => '头像',
-            'avatar' => '头像',
             'status' => '状态',
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
