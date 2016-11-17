@@ -12,6 +12,9 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'request' => [
+            'csrfParam' => '_csrf-frontend',
+        ],
         'urlManager'=>array(
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
@@ -48,6 +51,10 @@ return [
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
+            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+        ],
+        'session' => [
+            'name' => 'advanced-frontend',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
