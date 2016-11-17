@@ -6,53 +6,54 @@ $this->title = 'My Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
 
     <div class="body-content">
         <!--code-->
         <div class="row">
-            <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-aqua">
-                    <div class="inner">
-                        <h3>150</h3>
+            <div class="col-lg-6 col-xs-6">
 
-                        <p>今日订单</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-shopping-cart"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        订单列表 <i class="fa fa-arrow-circle-right"></i>
-                    </a>
+                <div class="jumbotron">
+                    <h1>Congratulations!</h1>
+
+                    <p class="lead">You have successfully created your Yii-powered application.</p>
+
+                    <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
                 </div>
+
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>150</h3>
+
+                            <p>今日订单</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-shopping-cart"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
+                            订单列表 <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>30</h3>
+                            <p>今日用户</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
+                            用户列表 <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
             </div>
             <!-- ./col -->
             <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-green">
-                    <div class="inner">
-                        <h3>30</h3>
 
-                        <p>今日用户</p>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-user"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        用户列表 <i class="fa fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
                         <h3>10</h3>
@@ -66,9 +67,7 @@ $this->title = 'My Application';
                         查看文章 <i class="fa fa-arrow-circle-right"></i>
                     </a>
                 </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
+
                 <!-- small box -->
                 <div class="small-box bg-red">
                     <div class="inner">
