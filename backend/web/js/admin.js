@@ -1,4 +1,5 @@
 $(function(){
+	//角色权限全选
 	$(".role_title :checkbox").click(function(){
 
 		if($(this).prop('checked')){
