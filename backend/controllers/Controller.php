@@ -8,10 +8,11 @@ use yii\filters\AccessControl;
 class Controller extends \yii\web\Controller
 {
     public $menuItems;
-    public $layout = '@app/views/layouts/adminlte/main';
+    public $layout = '';
 
     public function init()
     {
+        $this->layout = yii::$app->params['layout'];
         parent::init();
         //$this->authInitialize();
     }

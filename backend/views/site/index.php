@@ -203,6 +203,7 @@ $this->title = 'My Application';
 </div>
 <?php $this->registerJsFile('@web/plug-in/chartjs/Chart.min.js',['position' => \yii\web\View::POS_HEAD]);?>
 <script>
+    <?php $this->beginBlock('js'); ?>
     $(function () {
         /* ChartJS
          * -------
@@ -417,4 +418,6 @@ $this->title = 'My Application';
         barChartOptions.datasetFill = false;
         barChart.Bar(barChartData, barChartOptions);
     });
+    <?php $this->endBlock(); ?>
 </script>
+<?php $this->registerJs($this->blocks['js'],\yii\web\View::POS_END);

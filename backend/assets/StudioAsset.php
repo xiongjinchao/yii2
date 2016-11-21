@@ -23,5 +23,6 @@ class StudioAsset extends AssetBundle
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'rmrevin\yii\fontawesome\AssetBundle',
+        'dmstr\web\AdminLteAsset',
     ];
 }

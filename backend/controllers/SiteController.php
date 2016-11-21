@@ -56,6 +56,7 @@ class SiteController extends \yii\web\Controller
 
     public function actionIndex()
     {
+        $this->layout = yii::$app->params['layout'];
         $controller = Yii::$app->request->get('controller');
         $keyword = Yii::$app->request->get('keyword');
         if($controller) {

@@ -5,6 +5,7 @@ use common\widgets\Alert;
 ?>
 <div class="content-wrapper">
     <section class="content-header">
+        <div class="header-help pull-right"><i class="fa  fa-question-circle"></i> 帮助和服务</div>
         <?=Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]);?>

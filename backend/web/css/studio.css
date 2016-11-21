@@ -77,7 +77,9 @@ ul li {
     background:#ffffff;
     height:100%;
     left:70px;
+    top:0;
     border-right:1px solid #e5e5e5;
+    display:none;
 }
 .sub-menu-header {
     height: 50px;
@@ -125,16 +127,18 @@ ul li {
     left:70px;
     width:100%;
     position:relative;
+    background:none;
+    margin:0;
+    z-index:5;
 }
 .content-header{
-    width:100%;
     height:50px;
     line-height:50px;
     border-bottom:1px solid #e5e5e5;
-    padding-left:16px;
+    padding:0 0 0 16px;
     background:#ffffff;
     position: fixed;
-    z-index:5;
+    z-index:1000;
     top:0;
 }
 .content{
@@ -145,16 +149,19 @@ ul li {
     padding:20px;
 }
 /*头部*/
-.breadcrumb {
-    padding: 0;
+.content-header .breadcrumb {
+    padding: 0 16px 0 0;
     margin-bottom:0;
     list-style: none;
     background: none;
     border-radius: 0;
+    position:static;
 }
+
 /*底部*/
 .footer{
     height:45px;
+    font-size:16px;
     bottom:0;
     text-align:center;
     background:#f2f2f2;
@@ -190,8 +197,59 @@ ul li {
     line-height:50px;
     padding-left:16px;
     border-bottom:1px solid #e5e5e5;
+    cursor:pointer;
 }
 .right-content-header i{
     color:#dadada;
     font-size:16px;
+    cursor:pointer;
+}
+.header-help{
+    padding:0 16px;
+    text-align:center;
+    border-left:1px solid #e5e5e5;
+    cursor:pointer;
+    display:none
+}
+.header-help i{
+    color:#dadada;
+}
+
+html .select2-container--krajee .select2-selection{
+    border-radius: 0;
+}
+html .select2-container--krajee .select2-search--dropdown .select2-search__field{
+    border-radius: 2px;
+}
+html .select2-container .select2-selection--single .select2-selection__rendered{
+    margin-top:0;
+}
+html .select2-container .select2-selection--single .select2-selection__clear{
+    margin-top:-3px;
+}
+html .select2-dropdown .select2-search__field:focus, .select2-search--inline .select2-search__field:focus {
+    border:none;
+}
+
+html .input-group .input-group-addon{
+    background-color:#eee
+}
+html .kv-editable-link{
+    border:none;
+    color:#333333;
+}
+html .badge{
+    min-height:14px;
+}
+.selected-picture{
+    margin:20px 0 0 0;
+}
+html .selected-picture img{
+    margin-right:20px;
+}
+html .modal-content{
+    border-radius: 4px;
+}
+html .modal-backdrop{
+    position: relative;
 }
