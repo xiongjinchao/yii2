@@ -4,12 +4,11 @@ namespace backend\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use backend\models\LoginForm;
-use yii\filters\VerbFilter;
 
 /**
  * Site controller
  */
-class SiteController extends \yii\web\Controller
+class SiteController extends Controller
 {
     /**
      * @inheritdoc
@@ -56,7 +55,6 @@ class SiteController extends \yii\web\Controller
 
     public function actionIndex()
     {
-        $this->layout = yii::$app->params['layout'];
         $controller = Yii::$app->request->get('controller');
         $keyword = Yii::$app->request->get('keyword');
         if($controller) {
