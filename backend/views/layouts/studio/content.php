@@ -3,7 +3,7 @@
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 ?>
-<div class="content-wrapper">
+<div class="studio-content-wrapper">
     <section class="content-header">
         <div class="header-help pull-right"><i class="fa  fa-question-circle"></i> 帮助和服务</div>
         <?=Breadcrumbs::widget([

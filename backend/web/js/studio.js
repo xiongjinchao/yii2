@@ -15,11 +15,10 @@ function init() {
             $(".sidebar-sub-wrapper").hide();
         }
     }
-    $(".content-wrapper").css({'min-height': 650+'px'});
     var right_width = $(".right-wrapper:visible").length == 1 ? 180 : 0;
     var content_left = $(".sidebar-sub-wrapper:visible").length == 1? 160 : 70;
     var content_width = $(window).width() - right_width - content_left;
-    $(".content-wrapper").css({width: content_width + 'px', left: content_left});
+    $(".studio-content-wrapper").css({width: content_width + 'px', left: content_left});
     $(".content-header").css({width: content_width + 'px'});
 }
 
