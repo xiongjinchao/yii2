@@ -30,6 +30,14 @@ $(function(){
         $(this).addClass("active");
         init();
     });
+
+    $("body").on("shown.bs.modal", ".modal", function(){
+        init();
+    });
+    $("body").on("hidden.bs.modal", ".modal", function(){
+        init();
+    });
+
     $(".right-content-header").click(function(){
         $(this).parent().hide();
         $(".content-header .header-help").show();
