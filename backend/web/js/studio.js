@@ -20,6 +20,7 @@ function init() {
     var content_width = $(window).width() - right_width - content_left;
     $(".studio-content-wrapper").css({width: content_width + 'px', left: content_left});
     $(".content-header").css({width: content_width + 'px'});
+    $(".right-wrapper").css({left:(content_left+content_width)});
 }
 
 $(function(){
@@ -39,12 +40,6 @@ $(function(){
         $(".right-content-header").parent().show();
         init();
     });
-    $("body").on("shown.bs.modal", ".modal", function(){
-        init();
-    });
-    $("body").on("hidden.bs.modal", ".modal", function(){
-        init();
-    })
 });
 $(window).resize(function(){
     init();

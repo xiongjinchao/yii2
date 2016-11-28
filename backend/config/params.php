@@ -1,5 +1,5 @@
 <?php
 return [
     'adminEmail' => 'admin@example.com',
-    'layout' => '@app/views/layouts/adminlte/main',
+    'layout' => '@app/views/layouts/studio/main',
 ];
