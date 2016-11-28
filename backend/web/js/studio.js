@@ -15,12 +15,18 @@ function init() {
             $(".sidebar-sub-wrapper").hide();
         }
     }
+    setCss();
+}
+
+function setCss()
+{
+    $("body").css({padding:0});
     var right_width = $(".right-wrapper:visible").length == 1 ? 180 : 0;
     var content_left = $(".sidebar-sub-wrapper:visible").length == 1? 160 : 70;
     var content_width = $(window).width() - right_width - content_left;
     $(".studio-content-wrapper").css({width: content_width + 'px', left: content_left});
     $(".content-header").css({width: content_width + 'px'});
-    $(".right-wrapper").css({left:(content_left+content_width)});
+    $(".right-wrapper").css({left:(content_left + content_width)});
 }
 
 $(function(){
@@ -32,21 +38,21 @@ $(function(){
     });
 
     $("body").on("shown.bs.modal", ".modal", function(){
-        init();
+        setCss();
     });
     $("body").on("hidden.bs.modal", ".modal", function(){
-        init();
+        setCss();
     });
 
     $(".right-content-header").click(function(){
         $(this).parent().hide();
         $(".content-header .header-help").show();
-        init();
+        setCss();
     });
     $(".content-header .header-help").click(function(){
         $(this).hide();
         $(".right-content-header").parent().show();
-        init();
+        setCss();
     });
 });
 $(window).resize(function(){
