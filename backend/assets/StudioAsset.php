@@ -23,5 +23,6 @@ class StudioAsset extends AssetBundle
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
         'dmstr\web\AdminLteAsset',
+        'yii\jui\JuiAsset',
     ];
 }

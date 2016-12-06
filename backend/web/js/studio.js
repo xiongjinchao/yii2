@@ -37,13 +37,6 @@ $(function(){
         init();
     });
 
-    $("body").on("shown.bs.modal", ".modal", function(){
-        setCss();
-    });
-    $("body").on("hidden.bs.modal", ".modal", function(){
-        setCss();
-    });
-
     $(".right-content-header").click(function(){
         $(this).parent().hide();
         $(".content-header .header-help").show();

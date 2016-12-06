@@ -84,7 +84,7 @@ ul li {
 .sub-menu-header {
     height: 50px;
     line-height: 50px;
-    border-bottom: 1px solid #f2f2f2;
+    border-bottom: 1px solid #e5e5e5;
     text-align: center;
 }
 
@@ -142,7 +142,7 @@ ul li {
     top:0;
 }
 .content{
-    border:1px solid #e0e0e0;
+    /*border:1px solid #e0e0e0;*/
     background:#ffffff;
     margin:60px 10px 10px 10px;
     min-height:600px;
