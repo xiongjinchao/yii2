@@ -10,12 +10,6 @@ html .main-header .navbar{
 html .content-wrapper, html .right-side, html .main-footer{
 	margin-left:180px;
 }
-html .skin-black-light .content-wrapper{
-	border-left:1px solid #eeeeee;
-}
-html .skin-black-light .main-footer{
-	border:1px solid #eeeeee;
-}
 .summary{
     height:24px;
     line-height:24px;
