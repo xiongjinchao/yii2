@@ -8,12 +8,30 @@ use yii\filters\AccessControl;
 class Controller extends \yii\web\Controller
 {
     public $menuItems;
-    public $layout = '';
+    private $auth;
 
     public function init()
     {
-        $this->layout = yii::$app->params['layout'];
         parent::init();
+        $this->auth = [
+            'Index' => '列表',
+            'Create' => '创建',
+            'Update' => '更新',
+            'Edit' => '更新',
+            'Save' => '更新',
+            'MoveUp' => '上移',
+            'MoveDown' => '下移',
+            'Audit' => '审核',
+            'Recommend' => '推荐',
+            'Hot' => '置热',
+            'Visible' => '可见',
+            'Status' => '状态',
+            'View' => '查看',
+            'Delete' => '删除',
+            'Assignment' => '授权',
+            'Reset' => '重置权限',
+            'AuthInitialize' => '权限索引',
+        ];
         //$this->authInitialize();
     }
 
@@ -104,13 +122,13 @@ class Controller extends \yii\web\Controller
         if($role === null){
             //创建角色
             $role = $auth->createRole($name);
-            $role->description = isset($properties['auth'][0])?$properties['auth'][0]:$name;
+            $role->description = isset($properties['auth'])?$properties['auth']:$name;
             $role->data = 'system';
             $auth->add($role);
             $auth->addChild($admin, $role);
         }else{
             //更新角色描述
-            $role->description = isset($properties['auth'][0])?$properties['auth'][0]:$name;
+            $role->description = isset($properties['auth'])?$properties['auth']:$name;
             $auth->update($name,$role);
         }
 
@@ -118,7 +136,7 @@ class Controller extends \yii\web\Controller
             if($method->class==$controller->name&&strstr($method->name,'action')
                 &&!strstr($method->name,'Ajax')&&$method->name!='actions'){
                 $permission = $auth->getPermission($name.'/'.str_replace('action','',$method->name));
-                $description = isset($properties['auth'][str_replace('action','',$method->name)])?trim($role->description,'管理').'-'.$properties['auth'][str_replace('action','',$method->name)]:$name.'/'.str_replace('action','',$method->name);
+                $description = isset($this->auth[str_replace('action','',$method->name)])?trim($role->description,'管理').'-'.$this->auth[str_replace('action','',$method->name)]:$name.'/'.str_replace('action','',$method->name);
                 if($permission === null){
                     //创建权限
                     $permission = $auth->createPermission($name.'/'.str_replace('action','',$method->name));

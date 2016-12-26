@@ -17,11 +17,7 @@ use yii\helpers\ArrayHelper;
  */
 class ArticleSectionPictureController extends Controller
 {
-    private $auth = [
-        0  => '文章图片管理',
-        'Index' => '列表',
-        'Delete' => '删除',
-    ];
+    private $auth = '文章图片管理';
 
     public function behaviors()
     {

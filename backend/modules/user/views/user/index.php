@@ -6,13 +6,13 @@ use kartik\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '用户管理';
+$this->title = '客户管理';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="admin-index">
 
     <p>
-        <?= Html::a('<i class="fa fa-plus-circle"></i> 创建用户', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-plus-circle"></i> 创建客户', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
