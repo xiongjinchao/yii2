@@ -154,9 +154,9 @@ $this->params['breadcrumbs'][] = '更新';
 </div>
 
 
-<?php $this->registerCssFile('@web/plug-in/webuploader/webuploader.css');?>
-<?php $this->registerCssFile('@web/plug-in/webuploader/style/simple.css');?>
-<?php $this->registerJsFile('@web/plug-in/webuploader/webuploader.min.js',['position' => \yii\web\View::POS_END]);?>
+<?php $this->registerCssFile('@web/plug-in/webuploader/webuploader.css',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerCssFile('@web/plug-in/webuploader/style/simple.css',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerJsFile('@web/plug-in/webuploader/webuploader.min.js',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_END]);?>
 
     <script>
         <?php $this->beginBlock('js') ?>

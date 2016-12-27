@@ -201,7 +201,7 @@ $this->title = 'My Application';
 
     </div>
 </div>
-<?php $this->registerJsFile('@web/plug-in/chartjs/Chart.min.js',['position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerJsFile('@web/plug-in/chartjs/Chart.min.js',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
 <script>
     <?php $this->beginBlock('js'); ?>
     $(function () {

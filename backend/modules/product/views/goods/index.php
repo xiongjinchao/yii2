@@ -129,6 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return isset($model->category->name)?$model->category->name:'';
                 },
             ],
+            /*
             [
                 'attribute' => 'created_at',
                 'format' =>['datetime','php:Y-m-d H:i:s'],
@@ -147,6 +148,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
                 'vAlign'=>'middle',
             ],
+            */
             [
                 'attribute' => 'updated_at',
                 'format' =>['datetime','php:Y-m-d H:i:s'],

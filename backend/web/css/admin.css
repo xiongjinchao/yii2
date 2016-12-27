@@ -1,3 +1,4 @@
+/*
 html .main-header .logo{
 	width:180px;
 }
@@ -10,6 +11,12 @@ html .main-header .navbar{
 html .content-wrapper, html .right-side, html .main-footer{
 	margin-left:180px;
 }
+html .skin-black-light .content-header{
+    min-height:50px;
+    background:#f9fafc;
+    border-bottom:1px solid #eee;
+}
+*/
 .summary{
     height:24px;
     line-height:24px;
@@ -25,11 +32,6 @@ html .skin-black-light .main-header > .logo{
 }
 html .skin-black-light .main-header > .navbar > .sidebar-toggle{
 	border-left:1px solid #eee;
-}
-html .skin-black-light .content-header{
-	min-height:50px;
-	background:#f9fafc;
-	border-bottom:1px solid #eee;
 }
 html .skin-black-light .content-header h1{
 	font-size:20px;
