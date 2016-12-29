@@ -81,7 +81,7 @@ use yii\bootstrap\Modal;
 
     <?= $form->field($model, 'seo_title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'seo_description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'seo_description')->textarea(['rows' => 2, 'maxlength' => true]) ?>
 
     <?= $form->field($model, 'seo_keyword')->textInput(['maxlength' => true]) ?>
 
