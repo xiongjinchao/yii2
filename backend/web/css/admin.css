@@ -42,6 +42,9 @@ html .skin-black-light .main-footer{
 html .content-header > .breadcrumb{
 	top:10px;
 }
+html .content-header > .breadcrumb > li + li::before {
+	content: "/ ";
+}
 html h1,html h2,html h3,html h4,html h5{
 	font-family:"Helvetica Neue",Helvetica,Microsoft YaHei,sans-serif
 }

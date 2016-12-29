@@ -213,9 +213,9 @@ class PageController extends Controller
         $model = $this->findModel($id);
         $model->visible = 1- $model->visible;
         if($model->save()){
-            Yii::$app->session->setFlash('notice','可见提交成功！');
+            Yii::$app->session->setFlash('info','可见提交成功！');
         }else{
-            Yii::$app->session->setFlash('notice','可见提交失败！');
+            Yii::$app->session->setFlash('danger','可见提交失败！');
         }
         return $this->redirect(['index']);
     }
