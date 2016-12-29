@@ -5,7 +5,7 @@
 /* @var $model common\models\Comment */
 
 $this->title = '创建评论';
-$this->params['breadcrumbs'][] = ['label' => '评论管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-comments"></i> 评论管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="comment-create">

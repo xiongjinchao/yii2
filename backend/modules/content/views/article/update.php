@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\Article */
 
 $this->title = '文章管理';
-$this->params['breadcrumbs'][] = ['label' => '文章管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-file-text"></i> 文章管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = '更新';
 

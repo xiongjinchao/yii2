@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\RecommendationContent */
 
 $this->title = '更新推荐';
-$this->params['breadcrumbs'][] = ['label' => '推荐内容', 'url' => ['recommendation-content/index', 'category_id' => $category->id]];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-rocket"></i> 推荐内容', 'url' => ['recommendation-content/index', 'category_id' => $category->id]];
 $this->params['breadcrumbs'][] = ['label' => $content->title, 'url' =>['recommendation-content/update', 'category_id' => $content->id]];
 $this->params['breadcrumbs'][] = ['label' => '图片', 'url' => ['edit', 'id' => $content->id]];
 $this->params['breadcrumbs'][] = '更新';

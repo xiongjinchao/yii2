@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $admin->username;
-$this->params['breadcrumbs'][] = ['label' => '员工管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-user-secret"></i> 员工管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $admin->username;
 ?>
 <div class="assignment-role">

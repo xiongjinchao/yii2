@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\Goods */
 
 $this->title = '商品管理';
-$this->params['breadcrumbs'][] = ['label' => '商品管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-cubes"></i> 商品管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = '更新';
 ?>

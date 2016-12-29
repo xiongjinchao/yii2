@@ -11,7 +11,7 @@ use kartik\widgets\ColorInput;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '商品管理';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '<i class="fa fa-cubes"></i> '.$this->title;
 ?>
 <div class="goods-index">
 

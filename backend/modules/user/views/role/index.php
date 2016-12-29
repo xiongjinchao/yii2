@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '角色管理';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '<i class="fa fa-anchor"></i> '.$this->title;
 ?>
 <div class="admin-index">
 

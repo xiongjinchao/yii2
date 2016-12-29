@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model common\models\RecommendationCategory */
 
 $this->title = '更新推荐';
-$this->params['breadcrumbs'][] = ['label' => '推荐管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-rocket"></i> 推荐管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = '更新';
 ?>

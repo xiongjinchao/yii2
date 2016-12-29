@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '文章图片';
-$this->params['breadcrumbs'][] = ['label' => '文章管理', 'url' => ['article/index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-file-text"></i> 文章管理', 'url' => ['article/index']];
 $this->params['breadcrumbs'][] = ['label' => $article->title, 'url' => ['article/update', 'id' => $article->id]];
 $this->params['breadcrumbs'][] = '更新';
 ?>

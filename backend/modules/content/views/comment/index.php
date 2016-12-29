@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '评论管理';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '<i class="fa fa-comments"></i> '.$this->title;
 ?>
 <div class="comment-index">
 

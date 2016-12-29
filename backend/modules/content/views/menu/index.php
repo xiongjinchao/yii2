@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '菜单管理';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '<i class="fa fa-list"></i> '.$this->title;
 ?>
 <div class="menu-index">
 

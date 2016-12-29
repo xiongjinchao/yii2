@@ -5,7 +5,7 @@
 /* @var $model backend\models\Menu */
 
 $this->title = '创建菜单';
-$this->params['breadcrumbs'][] = ['label' => '菜单管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-list"></i> 菜单管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="menu-create">

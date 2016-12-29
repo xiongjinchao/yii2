@@ -5,7 +5,7 @@
 /* @var $model backend\models\ArticleCategory */
 
 $this->title = '创建分类';
-$this->params['breadcrumbs'][] = ['label' => '文章分类', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa fa-navicon"></i> 文章分类', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="menu-create">

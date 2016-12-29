@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model backend\models\Menu */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => '菜单管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-list"></i> 菜单管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = '更新';
 ?>

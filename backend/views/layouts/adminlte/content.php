@@ -1,6 +1,7 @@
 <?php
 use yii\widgets\Breadcrumbs;
 use dmstr\widgets\Alert;
+use \yii\helpers\Url;
 
 ?>
 <div class="content-wrapper">
@@ -31,7 +32,12 @@ use dmstr\widgets\Alert;
         <?=
         Breadcrumbs::widget(
             [
+                'homeLink' => [
+                    'label' => '<i class="fa  fa-home"></i> 控制面板',
+                    'url' => ['/'],
+                ],
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                'encodeLabels' => false,
             ]
         ) ?>
     </section>

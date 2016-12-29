@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\GoodsCategory */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => '商品分类', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-navicon"></i> 商品分类', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="menu-view">

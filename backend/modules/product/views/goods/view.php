@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Goods */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => '商品管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-cubes"></i> 商品管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="goods-view">

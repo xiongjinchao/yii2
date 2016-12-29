@@ -5,7 +5,7 @@
 /* @var $model common\models\User */
 
 $this->title = '创建用户';
-$this->params['breadcrumbs'][] = ['label' => '客户管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-user"></i> 客户管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="admin-create">

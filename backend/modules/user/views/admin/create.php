@@ -5,7 +5,7 @@
 /* @var $model backend\models\Admin */
 
 $this->title = '创建员工';
-$this->params['breadcrumbs'][] = ['label' => '员工管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-user-secret"></i> 员工管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="admin-create">

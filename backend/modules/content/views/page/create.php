@@ -5,7 +5,7 @@
 /* @var $model backend\models\Menu */
 
 $this->title = '创建单页';
-$this->params['breadcrumbs'][] = ['label' => '单页管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-file"></i> 单页管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="page-create">

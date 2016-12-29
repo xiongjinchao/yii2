@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model common\models\RecommendationContent */
 
 $this->title = '创建推荐';
-$this->params['breadcrumbs'][] = ['label' => '推荐内容', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-rocket"></i> 推荐内容', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="recommendation-content-create">

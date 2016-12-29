@@ -33,7 +33,7 @@
                     ['label' => '内容管理', 'options' => ['class' => 'header']],
                     [
                         'label' => '内容管理',
-                        'icon' => 'fa fa-paw',
+                        'icon' => 'fa fa-th-large',
                         'url' => '#',
                         'items' => [
                             ['label' => '菜单管理', 'icon' => 'fa fa-list text-light-blue', 'url' => ['/content/menu/index']],
@@ -41,7 +41,7 @@
                             ['label' => '文章分类', 'icon' => 'fa fa-navicon text-light-blue', 'url' => ['/content/article-category/index']],
                             ['label' => '评论管理', 'icon' => 'fa fa-comments text-light-blue', 'url' => ['/content/comment/index']],
                             ['label' => '单页管理', 'icon' => 'fa fa-file text-light-blue', 'url' => ['/content/page/index']],
-                            ['label' => '推荐管理', 'icon' => 'fa fa-coffee text-light-blue', 'url' => ['/content/recommendation-category/index']],
+                            ['label' => '推荐管理', 'icon' => 'fa fa-rocket text-light-blue', 'url' => ['/content/recommendation-category/index']],
                         ],
                     ],
                     [
