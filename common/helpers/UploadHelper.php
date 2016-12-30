@@ -30,7 +30,7 @@ class UploadHelper
             throw new Exception('未选择图片');
         }
         try{
-            $image->name = time().rand(100000,999999).'.'.$image->getExtension();
+            $image->name = md5(time().rand(100000,999999)).'.'.$image->getExtension();
             $category =  $category=== null?'images':$category;
             $path = '/'.$category;
             $path.='/'.date('Y').'/'.date('m').'/'.date('d');
@@ -91,7 +91,7 @@ class UploadHelper
             $result = curl_exec($ch);
             curl_close($ch);
 
-            $name = time().rand(100000,999999).'.'.strtolower(pathinfo($url,PATHINFO_EXTENSION));
+            $name = md5(time().rand(100000,999999)).'.'.strtolower(pathinfo($url,PATHINFO_EXTENSION));
             $category =  $category=== null?'images':$category;
             $path = '/'.$category;
             $path.='/'.date('Y').'/'.date('m').'/'.date('d');

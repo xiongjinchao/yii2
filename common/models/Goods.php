@@ -60,7 +60,7 @@ class Goods extends \yii\db\ActiveRecord
         return [
             [['name', 'category_id'], 'required'],
             [['category_id', 'sale_mode', 'goods_type', 'presell', 'picture_id', 'audit', 'hot', 'recommend', 'hit', 'created_at', 'updated_at'], 'integer'],
-            [['color', 'content', 'sale_url'], 'string'],
+            [['color', 'content', 'sale_url', 'picture_url'], 'string'],
             [['origin_price','sale_price'], 'double'],
             [['name', 'seo_title', 'seo_description', 'seo_keyword'], 'string', 'max' => 255],
         ];
@@ -79,9 +79,10 @@ class Goods extends \yii\db\ActiveRecord
             'sale_mode' => '售卖方式',
             'goods_type' => '商品类型',
             'presell' => '预售商品',
-            'origin_price' => '原价',
-            'sale_price' => '售价',
+            'origin_price' => '商品原价',
+            'sale_price' => '商品售价',
             'picture_id' => '商品主图',
+            'picture_url' => '商品主图',
             'sale_url' => '购买地址',
             'audit' => '上架状态',
             'color' => '标记颜色',
