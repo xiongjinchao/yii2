@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-12-30 05:16:48
+-- Generation Time: 2016-12-30 10:44:54
 -- 服务器版本： 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -1464,30 +1464,6 @@ INSERT INTO `yii_migration` (`version`, `apply_time`) VALUES
 ('m140506_102106_rbac_init', 1438247970),
 ('m141106_185632_log_init', 1478081079),
 ('m150909_153426_cache_init', 1472008032);
-
--- --------------------------------------------------------
-
---
--- 表的结构 `yii_order`
---
-
-CREATE TABLE `yii_order` (
-  `id` int(11) NOT NULL,
-  `trade_no` varchar(32) NOT NULL COMMENT '交易编号',
-  `product_id` int(11) DEFAULT '0' COMMENT '产品ID',
-  `product_name` varchar(255) DEFAULT NULL COMMENT '商品名称',
-  `picture_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品主图编号',
-  `picture_url` varchar(255) DEFAULT NULL COMMENT '商品主图',
-  `sku_id` int(11) DEFAULT '0' COMMENT 'SKU',
-  `sku_name` varchar(64) DEFAULT NULL COMMENT 'SKU名称',
-  `price` decimal(10,2) DEFAULT '0.00' COMMENT '单价',
-  `num` int(11) DEFAULT '0' COMMENT '数量',
-  `subtotal` decimal(10,2) DEFAULT '0.00' COMMENT '小计',
-  `activity_id` int(11) DEFAULT '0' COMMENT '活动编号',
-  `discount` float DEFAULT '0' COMMENT '折扣',
-  `created_at` int(11) DEFAULT NULL COMMENT '创建订单时间',
-  `updated_at` int(11) DEFAULT NULL COMMENT '订单修改时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -5387,9 +5363,9 @@ CREATE TABLE `yii_trade` (
   `id` int(11) NOT NULL,
   `trade_no` varchar(32) DEFAULT '' COMMENT '订单编号',
   `user_id` int(11) DEFAULT '0',
-  `trade_status` varchar(16) DEFAULT '' COMMENT '交易状态',
+  `trade_status` tinyint(4) DEFAULT '0' COMMENT '交易状态，0待付款，1已付款，2已取消，3已完成 4处理中 5已退款',
   `payment_id` int(11) NOT NULL COMMENT '支付凭证编号',
-  `payment_satus` tinyint(11) DEFAULT '0' COMMENT '支付状态',
+  `payment_satus` tinyint(11) DEFAULT '0' COMMENT '支付状态0未支付，1已支付，2已退款',
   `distribution_status` tinyint(4) DEFAULT '0' COMMENT '配送状态',
   `total_amount` decimal(10,2) DEFAULT '0.00' COMMENT '商品总金额',
   `paid_amount` decimal(10,2) DEFAULT '0.00' COMMENT '已付金额',
@@ -5403,12 +5379,101 @@ CREATE TABLE `yii_trade` (
   `contact_phone` varchar(16) DEFAULT '' COMMENT '收货人手机号',
   `contact_address` varchar(255) DEFAULT '' COMMENT '收货人地址',
   `contact_postcode` varchar(16) DEFAULT '' COMMENT '收货人邮编',
+  `user_remark` text NOT NULL COMMENT '客户备注',
   `cancel_reason` int(11) DEFAULT '0' COMMENT '取消原因',
   `paid_at` int(11) NOT NULL DEFAULT '0' COMMENT '支付成功时间',
   `rated_at` int(11) NOT NULL DEFAULT '0' COMMENT '评价时间',
   `created_at` int(11) NOT NULL COMMENT '交易创建时间',
   `updated_at` int(11) DEFAULT NULL COMMENT '订单修改时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yii_trade_logistical`
+--
+
+CREATE TABLE `yii_trade_logistical` (
+  `id` int(11) NOT NULL,
+  `trade_sn` varchar(50) NOT NULL COMMENT '交易单号',
+  `order_id` int(11) NOT NULL COMMENT '订单号',
+  `logistical_name` varchar(100) NOT NULL COMMENT '物流名称',
+  `logistical_sn` tinyint(4) NOT NULL COMMENT '物流单号',
+  `logistical_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '物流状态0待发货，1已发货，3已收货，4拒收货，5货物丢失，6已退货',
+  `created_at` int(11) NOT NULL COMMENT '创建时间',
+  `update_at` int(11) NOT NULL COMMENT '更新时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='发货表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yii_trade_order`
+--
+
+CREATE TABLE `yii_trade_order` (
+  `id` int(11) NOT NULL,
+  `trade_no` varchar(32) NOT NULL COMMENT '交易编号',
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT '0' COMMENT '产品ID',
+  `product_name` varchar(255) DEFAULT NULL COMMENT '商品名称',
+  `picture_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品主图编号',
+  `picture_url` varchar(255) DEFAULT NULL COMMENT '商品主图',
+  `sku_id` int(11) DEFAULT '0' COMMENT 'SKU',
+  `sku_name` varchar(64) DEFAULT NULL COMMENT 'SKU名称',
+  `price` decimal(10,2) DEFAULT '0.00' COMMENT '单价',
+  `num` int(11) DEFAULT '0' COMMENT '数量',
+  `subtotal` decimal(10,2) DEFAULT '0.00' COMMENT '小计',
+  `activity_id` int(11) DEFAULT '0' COMMENT '活动编号',
+  `discount` float DEFAULT '0' COMMENT '折扣',
+  `created_at` int(11) DEFAULT NULL COMMENT '创建订单时间',
+  `updated_at` int(11) DEFAULT NULL COMMENT '订单修改时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yii_trade_payment`
+--
+
+CREATE TABLE `yii_trade_payment` (
+  `id` int(11) NOT NULL,
+  `trade_sn` varchar(32) NOT NULL COMMENT '交易编号',
+  `channel` varchar(100) NOT NULL DEFAULT '' COMMENT '支付渠道',
+  `paid_amount` decimal(10,2) NOT NULL COMMENT '支付金额',
+  `subject` varchar(255) NOT NULL DEFAULT '' COMMENT '支付标题',
+  `body` varchar(255) NOT NULL DEFAULT '' COMMENT '支付描述',
+  `meta` text NOT NULL COMMENT '支付元数据',
+  `transaction_no` varchar(50) NOT NULL COMMENT '交易流水号',
+  `payment_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '支付状态',
+  `failure_code` varchar(50) NOT NULL COMMENT '失败编号',
+  `failure_message` varchar(255) NOT NULL COMMENT '失败消息',
+  `client_ip` varchar(32) NOT NULL DEFAULT '' COMMENT '客户端IP',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '发起支付时间',
+  `paid_at` int(11) NOT NULL DEFAULT '0' COMMENT '支付成功时间',
+  `expire_at` int(11) NOT NULL DEFAULT '0' COMMENT '支付过期时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yii_trade_refund`
+--
+
+CREATE TABLE `yii_trade_refund` (
+  `id` int(11) NOT NULL,
+  `order_sn` varchar(100) NOT NULL COMMENT '交易编号',
+  `payment_id` int(11) NOT NULL COMMENT '支付凭证编号',
+  `refund_reson` varchar(255) NOT NULL COMMENT '退款原因',
+  `refund_amount` decimal(10,2) NOT NULL COMMENT '退款金额',
+  `refund_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '退款状态：0客户申请，1退款处理中，2退款成功，3退款失败',
+  `meta` text NOT NULL COMMENT '退款元数据',
+  `transaction_no` varchar(100) NOT NULL COMMENT '退款流水号',
+  `client_ip` varchar(100) NOT NULL COMMENT '客户端IP',
+  `failure_code` varchar(50) NOT NULL COMMENT '退款失败编号',
+  `failure_message` varchar(255) NOT NULL COMMENT '退款失败消息',
+  `created_at` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `refunded_at` int(11) NOT NULL DEFAULT '0' COMMENT '退款时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -5442,6 +5507,43 @@ INSERT INTO `yii_user` (`id`, `username`, `auth_key`, `password_hash`, `password
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `yii_user_balance`
+--
+
+CREATE TABLE `yii_user_balance` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `balance` decimal(10,2) NOT NULL COMMENT '金额',
+  `reason` int(11) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yii_user_contact`
+--
+
+CREATE TABLE `yii_user_contact` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `contact_name` varchar(100) NOT NULL,
+  `contact_phone` varchar(20) NOT NULL,
+  `contact_email` varchar(50) NOT NULL DEFAULT '',
+  `contact_address` varchar(255) NOT NULL,
+  `contact_postcode` varchar(20) NOT NULL DEFAULT '',
+  `contact_weixin` varchar(50) NOT NULL DEFAULT '',
+  `contact_weibo` varchar(50) NOT NULL DEFAULT '',
+  `contact_qq` varchar(50) NOT NULL DEFAULT '',
+  `is_default` tinyint(4) NOT NULL DEFAULT '0' COMMENT '常用收货人',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `yii_user_passport`
 --
 
@@ -5451,6 +5553,21 @@ CREATE TABLE `yii_user_passport` (
   `type` varchar(255) NOT NULL DEFAULT '',
   `username` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `yii_user_point`
+--
+
+CREATE TABLE `yii_user_point` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `point` decimal(10,2) NOT NULL COMMENT '积分',
+  `reason` int(11) NOT NULL,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -5594,13 +5711,6 @@ ALTER TABLE `yii_migration`
   ADD PRIMARY KEY (`version`);
 
 --
--- Indexes for table `yii_order`
---
-ALTER TABLE `yii_order`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `trade_no` (`trade_no`);
-
---
 -- Indexes for table `yii_page`
 --
 ALTER TABLE `yii_page`
@@ -5648,6 +5758,31 @@ ALTER TABLE `yii_trade`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `yii_trade_logistical`
+--
+ALTER TABLE `yii_trade_logistical`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yii_trade_order`
+--
+ALTER TABLE `yii_trade_order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `trade_no` (`trade_no`);
+
+--
+-- Indexes for table `yii_trade_payment`
+--
+ALTER TABLE `yii_trade_payment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yii_trade_refund`
+--
+ALTER TABLE `yii_trade_refund`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `yii_user`
 --
 ALTER TABLE `yii_user`
@@ -5657,9 +5792,27 @@ ALTER TABLE `yii_user`
   ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
 
 --
+-- Indexes for table `yii_user_balance`
+--
+ALTER TABLE `yii_user_balance`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yii_user_contact`
+--
+ALTER TABLE `yii_user_contact`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `yii_user_passport`
 --
 ALTER TABLE `yii_user_passport`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `yii_user_point`
+--
+ALTER TABLE `yii_user_point`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -5732,11 +5885,6 @@ ALTER TABLE `yii_log`
 ALTER TABLE `yii_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
--- 使用表AUTO_INCREMENT `yii_order`
---
-ALTER TABLE `yii_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- 使用表AUTO_INCREMENT `yii_page`
 --
 ALTER TABLE `yii_page`
@@ -5772,14 +5920,49 @@ ALTER TABLE `yii_tag`
 ALTER TABLE `yii_trade`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- 使用表AUTO_INCREMENT `yii_trade_logistical`
+--
+ALTER TABLE `yii_trade_logistical`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- 使用表AUTO_INCREMENT `yii_trade_order`
+--
+ALTER TABLE `yii_trade_order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- 使用表AUTO_INCREMENT `yii_trade_payment`
+--
+ALTER TABLE `yii_trade_payment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- 使用表AUTO_INCREMENT `yii_trade_refund`
+--
+ALTER TABLE `yii_trade_refund`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- 使用表AUTO_INCREMENT `yii_user`
 --
 ALTER TABLE `yii_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
+-- 使用表AUTO_INCREMENT `yii_user_balance`
+--
+ALTER TABLE `yii_user_balance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- 使用表AUTO_INCREMENT `yii_user_contact`
+--
+ALTER TABLE `yii_user_contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- 使用表AUTO_INCREMENT `yii_user_passport`
 --
 ALTER TABLE `yii_user_passport`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- 使用表AUTO_INCREMENT `yii_user_point`
+--
+ALTER TABLE `yii_user_point`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- 限制导出的表
