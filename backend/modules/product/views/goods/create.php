@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model common\models\Goods */
 
 $this->title = '创建商品';
-$this->params['breadcrumbs'][] = ['label' => '商品管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-cubes"></i> 商品管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="goods-create">

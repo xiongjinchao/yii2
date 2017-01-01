@@ -17,12 +17,7 @@ use yii\helpers\Json;
  */
 class AttributeValueController extends Controller
 {
-    private $auth = [
-        0  => '属性值管理',
-        'Index' => '列表',
-        'Save' => '更新',
-        'Delete' => '删除',
-    ];
+    private $auth = '属性值管理';
 
     public function behaviors()
     {

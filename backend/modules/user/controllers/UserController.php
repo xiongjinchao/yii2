@@ -16,15 +16,7 @@ use common\helpers\UploadHelper;
  */
 class UserController extends Controller
 {
-    private $auth = [
-        0  => '员工管理',
-        'Index' => '列表',
-        'Create' => '创建',
-        'Update' => '更新',
-        'Status' => '状态',
-        'View' => '查看',
-        'Delete' => '删除',
-    ];
+    private $auth = '客户管理';
 
     public function behaviors()
     {

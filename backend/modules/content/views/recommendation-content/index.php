@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '推荐内容';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '<i class="fa fa-rocket"></i> '.$this->title;
 ?>
 <div class="recommendation-content-index">
 

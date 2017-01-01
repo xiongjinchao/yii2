@@ -11,7 +11,7 @@ use kartik\widgets\ColorInput;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '商品管理';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '<i class="fa fa-cubes"></i> '.$this->title;
 ?>
 <div class="goods-index">
 
@@ -129,6 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return isset($model->category->name)?$model->category->name:'';
                 },
             ],
+            /*
             [
                 'attribute' => 'created_at',
                 'format' =>['datetime','php:Y-m-d H:i:s'],
@@ -147,6 +148,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ]),
                 'vAlign'=>'middle',
             ],
+            */
             [
                 'attribute' => 'updated_at',
                 'format' =>['datetime','php:Y-m-d H:i:s'],

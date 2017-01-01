@@ -16,18 +16,7 @@ use yii\db\Exception;
  */
 class PageController extends Controller
 {
-    private $auth = [
-        0  => '单页管理',
-        'Index' => '列表',
-        'Create' => '创建',
-        'Update' => '更新',
-        'MoveUp' => '上移',
-        'MoveDown' => '下移',
-        'Audit' => '审核',
-        'Visible' => '可见',
-        'View' => '查看',
-        'Delete' => '删除',
-    ];
+    private $auth = '单页管理';
 
     public function behaviors()
     {
@@ -224,9 +213,9 @@ class PageController extends Controller
         $model = $this->findModel($id);
         $model->visible = 1- $model->visible;
         if($model->save()){
-            Yii::$app->session->setFlash('notice','可见提交成功！');
+            Yii::$app->session->setFlash('info','可见提交成功！');
         }else{
-            Yii::$app->session->setFlash('notice','可见提交失败！');
+            Yii::$app->session->setFlash('danger','可见提交失败！');
         }
         return $this->redirect(['index']);
     }

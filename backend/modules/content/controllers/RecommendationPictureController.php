@@ -18,11 +18,7 @@ use yii\base\Exception;
  */
 class RecommendationPictureController extends Controller
 {
-    private $auth = [
-        0  => '推荐图片管理',
-        'Edit' => '更新',
-        'Delete' => '删除',
-    ];
+    private $auth = '推荐图片管理';
 
     /**
      * @inheritdoc

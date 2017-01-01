@@ -19,11 +19,7 @@ use yii\base\Exception;
  */
 class ArticleSectionController extends Controller
 {
-    private $auth = [
-        0  => '文章段落管理',
-        'Edit' => '更新',
-        'Delete' => '删除',
-    ];
+    private $auth = '文章段落管理';
 
     public function behaviors()
     {

@@ -10,7 +10,7 @@ use yii\bootstrap\Tabs;
 /* @var $form yii\widgets\ActiveForm */
 
 $this->title = '文章段落';
-$this->params['breadcrumbs'][] = ['label' => '文章管理', 'url' => ['article/index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-file-text"></i> 文章管理', 'url' => ['article/index']];
 $this->params['breadcrumbs'][] = ['label' => $article->title, 'url' => ['article/update', 'id' => $article->id]];
 $this->params['breadcrumbs'][] = '更新';
 
@@ -154,9 +154,9 @@ $this->params['breadcrumbs'][] = '更新';
 </div>
 
 
-<?php $this->registerCssFile('@web/plug-in/webuploader/webuploader.css');?>
-<?php $this->registerCssFile('@web/plug-in/webuploader/style/simple.css');?>
-<?php $this->registerJsFile('@web/plug-in/webuploader/webuploader.min.js',['position' => \yii\web\View::POS_END]);?>
+<?php $this->registerCssFile('@web/plug-in/webuploader/webuploader.css',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerCssFile('@web/plug-in/webuploader/style/simple.css',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerJsFile('@web/plug-in/webuploader/webuploader.min.js',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_END]);?>
 
     <script>
         <?php $this->beginBlock('js') ?>

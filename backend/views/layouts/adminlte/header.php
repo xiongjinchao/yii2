@@ -14,23 +14,23 @@ use yii\helpers\Html;
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">收起/展开导航</span>
         </a>
-
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">关于我们</a></li>
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="false">公司介绍 <span class="caret"></span></a>
-                <ul role="menu" class="dropdown-menu">
-                    <li><a href="#">组织架构</a></li>
-                    <li><a href="#">企业文化</a></li>
-                    <li><a href="#">公司愿景</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">友情链接</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">联系我们</a></li>
-                </ul>
-            </li>
-        </ul>
+<!--        -->
+<!--        <ul class="nav navbar-nav">-->
+<!--            <li class="active"><a href="#">首页 <span class="sr-only">(current)</span></a></li>-->
+<!--            <li><a href="#">关于我们</a></li>-->
+<!--            <li class="dropdown">-->
+<!--                <a data-toggle="dropdown" class="dropdown-toggle" href="#" aria-expanded="false">公司介绍 <span class="caret"></span></a>-->
+<!--                <ul role="menu" class="dropdown-menu">-->
+<!--                    <li><a href="#">组织架构</a></li>-->
+<!--                    <li><a href="#">企业文化</a></li>-->
+<!--                    <li><a href="#">公司愿景</a></li>-->
+<!--                    <li class="divider"></li>-->
+<!--                    <li><a href="#">友情链接</a></li>-->
+<!--                    <li class="divider"></li>-->
+<!--                    <li><a href="#">联系我们</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
+<!--        </ul>-->
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">

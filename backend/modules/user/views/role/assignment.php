@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $role->name;
-$this->params['breadcrumbs'][] = ['label' => '角色管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-anchor"></i> 角色管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $role->name;
 ?>
 <div class="assignment-role">

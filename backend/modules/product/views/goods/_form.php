@@ -36,6 +36,7 @@ use yii\bootstrap\Modal;
         <label class="control-label" for="goods-picture_id"><?= $model->getAttributeLabel('picture_id'); ?></label>
         <div>
             <?= Html::activeInput('hidden',$model,'picture_id'); ?>
+            <?= Html::activeInput('hidden',$model,'picture_url'); ?>
             <?php Modal::begin([
                 'toggleButton' => ['label' => '<i class="fa fa-image"></i> 上传图片', 'class' => 'btn btn-info', 'id' => 'uploader','data-url'=> Url::to(['/uploader/modal','category'=>'goods','max'=>1])],
                 'header' => '<h4><i class="fa fa-image"></i> 上传图片</h4>',
@@ -81,7 +82,7 @@ use yii\bootstrap\Modal;
 
     <?= $form->field($model, 'seo_title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'seo_description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'seo_description')->textarea(['rows' => 2, 'maxlength' => true]) ?>
 
     <?= $form->field($model, 'seo_keyword')->textInput(['maxlength' => true]) ?>
 
@@ -93,13 +94,14 @@ use yii\bootstrap\Modal;
 
 </div>
 
-<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.config.js',['position' => \yii\web\View::POS_HEAD]);?>
-<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.all.js',['position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.config.js',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.all.js',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
 
     <script>
         <?php $this->beginBlock('js') ?>
         var ue = UE.getEditor('goods-content',{
-            initialFrameHeight:300
+            initialFrameWidth:800,
+            initialFrameHeight:250
         });
         $("#uploader").click(function(){
             $("#uploader-modal .modal-body").load($(this).data('url'));
@@ -122,13 +124,15 @@ use yii\bootstrap\Modal;
             }
 
             $("#selected-picture").empty();
-            $("#goods-picture_id").val('');
             var picture_id = [];
+            var picture_url = [];
             $("#uploader-modal .uploader-list .file-item").each(function(i,item){
                 picture_id.push($(item).find(".picture_id").val());
+                picture_url.push($(item).find("img").attr("src"));
                 $("#selected-picture").append('<img class="img-responsive img-thumbnail" src="'+$(item).find("img").attr("src")+'" width="100" height="100">');
             });
             $("#goods-picture_id").val(picture_id.join(','));
+            $("#goods-picture_url").val(picture_url.join(','));
             $("#uploader-modal").modal('hide');
         });
         <?php $this->endBlock(); ?>

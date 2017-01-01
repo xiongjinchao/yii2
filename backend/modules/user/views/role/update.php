@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model backend\models\Role */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => '角色管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-anchor"></i> 角色管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'name' => $model->name]];
 $this->params['breadcrumbs'][] = '更新';
 ?>

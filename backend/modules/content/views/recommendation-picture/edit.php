@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\RecommendationContent */
 
 $this->title = '更新推荐';
-$this->params['breadcrumbs'][] = ['label' => '推荐内容', 'url' => ['recommendation-content/index', 'category_id' => $category->id]];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-rocket"></i> 推荐内容', 'url' => ['recommendation-content/index', 'category_id' => $category->id]];
 $this->params['breadcrumbs'][] = ['label' => $content->title, 'url' =>['recommendation-content/update', 'category_id' => $content->id]];
 $this->params['breadcrumbs'][] = ['label' => '图片', 'url' => ['edit', 'id' => $content->id]];
 $this->params['breadcrumbs'][] = '更新';
@@ -86,9 +86,9 @@ $this->params['breadcrumbs'][] = '更新';
 
 </div>
 
-<?php $this->registerCssFile('@web/plug-in/webuploader/webuploader.css');?>
-<?php $this->registerCssFile('@web/plug-in/webuploader/style/simple.css');?>
-<?php $this->registerJsFile('@web/plug-in/webuploader/webuploader.min.js',['position' => \yii\web\View::POS_END]);?>
+<?php $this->registerCssFile('@web/plug-in/webuploader/webuploader.css',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerCssFile('@web/plug-in/webuploader/style/simple.css',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerJsFile('@web/plug-in/webuploader/webuploader.min.js',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
 
     <script>
         <?php $this->beginBlock('js') ?>

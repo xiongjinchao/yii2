@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '文章分类';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '<i class="fa fa fa-navicon"></i> '.$this->title;
 ?>
 <div class="menu-index">
 
@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if($model->lft>1&&($model->lft!=$parent->lft+1)){
                         return Html::a('<span class="glyphicon glyphicon-arrow-up"></span>', ['move-up','id'=>$model->id], ['title' => '上移']) ;
                     }else{
-                        return '';
+                        return '<span class="glyphicon glyphicon-arrow-up text-gray"></span>';
                     }
                 }
             ],
@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     if($model->id!=$lastBrother->id&&($model->rgt!=$parent->rgt-1)){
                         return Html::a('<span class="glyphicon glyphicon-arrow-down"></span>', ['move-down','id'=>$model->id], ['title' => '下移']) ;
                     }else{
-                        return '';
+                        return '<span class="glyphicon glyphicon-arrow-down text-gray"></span>';
                     }
                 }
             ],

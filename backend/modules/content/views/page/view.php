@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Page */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => '单页管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-file"></i> 单页管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="page-view">

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $model backend\models\ArticleCategory */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => '商品分类', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-navicon"></i> 商品分类', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = '更新';
 ?>

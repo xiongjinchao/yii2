@@ -11,7 +11,7 @@ use kartik\widgets\ColorInput;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '文章管理';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '<i class="fa fa-file-text"></i> '.$this->title;
 ?>
 <div class="article-index">
 

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model common\models\RecommendationCategory */
 
 $this->title = '创建推荐';
-$this->params['breadcrumbs'][] = ['label' => 'Recommendation Categories', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-rocket"></i> 推荐管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="recommendation-category-create">

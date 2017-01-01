@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Article */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => '文章管理', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-file-text"></i> 文章管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-view">

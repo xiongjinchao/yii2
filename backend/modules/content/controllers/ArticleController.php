@@ -19,17 +19,7 @@ use yii\helpers\Json;
  */
 class ArticleController extends Controller
 {
-    private $auth = [
-        0  => '文章管理',
-        'Index' => '列表',
-        'Create' => '创建',
-        'Update' => '更新',
-        'Audit' => '审核',
-        'Recommend' => '推荐',
-        'Hot' => '置热',
-        'View' => '查看',
-        'Delete' => '删除',
-    ];
+    private $auth = '文章管理';
 
     public function behaviors()
     {

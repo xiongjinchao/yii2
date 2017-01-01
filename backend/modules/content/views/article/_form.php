@@ -74,7 +74,7 @@ use kartik\widgets\ColorInput;
 
     <?= $form->field($model, 'seo_title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'seo_description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'seo_description')->textarea(['rows' => 2, 'maxlength' => true]) ?>
 
     <?= $form->field($model, 'seo_keyword')->textInput(['maxlength' => true]) ?>
 
@@ -86,13 +86,14 @@ use kartik\widgets\ColorInput;
 
 </div>
 
-<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.config.js',['position' => \yii\web\View::POS_HEAD]);?>
-<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.all.js',['position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.config.js',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.all.js',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
 
     <script>
         <?php $this->beginBlock('js') ?>
         var ue = UE.getEditor('article-content',{
-            initialFrameHeight:300
+            initialFrameWidth:800,
+            initialFrameHeight:250
         });
         <?php $this->endBlock(); ?>
     </script>

@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'seo_title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'seo_description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'seo_description')->textarea(['rows' => 2, 'maxlength' => true]) ?>
 
     <?= $form->field($model, 'seo_keyword')->textInput(['maxlength' => true]) ?>
 
@@ -41,10 +41,11 @@ use yii\widgets\ActiveForm;
 
 </div>
 
-<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.config.js',['position' => \yii\web\View::POS_HEAD]);?>
-<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.all.js',['position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.config.js',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
+<?php $this->registerJsFile('@web/plug-in/ueditor/ueditor.all.js',['depends'=>['backend\assets\AppAsset'],'position' => \yii\web\View::POS_HEAD]);?>
 <script type="text/javascript">
     var ue = UE.getEditor('page-content',{
-        initialFrameHeight:300
+        initialFrameWidth:800,
+        initialFrameHeight:250
     });
 </script>

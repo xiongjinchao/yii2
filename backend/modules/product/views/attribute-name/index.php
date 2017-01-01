@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = '属性管理';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '<i class="fa fa-gears"></i> '.$this->title;
 ?>
 <div class="attribute-name-index">
 
