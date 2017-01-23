@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-12-30 10:44:54
+-- Generation Time: 2017-01-23 11:29:01
 -- 服务器版本： 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -1324,6 +1324,7 @@ CREATE TABLE `yii_goods` (
   `hot` tinyint(4) NOT NULL DEFAULT '0',
   `recommend` tinyint(4) NOT NULL DEFAULT '0',
   `hit` int(11) NOT NULL DEFAULT '0',
+  `stock` int(11) NOT NULL DEFAULT '0' COMMENT '总库存',
   `color` varchar(50) NOT NULL,
   `seo_title` varchar(255) DEFAULT NULL,
   `seo_description` varchar(255) DEFAULT NULL,
@@ -1336,9 +1337,9 @@ CREATE TABLE `yii_goods` (
 -- 转存表中的数据 `yii_goods`
 --
 
-INSERT INTO `yii_goods` (`id`, `name`, `category_id`, `content`, `sale_mode`, `goods_type`, `presell`, `origin_price`, `sale_price`, `picture_id`, `picture_url`, `sale_url`, `audit`, `hot`, `recommend`, `hit`, `color`, `seo_title`, `seo_description`, `seo_keyword`, `created_at`, `updated_at`) VALUES
-(1, 'TCL王牌彩电', 3, '', 0, 0, 0, '199.00', '169.00', 3708, '', '', 0, 1, 1, 0, 'red', '', '', '', 1478700717, 1483000309),
-(2, '魔兽点卡2500分钟', 5, '', 0, 0, 0, '30.00', '29.00', 3407, '', '', 1, 0, 0, 0, 'gold', '', '', '', 1478700717, 1479323247);
+INSERT INTO `yii_goods` (`id`, `name`, `category_id`, `content`, `sale_mode`, `goods_type`, `presell`, `origin_price`, `sale_price`, `picture_id`, `picture_url`, `sale_url`, `audit`, `hot`, `recommend`, `hit`, `stock`, `color`, `seo_title`, `seo_description`, `seo_keyword`, `created_at`, `updated_at`) VALUES
+(1, 'TCL王牌彩电', 3, '', 0, 0, 0, '199.00', '169.00', 3712, 'http://img.yii2.com/goods/2017/01/23/03435a1ea416b3110f384d0bb015e497.jpg', '', 0, 1, 1, 0, 0, 'red', '', '', '', 1478700717, 1485166696),
+(2, '魔兽点卡2500分钟', 5, '', 0, 0, 0, '30.00', '29.00', 3713, 'http://img.yii2.com/goods/2017/01/23/d901e5154bb2ad8d1cd9e7c9da137f25.gif', '', 1, 0, 0, 0, 0, 'gold', '', '', '', 1478700717, 1485164964);
 
 -- --------------------------------------------------------
 
@@ -1351,6 +1352,9 @@ CREATE TABLE `yii_goods_attribute` (
   `goods_id` int(11) NOT NULL,
   `attribute_name_id` int(11) NOT NULL,
   `attribute_value_id` int(11) NOT NULL,
+  `origin_price` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `sale_price` decimal(8,2) NOT NULL DEFAULT '0.00',
+  `stock` int(11) NOT NULL DEFAULT '0' COMMENT '库存',
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
@@ -5245,7 +5249,10 @@ INSERT INTO `yii_picture` (`id`, `name`, `category`, `width`, `height`, `type`, 
 (3708, '1479315237780328.jpg', 'images', 200, 200, 'image/jpeg', '1.00', '/images/2016/11/17/1479315237780328.jpg', 10167, 1, 0, 1, 1479315237),
 (3709, '1479315349943283.jpg', 'user_face', 200, 200, 'image/jpeg', '1.00', '/user_face/2016/11/17/1479315349943283.jpg', 13881, 1, 0, 1, 1479315349),
 (3710, '1479319908935372.jpg', 'goods', 200, 200, 'image/jpeg', '1.00', '/goods/2016/11/17/1479319908935372.jpg', 13881, 1, 0, 1, 1479319908),
-(3711, '1479319930314123.jpg', 'images', 200, 200, 'image/jpeg', '1.00', '/images/2016/11/17/1479319930314123.jpg', 10167, 1, 0, 1, 1479319930);
+(3711, '1479319930314123.jpg', 'images', 200, 200, 'image/jpeg', '1.00', '/images/2016/11/17/1479319930314123.jpg', 10167, 1, 0, 1, 1479319930),
+(3712, '03435a1ea416b3110f384d0bb015e497.jpg', 'goods', 200, 200, 'image/jpeg', '1.00', '/goods/2017/01/23/03435a1ea416b3110f384d0bb015e497.jpg', 47051, 1, 0, 1, 1485164789),
+(3713, 'd901e5154bb2ad8d1cd9e7c9da137f25.gif', 'goods', 237, 184, 'image/gif', '1.29', '/goods/2017/01/23/d901e5154bb2ad8d1cd9e7c9da137f25.gif', 1856218, 1, 0, 1, 1485164860),
+(3714, '4e485ccc7679139259efa47bb28c3e85.jpg', 'goods', 600, 400, 'image/jpeg', '1.50', '/goods/2017/01/23/4e485ccc7679139259efa47bb28c3e85.jpg', 78638, 1, 0, 1, 1485165166);
 
 -- --------------------------------------------------------
 
@@ -5395,7 +5402,7 @@ CREATE TABLE `yii_trade` (
 
 CREATE TABLE `yii_trade_logistical` (
   `id` int(11) NOT NULL,
-  `trade_sn` varchar(50) NOT NULL COMMENT '交易单号',
+  `trade_no` varchar(50) NOT NULL COMMENT '交易单号',
   `order_id` int(11) NOT NULL COMMENT '订单号',
   `logistical_name` varchar(100) NOT NULL COMMENT '物流名称',
   `logistical_sn` tinyint(4) NOT NULL COMMENT '物流单号',
@@ -5437,7 +5444,7 @@ CREATE TABLE `yii_trade_order` (
 
 CREATE TABLE `yii_trade_payment` (
   `id` int(11) NOT NULL,
-  `trade_sn` varchar(32) NOT NULL COMMENT '交易编号',
+  `trade_no` varchar(32) NOT NULL COMMENT '交易编号',
   `channel` varchar(100) NOT NULL DEFAULT '' COMMENT '支付渠道',
   `paid_amount` decimal(10,2) NOT NULL COMMENT '支付金额',
   `subject` varchar(255) NOT NULL DEFAULT '' COMMENT '支付标题',
@@ -5461,7 +5468,7 @@ CREATE TABLE `yii_trade_payment` (
 
 CREATE TABLE `yii_trade_refund` (
   `id` int(11) NOT NULL,
-  `order_sn` varchar(100) NOT NULL COMMENT '交易编号',
+  `order_no` varchar(100) NOT NULL COMMENT '交易编号',
   `payment_id` int(11) NOT NULL COMMENT '支付凭证编号',
   `refund_reson` varchar(255) NOT NULL COMMENT '退款原因',
   `refund_amount` decimal(10,2) NOT NULL COMMENT '退款金额',
@@ -5893,7 +5900,7 @@ ALTER TABLE `yii_page`
 -- 使用表AUTO_INCREMENT `yii_picture`
 --
 ALTER TABLE `yii_picture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3712;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3715;
 --
 -- 使用表AUTO_INCREMENT `yii_recommendation_category`
 --

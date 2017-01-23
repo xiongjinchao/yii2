@@ -28,10 +28,6 @@ use yii\bootstrap\Modal;
     ]);
     ?>
 
-    <?= $form->field($model, 'origin_price')->textInput() ?>
-
-    <?= $form->field($model, 'sale_price')->textInput() ?>
-
     <div class="form-group field-goods-picture_id">
         <label class="control-label" for="goods-picture_id"><?= $model->getAttributeLabel('picture_id'); ?></label>
         <div>

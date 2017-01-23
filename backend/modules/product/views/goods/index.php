@@ -208,6 +208,12 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-cubes"></i> '.$this->title;
                     return '<span>'.$model->sale_price.'</span><br/><span style="text-decoration:line-through;color:#999">'.$model->origin_price.'</span>';
                 }
             ],
+            [
+                'attribute'=>'stock',
+                'hAlign'=>'right',
+                'vAlign'=>'middle',
+                'format'=> 'raw',
+            ],
             /*
             [
                 'attribute'=>'presell',
