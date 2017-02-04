@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-file-text"></i> '.$this->title
                     return $model->color == ''? '' : "<span class='badge' style='background-color: ".$model->color."'> </span>  <code>".$model->color.'</code>';
                 },
                 'format'=>'raw',
-                'width'=>'9%',
+                'width'=>'10%',
             ],
             [
                 'attribute' => 'user_id',
