@@ -77,7 +77,7 @@ dmstr\web\AdminLteAsset::register($this);
             }else{
                 var key = $(".uploader-list").find(".file-item").length+1;
                 $(".uploader-list").append('<div id="WU_FILE_'+(key+1)+'" class="file-item thumbnail upload-state-done">'
-                +'<div class="img-thumb"><img src="'+src+'" width="100" height="100"></div><div class="info"><span class="cancel"></span></div>'
+                +'<div class="img-thumb"><img src="'+src+'" url="'+src+'" width="100" height="100"></div><div class="info"><span class="cancel"></span></div>'
                 +'<input class="picture_id" name="Picture['+key+'][id]" value="'+picture_id+'" type="hidden">'
                 +'<input class="sort" name="Picture['+key+'][sort]" value="'+(key+1)+'" type="hidden"></div>');
                 $(this).find("i").show();
@@ -102,7 +102,7 @@ dmstr\web\AdminLteAsset::register($this);
                     var picture_id = json.picture_id;
                     var key = $(".uploader-list").find(".file-item").length+1;
                     $(".uploader-list").append('<div id="WU_FILE_'+(key+1)+'" class="file-item thumbnail upload-state-done">'
-                    +'<div class="img-thumb"><img src="'+src+'" width="100" height="100"></div><div class="info"><span class="cancel"></span></div>'
+                    +'<div class="img-thumb"><img src="'+src+'" url="'+src+'" width="100" height="100"></div><div class="info"><span class="cancel"></span></div>'
                     +'<input class="picture_id" name="Picture['+key+'][id]" value="'+picture_id+'" type="hidden">'
                     +'<input class="sort" name="Picture['+key+'][sort]" value="'+(key+1)+'" type="hidden"></div>');
 
@@ -169,6 +169,7 @@ dmstr\web\AdminLteAsset::register($this);
             var key = $li.parents('.uploader-list').find('.file-item').index($li);
             $li.addClass('upload-state-done');
             if(response.status == 'success'){
+                $li.find('.img-thumb img').attr('url',response.url);
                 $li.append('<input type="hidden" class="picture_id" name="Picture['+key+'][id]" value="'+response.picture_id+'">');
                 $li.append('<input type="hidden" class="sort" name="Picture['+key+'][sort]" value="0">');
                 $(".alert").remove();

@@ -20,9 +20,9 @@ class UploaderController extends Controller
     {
         try{
             $picture = UploadHelper::upload(null,null,'file',$category);
-            $result = ['status'=>'success','picture_id'=>$picture->id,'message'=>'上传成功'];
+            $result = ['status'=>'success', 'picture_id'=>$picture->id, 'url'=>'http://'.Yii::$app->params['domain']['image'].$picture->path, 'message'=>'上传成功'];
         }catch (Exception $e){
-            $result = ['status'=>'false','picture_id'=>'0','message'=>$e->getMessage()];
+            $result = ['status'=>'false', 'picture_id'=>'0', 'url'=>'', 'message'=>$e->getMessage()];
         }
         echo json_encode($result);
     }
@@ -49,9 +49,9 @@ class UploaderController extends Controller
 
         try{
             $picture = UploadHelper::remote($url,$category);
-            $result = ['status'=>'success','picture_id'=>$picture->id,'url'=>'http://'.Yii::$app->params['domain']['image'].$picture->path,'message'=>'上传成功'];
+            $result = ['status'=>'success', 'picture_id'=>$picture->id, 'url'=>'http://'.Yii::$app->params['domain']['image'].$picture->path, 'message'=>'上传成功'];
         }catch (Exception $e){
-            $result = ['status'=>'false','picture_id'=>'0','url'=>$url,'message'=>$e->getMessage()];
+            $result = ['status'=>'false', 'picture_id'=>'0', 'url'=>$url, 'message'=>$e->getMessage()];
         }
         echo json_encode($result);
     }

@@ -124,8 +124,8 @@ use yii\bootstrap\Modal;
             var picture_url = [];
             $("#uploader-modal .uploader-list .file-item").each(function(i,item){
                 picture_id.push($(item).find(".picture_id").val());
-                picture_url.push($(item).find("img").attr("src"));
-                $("#selected-picture").append('<img class="img-responsive img-thumbnail" src="'+$(item).find("img").attr("src")+'" width="100" height="100">');
+                picture_url.push($(item).find("img").attr("url"));
+                $("#selected-picture").append('<img class="img-responsive img-thumbnail" src="'+$(item).find("img").attr("url")+'" width="100" height="100">');
             });
             $("#goods-picture_id").val(picture_id.join(','));
             $("#goods-picture_url").val(picture_url.join(','));

@@ -79,7 +79,7 @@ use yii\helpers\Url;
             var picture_id = [];
             $("#uploader-modal .uploader-list .file-item").each(function(i,item){
                 picture_id.push($(item).find(".picture_id").val());
-                $("#selected-picture").append('<img class="img-responsive img-thumbnail" src="'+$(item).find("img").attr("src")+'" width="100" height="100">');
+                $("#selected-picture").append('<img class="img-responsive img-thumbnail" src="'+$(item).find("img").attr("url")+'" width="100" height="100">');
             });
             $("#user-picture_id").val(picture_id.join(','));
             $("#uploader-modal").modal('hide');
