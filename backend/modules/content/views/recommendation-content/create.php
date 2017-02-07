@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="tab-pane active">
                 <?= $this->render('_form', [
                     'model' => $model,
+                    'picture' => $picture,
                 ]) ?>
             </div>
         </div>

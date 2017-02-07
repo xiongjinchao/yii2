@@ -14,9 +14,6 @@ $this->params['breadcrumbs'][] = '更新';
 
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs pull-right">
-            <li>
-                <?=Html::a('推荐图片',['recommendation-picture/edit', 'id' => $model->id])?>
-            </li>
             <li class="active">
                 <?=Html::a('推荐内容',['recommendation-content/index', 'category_id' => $category->id])?>
             </li>
@@ -34,6 +31,7 @@ $this->params['breadcrumbs'][] = '更新';
             <div class="tab-pane active">
                 <?= $this->render('_form', [
                     'model' => $model,
+                    'picture' => $picture,
                 ]) ?>
             </div>
         </div>

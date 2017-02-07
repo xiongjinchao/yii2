@@ -3,14 +3,17 @@
 namespace backend\modules\content\controllers;
 
 use Yii;
+use backend\models\Picture;
 use common\models\RecommendationCategory;
 use common\models\RecommendationContent;
+use common\models\RecommendationPicture;
 use common\models\RecommendationContentSearch;
 use backend\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
+use yii\base\Exception;
 
 /**
  * RecommendationContentController implements the CRUD actions for RecommendationContent model.
@@ -75,13 +78,33 @@ class RecommendationContentController extends Controller
         $model->loadDefaultValues();
         $model->category_id = $category_id;
         $category = RecommendationCategory::findOne($category_id);
+        $picture = null;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' => $model->id]);
+            if(!empty($_POST['RecommendationPicture'])) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    foreach ($_POST['RecommendationPicture'] as $item) {
+                        $recommendationPicture = $item['id'] > 0 ? RecommendationPicture::findOne($item['id']) : new RecommendationPicture;
+                        $recommendationPicture->content_id = $model->id;
+                        $recommendationPicture->category_id = $model->category_id;
+                        $recommendationPicture->picture_id = $item['picture_id'];
+                        $recommendationPicture->picture_title = $item['picture_title'];
+                        $recommendationPicture->sort = $item['sort'];
+                        $recommendationPicture->save();
+                    }
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                }
+            }
+            Yii::$app->session->setFlash('info', '推荐内容创建成功！');
+            return $this->redirect(['index', 'category_id' => $model->category_id]);
         } else {
             return $this->render('create', [
                 'category' => $category,
                 'model' => $model,
+                'picture' => $picture
             ]);
         }
     }
@@ -96,13 +119,33 @@ class RecommendationContentController extends Controller
     {
         $model = $this->findModel($id);
         $category = $model->category;
+        $picture = RecommendationPicture::find()->where(['content_id'=>$id])->orderBy(['id'=>SORT_ASC])->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if(!empty($_POST['RecommendationPicture'])) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    foreach ($_POST['RecommendationPicture'] as $item) {
+                        $recommendationPicture = $item['id'] > 0 ? RecommendationPicture::findOne($item['id']) : new RecommendationPicture;
+                        $recommendationPicture->content_id = $model->id;
+                        $recommendationPicture->category_id = $model->category_id;
+                        $recommendationPicture->picture_id = $item['picture_id'];
+                        $recommendationPicture->picture_title = $item['picture_title'];
+                        $recommendationPicture->sort = $item['sort'];
+                        $recommendationPicture->save();
+                    }
+                    $transaction->commit();
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                }
+            }
+            Yii::$app->session->setFlash('info', '推荐内容更新成功！');
             return $this->redirect(['index', 'category_id' => $model->category_id]);
         } else {
             return $this->render('update', [
                 'category' => $category,
                 'model' => $model,
+                'picture' => $picture
             ]);
         }
     }
@@ -130,6 +173,26 @@ class RecommendationContentController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Deletes an existing RecommendationPicture model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @return mixed
+     */
+    public function actionDeletePicture()
+    {
+        if(Yii::$app->request->isAjax) {
+            try {
+                $model = RecommendationPicture::findOne(Yii::$app->request->post('id'));
+                $picture = Picture::findOne($model->picture_id);
+                $picture->status = Picture::STATUS_DISABLE;
+                $picture->save();
+                $model->delete();
+            }catch(Exception $e){
+                return false;
+            }
+        }
     }
 
     /**

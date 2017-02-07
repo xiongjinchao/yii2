@@ -19,9 +19,6 @@ $this->params['breadcrumbs'][] = '更新';
 				<?=Html::a('文章评论',['comment/index', 'CommentSearch[model_name]' => 'article','CommentSearch[model_id]' => $model->id])?>
 			</li>
 			<li>
-				<?=Html::a('文章图片',['article-section-picture/index', 'id' => $model->id])?>
-			</li>
-			<li>
 				<?=Html::a('文章段落',['article-section/edit', 'id' => $model->id])?>
 			</li>
 			<li class="active">

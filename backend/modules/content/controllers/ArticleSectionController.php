@@ -108,6 +108,25 @@ class ArticleSectionController extends Controller
     }
 
     /**
+     * Deletes an existing ArticleSectionPicture model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDeletePicture($id = null)
+    {
+        $id = Yii::$app->request->isAjax?Yii::$app->request->post('id'):$id;
+        $model=$this->findModel($id);
+        $picture = Picture::findOne($model->picture_id);
+        $picture->status = Picture::STATUS_DISABLE;
+        $picture->save();
+        $model->delete();
+        if(!Yii::$app->request->isAjax){
+            return $this->redirect(['index','id'=>$model->article_id]);
+        }
+    }
+
+    /**
      * Finds the ArticleSection model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id

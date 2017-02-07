@@ -22,9 +22,6 @@ $this->params['breadcrumbs'][] = '更新';
             <li>
                 <?=Html::a('文章评论',['comment/index', 'CommentSearch[model_name]' => 'article','CommentSearch[model_id]' => $article->id])?>
             </li>
-            <li>
-                <?=Html::a('文章图片',['article-section-picture/index', 'id' => $article->id])?>
-            </li>
             <li class="active">
                 <?=Html::a('文章段落',['article-section/edit', 'id' => $article->id])?>
             </li>
@@ -171,7 +168,7 @@ $this->params['breadcrumbs'][] = '更新';
             uploader = WebUploader.create({
                 auto: true,
                 swf: '<?= '@web/plug-in/webuploader/';?>Uploader.swf',
-                server: '<?= Yii::$app->urlManager->createUrl(['uploader/upload','category'=>'article_section_picture']);?>',
+                server: '<?= \yii\helpers\Url::to(['/uploader/upload','category'=>'article_section_picture']);?>',
                 pick: '#file-picker',
                 //fileNumLimit: 3,
                 accept: {
@@ -278,13 +275,13 @@ $this->params['breadcrumbs'][] = '更新';
             $(".section_group").on("click",".delete_section",function(){
                 var section_id = $(this).parents('.article_section').find('.section_id').val();
                 if(section_id>0){
-                    $.post('<?= Yii::$app->urlManager->createUrl(['content/article-section/delete']);?>', { id:section_id });
+                    $.post('<?= \yii\helpers\Url::to(['/content/article-section/delete']);?>', { id:section_id });
                 }
                 $(this).parents('.article_section').remove();
                 $('.article_section').each(function( inex, item ){
                     $(item).find('input,textarea,select').each(function(){
-                        var new_name = $(this).attr('name').replace(/ArticleSection\[\d+\]/gi, 'ArticleSection['+inex+']');
-                        $(this).attr('name',new_name);
+                        var name = $(this).attr('name').replace(/ArticleSection\[\d+\]/gi, 'ArticleSection['+inex+']');
+                        $(this).attr('name',name);
                     });
                 });
 
@@ -298,7 +295,7 @@ $this->params['breadcrumbs'][] = '更新';
                 var section_picture_id = $(this).parents('.file-item').find('.section_picture_id').val();
                 var uploader_list = $(this).parents('.uploader-list');
                 if(section_picture_id>0){
-                    $.post('<?= Yii::$app->urlManager->createUrl(['content/article-section-picture/delete']);?>', { id:section_picture_id });
+                    $.post('<?= \yii\helpers\Url::to(['/content/article-section/delete-picture']);?>', { id:section_picture_id });
                 }
                 $(this).parents('.file-item').remove();
                 var length = uploader_list.find('.file-item').length;

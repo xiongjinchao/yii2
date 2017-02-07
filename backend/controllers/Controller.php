@@ -31,6 +31,7 @@ class Controller extends \yii\web\Controller
             'Assignment' => '授权',
             'Reset' => '重置权限',
             'AuthInitialize' => '权限索引',
+            'DeletePicture' => '删除图片',
         ];
         //$this->authInitialize();
     }
