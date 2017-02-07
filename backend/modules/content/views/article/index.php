@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-file-text"></i> '.$this->title
             <div class="box-footer">{pager}</div>
             </div>',
         'export' => false,
-        //'pjax'=>true,
+        'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
             [
@@ -40,6 +40,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-file-text"></i> '.$this->title
             ],
             [
                 'attribute'=>'id',
+                'vAlign'=>'middle',
                 'width'=>'4%',
             ],
             [
@@ -72,13 +73,16 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-file-text"></i> '.$this->title
                             ]);
                         }
                     ];
-                }
+                },
+                'vAlign'=>'middle',
             ],
             [
                 'attribute'=>'color',
-                'filter' => ColorInput::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'color',
+                'value'=>function ($model, $key, $index, $widget) {
+                    return $model->color == ''? '' : "<span class='badge' style='background-color: ".$model->color."'> </span>  <code>".$model->color.'</code>';
+                },
+                'filterType'=>GridView::FILTER_COLOR,
+                'filterWidgetOptions'=>[
                     'showDefaultPalette'=>false,
                     'pluginOptions'=>[
                         'showPalette' => true,
@@ -88,53 +92,50 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-file-text"></i> '.$this->title
                         'allowEmpty' => false,
                         'preferredFormat' => 'name',
                         'palette' => array_chunk(\common\models\Article::getColorOptions(),6),
-                    ]
-                ]),
-                'value'=>function ($model, $key, $index, $widget) {
-                    return $model->color == ''? '' : "<span class='badge' style='background-color: ".$model->color."'> </span>  <code>".$model->color.'</code>';
-                },
+                    ],
+                ],
+                'vAlign'=>'middle',
                 'format'=>'raw',
                 'width'=>'10%',
             ],
             [
                 'attribute' => 'user_id',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'user_id',
-                    'data'=> \common\models\User::getUserOptions(),
-                    'options' => ['placeholder' => '所有作者'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
                 'value'=>function($model){
                     return isset($model->user)?$model->user->username:'';
-                }
+                },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\User::getUserOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有作者'],
+                'vAlign'=>'middle',
             ],
             [
                 'attribute' => 'category_id',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'category_id',
-                    'data'=> \common\models\ArticleCategory::getArticleCategoryOptions(),
-                    'options' => ['placeholder' => '所有分类'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
                 'value'=>function($model){
                     return $model->getArticleCategoryNames();
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\ArticleCategory::getArticleCategoryOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有分类'],
+                'vAlign'=>'middle',
             ],
             [
                 'attribute' => 'content_type',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'content_type',
-                    'data'=> \common\models\Article::getContentTypeOptions(),
-                    'hideSearch' => true,
-                    'options' => ['placeholder' => '所有类别'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
                 'value'=>function($model){
                     return $model->getContentTypeOptions($model->content_type);
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\Article::getContentTypeOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有类别'],
+                'vAlign'=>'middle',
             ],
             [
                 'attribute' => 'created_at',
@@ -153,79 +154,23 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-file-text"></i> '.$this->title
                     ]
                 ]),
                 'width'=>'10%',
+                'vAlign'=>'middle',
             ],
-            /*
-            [
-                'attribute' => 'updated_at',
-                'format' =>['datetime','php:Y-m-d H:i:s'],
-                'filter' => DateRangePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'updated_at',
-                    'convertFormat'=>true,
-                    'pluginOptions'=>[
-                        'timePicker'=>false,
-                        'timePickerIncrement'=>15,
-                        'locale'=>[
-                            'format'=>'Y-m-d',
-                            'separator'=>' - ',
-                        ],
-                    ]
-                ]),
-                'width'=>'10%',
-            ],
-            */
-            /*
-            [
-                'label'=>'热门',
-                'attribute'=>'hot',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'hot',
-                    'data'=> \common\models\Article::getHotOptions(),
-                    'hideSearch' => true,
-                    'options' => ['placeholder' => '所有类别'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
-                'format'=>'raw',
-                'value'=>function($model){
-                    return Html::a($model->hot == $model::HOT_ENABLE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['hot','id'=>$model->id], ['title' => '审核']) ;
-                },
-            ],
-            */
-            /*
-            [
-                'label'=>'推荐',
-                'attribute'=>'recommend',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'recommend',
-                    'data'=> \common\models\Article::getRecommendOptions(),
-                    'hideSearch' => true,
-                    'options' => ['placeholder' => '所有类别'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
-                'format'=>'raw',
-                'value'=>function($model){
-                    return Html::a($model->recommend == $model::RECOMMEND_ENABLE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['recommend','id'=>$model->id], ['title' => '审核']) ;
-                },
-            ],
-            */
             [
                 'label'=>'审核',
                 'attribute'=>'audit',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'audit',
-                    'data'=> \common\models\Article::getAuditOptions(),
-                    'hideSearch' => true,
-                    'options' => ['placeholder' => '所有类别'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
                 'format'=>'raw',
                 'hAlign'=>'center',
                 'value'=>function($model){
                     return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\Article::getAuditOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有类别'],
+                'vAlign'=>'middle',
             ],
             [
                 'class' => '\kartik\grid\ActionColumn',
