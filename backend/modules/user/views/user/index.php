@@ -74,10 +74,15 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-user"></i> '.$this->title;
                 'value'=>function($model){
                     return Html::a($model->status ==$model::STATUS_ACTIVE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['status','id'=>$model->id], ['title' => '状态']) ;
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\Admin::getStatusOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有类别'],
                 'headerOptions'=>['width'=>'80px'],
                 'vAlign'=>'middle',
                 'hAlign'=>'center',
-                'filter'=>false
             ],
             ['class' => '\kartik\grid\ActionColumn'],
         ],

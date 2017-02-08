@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-gears"></i> '.$this->title;
             <div class="box-footer">{pager}</div>
             </div>',
         'export' => false,
-        //'pjax'=>true,
+        'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
             [
@@ -87,19 +87,17 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-gears"></i> '.$this->title;
             ],
             [
                 'attribute'=>'status',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'status',
-                    'data'=> \common\models\AttributeName::getStatusOptions(),
-                    'hideSearch' => true,
-                    'options' => ['prompt' => '所有状态'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
                 'format'=>'raw',
                 'width'=>'8%',
                 'value'=>function($model){
                     return $model->status == $model::STATUS_SKU?'SKU':'SPU';
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\AttributeName::getStatusOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有状态'],
             ],
             [
                 'attribute'=>'created_at',
@@ -113,20 +111,18 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-gears"></i> '.$this->title;
             ],
             [
                 'attribute'=>'audit',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'audit',
-                    'data'=> \common\models\AttributeName::getAuditOptions(),
-                    'hideSearch' => true,
-                    'options' => ['prompt' => '所有类别'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
                 'format'=>'raw',
                 'hAlign'=>'center',
                 'width'=>'8%',
                 'value'=>function($model){
                     return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\AttributeName::getAuditOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有类别'],
             ],
             [
                 'class' => '\kartik\grid\ActionColumn',

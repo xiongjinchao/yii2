@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\widgets\Select2;
-use kartik\daterange\DateRangePicker;
 use kartik\widgets\ColorInput;
 
 /* @var $this yii\web\View */
@@ -29,7 +28,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-cubes"></i> '.$this->title;
             <div class="box-footer">{pager}</div>
             </div>',
         'export' => false,
-        //'pjax'=>true,
+        'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
             [
@@ -94,9 +93,11 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-cubes"></i> '.$this->title;
             ],
             [
                 'attribute'=>'color',
-                'filter' => ColorInput::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'color',
+                'value'=>function ($model, $key, $index, $widget) {
+                    return $model->color == ''? '' : "<span class='badge' style='background-color: ".$model->color."'> </span>  <code>".$model->color.'</code>';
+                },
+                'filterType'=>GridView::FILTER_COLOR,
+                'filterWidgetOptions'=>[
                     'showDefaultPalette'=>false,
                     'pluginOptions'=>[
                         'showPalette' => true,
@@ -105,99 +106,70 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-cubes"></i> '.$this->title;
                         'showAlpha' => false,
                         'allowEmpty' => false,
                         'preferredFormat' => 'name',
-                        'palette' => array_chunk(\common\models\Goods::getColorOptions(),6),
-                    ]
-                ]),
-                'value'=>function ($model, $key, $index, $widget) {
-                    return $model->color == ''? '' : "<span class='badge' style='background-color: ".$model->color."'> </span>  <code>".$model->color.'</code>';
-                },
+                        'palette' => array_chunk(\common\models\Article::getColorOptions(),6),
+                    ],
+                ],
                 'vAlign'=>'middle',
                 'format'=>'raw',
                 'width'=>'9%',
             ],
             [
                 'attribute' => 'category_id',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'category_id',
-                    'data'=> \common\models\GoodsCategory::getGoodsCategoryOptions(),
-                    'options' => ['placeholder' => '所有分类'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
                 'vAlign'=>'middle',
                 'value'=>function($model){
                     return isset($model->category->name)?$model->category->name:'';
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\GoodsCategory::getGoodsCategoryOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有类别'],
             ],
-            /*
-            [
-                'attribute' => 'created_at',
-                'format' =>['datetime','php:Y-m-d H:i:s'],
-                'filter' => DateRangePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'created_at',
-                    'convertFormat'=>true,
-                    'pluginOptions'=>[
-                        'timePicker'=>false,
-                        'timePickerIncrement'=>15,
-                        'locale'=>[
-                            'format'=>'Y-m-d',
-                            'separator'=>' - ',
-                        ],
-                    ]
-                ]),
-                'vAlign'=>'middle',
-            ],
-            */
             [
                 'attribute' => 'updated_at',
                 'format' =>['datetime','php:Y-m-d H:i:s'],
-                'filter' => DateRangePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'updated_at',
+                'filterType' => GridView::FILTER_DATE_RANGE,
+                'filterWidgetOptions'=>[
+                    'autoUpdateOnInit'=>false,
                     'convertFormat'=>true,
                     'pluginOptions'=>[
-                        'timePicker'=>false,
-                        'timePickerIncrement'=>15,
+                        'opens'=>'left',
                         'locale'=>[
                             'format'=>'Y-m-d',
-                            'separator'=>' - ',
+                            'separator'=>' - '
                         ],
                     ]
-                ]),
+                ],
                 'vAlign'=>'middle',
             ],
             [
                 'attribute'=>'sale_mode',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'sale_mode',
-                    'data'=> \common\models\Goods::getSaleModeOptions(),
-                    'hideSearch' => true,
-                    'options' => ['placeholder' => '所有类别'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
                 'format'=>'raw',
                 'vAlign'=>'middle',
                 'value'=>function($model){
                     return $model->getSaleModeOptions($model->sale_mode);
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\Goods::getSaleModeOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有类别'],
             ],
             [
                 'attribute'=>'goods_type',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'goods_type',
-                    'data'=> \common\models\Goods::getGoodsTypeOptions(),
-                    'hideSearch' => true,
-                    'options' => ['placeholder' => '所有类别'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
                 'format'=>'raw',
                 'vAlign'=>'middle',
                 'value'=>function($model){
                     return $model->getGoodsTypeOptions($model->goods_type);
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\Goods::getGoodsTypeOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有类别'],
             ],
             [
                 'attribute'=>'sale_price',
@@ -214,40 +186,20 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-cubes"></i> '.$this->title;
                 'vAlign'=>'middle',
                 'format'=> 'raw',
             ],
-            /*
-            [
-                'attribute'=>'presell',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'presell',
-                    'data'=> \common\models\Goods::getPresellOptions(),
-                    'hideSearch' => true,
-                    'options' => ['placeholder' => '所有类别'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
-                'format'=>'raw',
-                'vAlign'=>'middle',
-                'value'=>function($model){
-                    return $model->getPresellOptions($model->sale_mode);
-                },
-            ],
-            */
             [
                 'attribute'=>'audit',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'audit',
-                    'data'=> \common\models\Goods::getAuditOptions(),
-                    'hideSearch' => true,
-                    'options' => ['placeholder' => '所有状态'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
                 'format'=>'raw',
                 'vAlign'=>'middle',
                 'hAlign'=>'center',
                 'value'=>function($model){
                     return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['audit','id'=>$model->id], ['title' => '上下架']) ;
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\Goods::getAuditOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有类别'],
             ],
             ['class' => 'kartik\grid\ActionColumn'],
             [

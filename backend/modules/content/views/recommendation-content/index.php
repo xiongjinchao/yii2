@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-rocket"></i> '.$this->title;
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'export' => false,
-                    //'pjax'=>true,
+                    'pjax'=>true,
                     'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
                     'columns' => [
                         [
@@ -99,19 +99,17 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-rocket"></i> '.$this->title;
                         [
                             'label'=>'审核',
                             'attribute'=>'audit',
-                            'filter' => Select2::widget([
-                                'model'=> $searchModel,
-                                'attribute'=> 'audit',
-                                'data'=> \common\models\RecommendationContent::getAuditOptions(),
-                                'hideSearch' => true,
-                                'options' => ['placeholder' => '所有类别'],
-                                'pluginOptions' => ['allowClear' => 'true'],
-                            ]),
                             'format'=>'raw',
                             'hAlign'=>'center',
                             'value'=>function($model){
                                 return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
                             },
+                            'filterType' => GridView::FILTER_SELECT2,
+                            'filter'=>\common\models\RecommendationContent::getAuditOptions(),
+                            'filterWidgetOptions'=>[
+                                'pluginOptions'=>['allowClear'=>true],
+                            ],
+                            'filterInputOptions'=>['placeholder'=>'所有类别'],
                         ],
                         [
                             'class' => '\kartik\grid\ActionColumn',

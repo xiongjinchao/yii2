@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-list"></i> '.$this->title;
             <div class="box-footer">{pager}</div>
             </div>',
         'export' => false,
-        //'pjax'=>true,
+        'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
             ['class' => '\kartik\grid\SerialColumn'],

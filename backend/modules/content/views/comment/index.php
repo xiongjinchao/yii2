@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-comments"></i> '.$this->title;
             <div class="box-footer">{pager}</div>
             </div>',
         'export' => false,
-        //'pjax'=>true,
+        'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'afterRow' => function($model){
             if(isset($model->comments)&&$model->comments!=null){

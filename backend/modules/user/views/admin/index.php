@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-user-secret"></i> '.$this->tit
             <div class="box-footer">{pager}</div>
             </div>',
         'export' => false,
-        //'pjax'=>true,
+        'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'filterModel' => $searchModel,
         'columns' => [
@@ -55,6 +55,12 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-user-secret"></i> '.$this->tit
                 'value'=>function($model){
                     return Html::a($model->status ==$model::STATUS_ACTIVE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['status','id'=>$model->id], ['title' => '状态']) ;
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\Admin::getStatusOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有类别'],
                 'headerOptions'=>['width'=>'80px'],
             ],
             ['class' => '\kartik\grid\ActionColumn'],

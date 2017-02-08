@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\widgets\Select2;
-use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -26,7 +25,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-navicon"></i> '.$this->title;
             <div class="box-footer">{pager}</div>
             </div>',
         'export' => false,
-        //'pjax'=>true,
+        'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
             [
@@ -66,53 +65,49 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-navicon"></i> '.$this->title;
             [
                 'attribute' => 'created_at',
                 'format' =>['datetime','php:Y-m-d H:i:s'],
-                'filter' => DateRangePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'created_at',
+                'filterType' => GridView::FILTER_DATE_RANGE,
+                'filterWidgetOptions'=>[
+                    'autoUpdateOnInit'=>false,
                     'convertFormat'=>true,
                     'pluginOptions'=>[
-                        'timePicker'=>false,
-                        'timePickerIncrement'=>15,
+                        'opens'=>'left',
                         'locale'=>[
                             'format'=>'Y-m-d',
-                            'separator'=>' - ',
+                            'separator'=>' - '
                         ],
                     ]
-                ]),
+                ],
             ],
             [
                 'attribute' => 'updated_at',
                 'format' =>['datetime','php:Y-m-d H:i:s'],
-                'filter' => DateRangePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'updated_at',
+                'filterType' => GridView::FILTER_DATE_RANGE,
+                'filterWidgetOptions'=>[
+                    'autoUpdateOnInit'=>false,
                     'convertFormat'=>true,
                     'pluginOptions'=>[
-                        'timePicker'=>false,
-                        'timePickerIncrement'=>15,
+                        'opens'=>'left',
                         'locale'=>[
                             'format'=>'Y-m-d',
-                            'separator'=>' - ',
+                            'separator'=>' - '
                         ],
                     ]
-                ]),
+                ],
             ],
             [
                 'attribute'=>'audit',
-                'filter' => Select2::widget([
-                    'model'=> $searchModel,
-                    'attribute'=> 'audit',
-                    'data'=> \common\models\AttributeName::getAuditOptions(),
-                    'hideSearch' => true,
-                    'options' => ['prompt' => '所有类别'],
-                    'pluginOptions' => ['allowClear' => 'true'],
-                ]),
                 'format'=>'raw',
                 'hAlign'=>'center',
                 'width'=>'8%',
                 'value'=>function($model){
                     return Html::a($model->audit == $model::AUDIT_ENABLE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
                 },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\GoodsCategory::getAuditOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有类别'],
             ],
             ['class' => '\kartik\grid\ActionColumn'],
             [

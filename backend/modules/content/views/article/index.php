@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\widgets\Select2;
-use kartik\daterange\DateRangePicker;
 use kartik\widgets\ColorInput;
 
 /* @var $this yii\web\View */
@@ -140,19 +139,18 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-file-text"></i> '.$this->title
             [
                 'attribute' => 'created_at',
                 'format' =>['datetime','php:Y-m-d H:i:s'],
-                'filter' => DateRangePicker::widget([
-                    'model' => $searchModel,
-                    'attribute' => 'created_at',
+                'filterType' => GridView::FILTER_DATE_RANGE,
+                'filterWidgetOptions'=>[
+                    'autoUpdateOnInit'=>false,
                     'convertFormat'=>true,
                     'pluginOptions'=>[
-                        'timePicker'=>false,
-                        'timePickerIncrement'=>15,
+                        'opens'=>'left',
                         'locale'=>[
                             'format'=>'Y-m-d',
-                            'separator'=>' - ',
+                            'separator'=>' - '
                         ],
                     ]
-                ]),
+                ],
                 'width'=>'10%',
                 'vAlign'=>'middle',
             ],
