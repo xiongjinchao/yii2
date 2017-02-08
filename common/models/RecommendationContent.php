@@ -46,7 +46,7 @@ class RecommendationContent extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'category_id'], 'required'],
-            [['category_id', 'sort', 'audit', 'created_at', 'updated_at'], 'integer'],
+            [['category_id', 'sort', 'audit'], 'integer'],
             [['content'], 'string'],
             [['title', 'description', 'code'], 'string', 'max' => 255],
         ];

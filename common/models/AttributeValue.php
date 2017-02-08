@@ -39,7 +39,7 @@ class AttributeValue extends \yii\db\ActiveRecord
     {
         return [
             [['attribute_name_id', 'value'], 'required'],
-            [['attribute_name_id', 'created_at', 'updated_at', 'sort'], 'integer'],
+            [['attribute_name_id', 'sort'], 'integer'],
             [['value'], 'string', 'max' => 255],
             [['value'], 'unique'],
             ['sort', 'default', 'value' => 0],

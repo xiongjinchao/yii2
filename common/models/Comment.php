@@ -40,7 +40,7 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'user_id', 'model_id', 'audit', 'created_at', 'updated_at'], 'integer'],
+            [['parent_id', 'user_id', 'model_id', 'audit'], 'integer'],
             [['content'], 'string'],
             [['model_name'], 'string', 'max' => 100]
         ];

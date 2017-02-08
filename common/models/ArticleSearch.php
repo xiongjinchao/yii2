@@ -69,6 +69,9 @@ class ArticleSearch extends Article
             'hit' => $this->hit,
             'color' => $this->color,
         ]);
+        if($this->created_at!=''){
+            $query->andWhere('created_at>=:created_at_start and created_at<:created_at_end',[':created_at_start'=>strtotime(explode(' - ',$this->created_at)[0]),':created_at_end'=>strtotime(explode(' - ',$this->created_at)[1])]);
+        }
         if($this->updated_at!=''){
             $query->andWhere('updated_at>=:updated_at_start and updated_at<:updated_at_end',[':updated_at_start'=>strtotime(explode(' - ',$this->updated_at)[0]),':updated_at_end'=>strtotime(explode(' - ',$this->updated_at)[1])]);
         }

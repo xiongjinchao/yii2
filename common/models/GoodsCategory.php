@@ -49,7 +49,7 @@ class GoodsCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['lft', 'rgt', 'parent', 'depth', 'audit', 'created_at', 'updated_at'], 'integer'],
+            [['lft', 'rgt', 'parent', 'depth', 'audit'], 'integer'],
             [['name'], 'string', 'max' => 100],
             [['action'], 'string', 'max' => 50],
             [['seo_title', 'seo_description', 'seo_keyword'], 'string', 'max' => 255],

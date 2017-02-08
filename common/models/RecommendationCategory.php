@@ -47,7 +47,7 @@ class RecommendationCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['lft', 'rgt', 'parent', 'depth', 'audit', 'created_at', 'updated_at'], 'integer'],
+            [['lft', 'rgt', 'parent', 'depth', 'audit'], 'integer'],
             [['name', 'tag', 'description'], 'string', 'max' => 255],
         ];
     }

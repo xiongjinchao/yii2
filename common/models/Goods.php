@@ -59,7 +59,7 @@ class Goods extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'category_id'], 'required'],
-            [['category_id', 'sale_mode', 'goods_type', 'presell', 'picture_id', 'audit', 'hot', 'recommend', 'hit', 'stock', 'created_at', 'updated_at'], 'integer'],
+            [['category_id', 'sale_mode', 'goods_type', 'presell', 'picture_id', 'audit', 'hot', 'recommend', 'hit', 'stock'], 'integer'],
             [['color', 'content', 'sale_url', 'picture_url'], 'string'],
             [['origin_price','sale_price'], 'double'],
             [['name', 'seo_title', 'seo_description', 'seo_keyword'], 'string', 'max' => 255],
