@@ -52,7 +52,7 @@
                             ['label' => '商品管理', 'icon' => 'fa fa-cubes text-maroon', 'url' => ['/product/goods/index']],
                             ['label' => '商品分类', 'icon' => 'fa fa-navicon text-maroon', 'url' => ['/product/goods-category/index']],
                             ['label' => '属性管理', 'icon' => 'fa fa-gears text-maroon', 'url' => ['/product/attribute-name/index']],
-                            ['label' => 'SKU管理', 'icon' => 'fa fa-globe text-maroon', 'url' => ['/product/product/index']],
+                            ['label' => 'SKU管理', 'icon' => 'fa fa-globe text-maroon', 'url' => ['/product/goods-attribute']],
                         ],
                     ],
                     ['label' => '交易管理', 'options' => ['class' => 'header']],
