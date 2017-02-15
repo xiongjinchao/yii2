@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-01-23 11:29:01
+-- Generation Time: 2017-02-15 03:41:22
 -- 服务器版本： 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -326,7 +326,7 @@ INSERT INTO `yii_article` (`id`, `title`, `category_id`, `content`, `content_typ
 (241, '徐志摩心灵鸡汤语录(三则)2', '', '<p>走着走着，就散了，回忆都淡了；回头发现，你不见了，忽然我乱了。&mdash;&mdash;徐志摩</p><p>即使命运叫您在得到最后胜利之前碰着了不可躲避的死，我的爱！那时您就死。因为死就是成功，就是胜利。一切有我在，一切有爱在。&mdash;&mdash;徐志摩</p><p>我之甘冒世之不韪，竭全力以争取，非特求免凶残之痛苦，实求良善之安顿，求人格之确立，求灵魂之救度耳。我将于茫茫人海中，访我唯一灵魂之伴侣。得之，我幸；不得，我命，如此而已！&mdash;&mdash;徐志摩</p>', 1, 1, 0, 0, 'red', 0, 1, '', '故事百科', 'http://www.gushibaike.com/xinlingjitang/22749.html', '徐志摩心灵鸡汤语录(三则)', NULL, NULL, 1443586887, 1478784130),
 (242, '其实，是我们做得还不够好……', '', '', 1, 1, 1, 1, 'green', 0, 1, '', '故事百科', 'http://www.gushibaike.com/xinlingjitang/16583.html', '其实，是我们做得还不够好……', NULL, NULL, 1443586888, 1482746118),
 (243, '只做一件小事，也可以有满分的人生', '', '', 1, 0, 1, 1, 'blue', 0, 13, '', '故事百科', 'http://www.gushibaike.com/xinlingjitang/16537.html', '只做一件小事，也可以有满分的人生', NULL, NULL, 1443586889, 1477877469),
-(244, 'Hello Word!', ',1,4,3,2,', '<pre class="brush:php;toolbar:false">&lt;?php&nbsp;\r\n&nbsp;&nbsp;&nbsp;&nbsp;$name&nbsp;=&nbsp;&#39;Hello&nbsp;Word&#39;;\r\n&nbsp;&nbsp;&nbsp;&nbsp;print_r($name);\r\n?&gt;</pre>', 0, 1, 1, 0, 'green', 0, 13, '', '故事百科', 'http://www.gushibaike.com/xinlingjitang/16496.html', '性格决定命运，好的习惯很重要', '', '', 1443586890, 1478783602);
+(244, 'Hello Word!', ',1,4,3,2,', '<pre class="brush:php;toolbar:false">&lt;?php&nbsp;\r\n&nbsp;&nbsp;&nbsp;&nbsp;$name&nbsp;=&nbsp;&#39;Hello&nbsp;Word&#39;;\r\n&nbsp;&nbsp;&nbsp;&nbsp;print_r($name);\r\n?&gt;</pre>', 0, 1, 1, 0, 'green', 0, 13, '', '故事百科', 'http://www.gushibaike.com/xinlingjitang/16496.html', '性格决定命运，好的习惯很重要', '', '', 1443586890, 1486464871);
 
 -- --------------------------------------------------------
 
@@ -711,7 +711,8 @@ INSERT INTO `yii_attribute_name` (`id`, `name`, `audit`, `status`, `created_at`,
 (4, '保质期', 1, 0, 1439545688, 1477978821),
 (6, '尺寸', 1, 1, 1477974115, 1477978845),
 (7, '颜色', 1, 1, 1477974234, 1477978839),
-(8, '等级', 0, 0, 1478056767, 1479141478);
+(8, '等级', 0, 0, 1478056767, 1479141478),
+(9, '种类', 0, 0, 1486533848, 1486533848);
 
 -- --------------------------------------------------------
 
@@ -809,125 +810,131 @@ CREATE TABLE `yii_auth_item` (
 --
 
 INSERT INTO `yii_auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
-('content/controllers/Article', 1, '文章管理', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/Article/Audit', 2, '文章-审核', NULL, 's:6:"system";', 1479214994, 1482747657),
-('content/controllers/Article/Create', 2, '文章-创建', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/Article/Delete', 2, '文章-删除', NULL, 's:6:"system";', 1479214994, 1482747657),
-('content/controllers/Article/Hot', 2, '文章-置热', NULL, 's:6:"system";', 1479214994, 1482747657),
-('content/controllers/Article/Index', 2, '文章-列表', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/Article/Recommend', 2, '文章-推荐', NULL, 's:6:"system";', 1479214994, 1482747657),
-('content/controllers/Article/Update', 2, '文章-更新', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/Article/View', 2, '文章-查看', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/ArticleCategory', 1, '文章分类管理', NULL, 's:6:"system";', 1479214993, 1482747656),
-('content/controllers/ArticleCategory/Audit', 2, '文章分类-审核', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/ArticleCategory/Create', 2, '文章分类-创建', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/ArticleCategory/Delete', 2, '文章分类-删除', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/ArticleCategory/Index', 2, '文章分类-列表', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/ArticleCategory/MoveDown', 2, '文章分类-下移', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/ArticleCategory/MoveUp', 2, '文章分类-上移', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/ArticleCategory/Update', 2, '文章分类-更新', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/ArticleCategory/View', 2, '文章分类-查看', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/ArticleCategory/Visible', 2, '文章分类-可见', NULL, 's:6:"system";', 1479214994, 1482747656),
-('content/controllers/ArticleSection', 1, '文章段落管理', NULL, 's:6:"system";', 1479214994, 1482747657),
-('content/controllers/ArticleSection/Delete', 2, '文章段落-删除', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/ArticleSection/Edit', 2, '文章段落-更新', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/ArticleSectionPicture', 1, '文章图片管理', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/ArticleSectionPicture/Delete', 2, '文章图片-删除', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/ArticleSectionPicture/Index', 2, '文章图片-列表', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Comment', 1, '评论管理', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Comment/Audit', 2, '评论-审核', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Comment/Create', 2, '评论-创建', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Comment/Delete', 2, '评论-删除', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Comment/Index', 2, '评论-列表', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Comment/Update', 2, '评论-更新', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Comment/View', 2, '评论-查看', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Menu', 1, '菜单管理', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Menu/Audit', 2, '菜单-审核', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Menu/Create', 2, '菜单-创建', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Menu/Delete', 2, '菜单-删除', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/Menu/Index', 2, '菜单-列表', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Menu/MoveDown', 2, '菜单-下移', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Menu/MoveUp', 2, '菜单-上移', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Menu/Update', 2, '菜单-更新', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Menu/View', 2, '菜单-查看', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Menu/Visible', 2, '菜单-可见', NULL, 's:6:"system";', 1479214995, 1482747657),
-('content/controllers/Page', 1, '单页管理', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/Page/Audit', 2, '单页-审核', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/Page/Create', 2, '单页-创建', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/Page/Delete', 2, '单页-删除', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/Page/Index', 2, '单页-列表', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/Page/MoveDown', 2, '单页-下移', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/Page/MoveUp', 2, '单页-上移', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/Page/Update', 2, '单页-更新', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/Page/View', 2, '单页-查看', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/Page/Visible', 2, '单页-可见', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/RecommendationCategory', 1, '菜单管理', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/RecommendationCategory/Audit', 2, '菜单-审核', NULL, 's:6:"system";', 1479214996, 1482747658),
-('content/controllers/RecommendationCategory/Create', 2, '菜单-创建', NULL, 's:6:"system";', 1479214996, 1482747658),
-('content/controllers/RecommendationCategory/Delete', 2, '菜单-删除', NULL, 's:6:"system";', 1479214997, 1482747658),
-('content/controllers/RecommendationCategory/Index', 2, '菜单-列表', NULL, 's:6:"system";', 1479214996, 1482747657),
-('content/controllers/RecommendationCategory/MoveDown', 2, '菜单-下移', NULL, 's:6:"system";', 1479214996, 1482747658),
-('content/controllers/RecommendationCategory/MoveUp', 2, '菜单-上移', NULL, 's:6:"system";', 1479214996, 1482747658),
-('content/controllers/RecommendationCategory/Update', 2, '菜单-更新', NULL, 's:6:"system";', 1479214996, 1482747658),
-('content/controllers/RecommendationContent', 1, '推荐内容管理', NULL, 's:6:"system";', 1479214997, 1482747658),
-('content/controllers/RecommendationContent/Audit', 2, '推荐内容-审核', NULL, 's:6:"system";', 1479214997, 1482747658),
-('content/controllers/RecommendationContent/Create', 2, '推荐内容-创建', NULL, 's:6:"system";', 1479214997, 1482747658),
-('content/controllers/RecommendationContent/Delete', 2, '推荐内容-删除', NULL, 's:6:"system";', 1479214997, 1482747658),
-('content/controllers/RecommendationContent/Index', 2, '推荐内容-列表', NULL, 's:6:"system";', 1479214997, 1482747658),
-('content/controllers/RecommendationContent/Update', 2, '推荐内容-更新', NULL, 's:6:"system";', 1479214997, 1482747658),
-('content/controllers/RecommendationPicture', 1, '推荐图片管理', NULL, 's:6:"system";', 1479214997, 1482747658),
+('content/controllers/Article', 1, '文章管理', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/Article/Audit', 2, '文章-审核', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/Article/Create', 2, '文章-创建', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/Article/Delete', 2, '文章-删除', NULL, 's:6:"system";', 1479214994, 1486722070),
+('content/controllers/Article/Hot', 2, '文章-置热', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/Article/Index', 2, '文章-列表', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/Article/Recommend', 2, '文章-推荐', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/Article/Update', 2, '文章-更新', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/Article/View', 2, '文章-查看', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/ArticleCategory', 1, '文章分类管理', NULL, 's:6:"system";', 1479214993, 1486722069),
+('content/controllers/ArticleCategory/Audit', 2, '文章分类-审核', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/ArticleCategory/Create', 2, '文章分类-创建', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/ArticleCategory/Delete', 2, '文章分类-删除', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/ArticleCategory/Index', 2, '文章分类-列表', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/ArticleCategory/MoveDown', 2, '文章分类-下移', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/ArticleCategory/MoveUp', 2, '文章分类-上移', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/ArticleCategory/Update', 2, '文章分类-更新', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/ArticleCategory/View', 2, '文章分类-查看', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/ArticleCategory/Visible', 2, '文章分类-可见', NULL, 's:6:"system";', 1479214994, 1486722069),
+('content/controllers/ArticleSection', 1, '文章段落管理', NULL, 's:6:"system";', 1479214994, 1486722070),
+('content/controllers/ArticleSection/Delete', 2, '文章段落-删除', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/ArticleSection/DeletePicture', 2, '文章段落-删除图片', NULL, 's:6:"system";', 1486540353, 1486722070),
+('content/controllers/ArticleSection/Edit', 2, '文章段落-更新', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/ArticleSectionPicture/Delete', 2, '文章图片-删除', NULL, 's:6:"system";', 1479214995, 1486433842),
+('content/controllers/ArticleSectionPicture/Index', 2, '文章图片-列表', NULL, 's:6:"system";', 1479214995, 1486433842),
+('content/controllers/Comment', 1, '评论管理', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Comment/Audit', 2, '评论-审核', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Comment/Create', 2, '评论-创建', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Comment/Delete', 2, '评论-删除', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Comment/Index', 2, '评论-列表', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Comment/Update', 2, '评论-更新', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Comment/View', 2, '评论-查看', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Menu', 1, '菜单管理', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Menu/Audit', 2, '菜单-审核', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Menu/Create', 2, '菜单-创建', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Menu/Delete', 2, '菜单-删除', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/Menu/Index', 2, '菜单-列表', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Menu/MoveDown', 2, '菜单-下移', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Menu/MoveUp', 2, '菜单-上移', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Menu/Update', 2, '菜单-更新', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Menu/View', 2, '菜单-查看', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Menu/Visible', 2, '菜单-可见', NULL, 's:6:"system";', 1479214995, 1486722070),
+('content/controllers/Page', 1, '单页管理', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/Page/Audit', 2, '单页-审核', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/Page/Create', 2, '单页-创建', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/Page/Delete', 2, '单页-删除', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/Page/Index', 2, '单页-列表', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/Page/MoveDown', 2, '单页-下移', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/Page/MoveUp', 2, '单页-上移', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/Page/Update', 2, '单页-更新', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/Page/View', 2, '单页-查看', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/Page/Visible', 2, '单页-可见', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/RecommendationCategory', 1, '菜单管理', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/RecommendationCategory/Audit', 2, '菜单-审核', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/RecommendationCategory/Create', 2, '菜单-创建', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/RecommendationCategory/Delete', 2, '菜单-删除', NULL, 's:6:"system";', 1479214997, 1486722071),
+('content/controllers/RecommendationCategory/Index', 2, '菜单-列表', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/RecommendationCategory/MoveDown', 2, '菜单-下移', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/RecommendationCategory/MoveUp', 2, '菜单-上移', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/RecommendationCategory/Update', 2, '菜单-更新', NULL, 's:6:"system";', 1479214996, 1486722070),
+('content/controllers/RecommendationContent', 1, '推荐内容管理', NULL, 's:6:"system";', 1479214997, 1486722071),
+('content/controllers/RecommendationContent/Audit', 2, '推荐内容-审核', NULL, 's:6:"system";', 1479214997, 1486722071),
+('content/controllers/RecommendationContent/Create', 2, '推荐内容-创建', NULL, 's:6:"system";', 1479214997, 1486722071),
+('content/controllers/RecommendationContent/Delete', 2, '推荐内容-删除', NULL, 's:6:"system";', 1479214997, 1486722071),
+('content/controllers/RecommendationContent/DeletePicture', 2, '推荐内容-删除图片', NULL, 's:6:"system";', 1486433750, 1486722071),
+('content/controllers/RecommendationContent/Index', 2, '推荐内容-列表', NULL, 's:6:"system";', 1479214997, 1486722071),
+('content/controllers/RecommendationContent/Update', 2, '推荐内容-更新', NULL, 's:6:"system";', 1479214997, 1486722071),
 ('content/controllers/RecommendationPicture/Delete', 2, '推荐图片-删除', NULL, 's:6:"system";', 1479214997, 1482747658),
 ('content/controllers/RecommendationPicture/Edit', 2, '推荐图片-更新', NULL, 's:6:"system";', 1479214997, 1482747658),
-('product/controllers/AttributeName', 1, '属性管理', NULL, 's:6:"system";', 1479214997, 1482747658),
-('product/controllers/AttributeName/Audit', 2, '属性-审核', NULL, 's:6:"system";', 1479214997, 1482747658),
-('product/controllers/AttributeName/Create', 2, '属性-创建', NULL, 's:6:"system";', 1479214997, 1482747658),
-('product/controllers/AttributeName/Delete', 2, '属性-删除', NULL, 's:6:"system";', 1479214997, 1482747658),
-('product/controllers/AttributeName/Index', 2, '属性-列表', NULL, 's:6:"system";', 1479214997, 1482747658),
-('product/controllers/AttributeValue', 1, '属性值管理', NULL, 's:6:"system";', 1479214997, 1482747658),
-('product/controllers/AttributeValue/Delete', 2, '属性值-删除', NULL, 's:6:"system";', 1479214998, 1482747658),
-('product/controllers/AttributeValue/Index', 2, '属性值-列表', NULL, 's:6:"system";', 1479214997, 1482747658),
-('product/controllers/AttributeValue/Save', 2, '属性值-更新', NULL, 's:6:"system";', 1479214997, 1482747658),
-('product/controllers/Goods', 1, '商品管理', NULL, 's:6:"system";', 1479214998, 1482747659),
-('product/controllers/Goods/Audit', 2, '商品-审核', NULL, 's:6:"system";', 1479214998, 1482747659),
-('product/controllers/Goods/Create', 2, '商品-创建', NULL, 's:6:"system";', 1479214998, 1482747659),
-('product/controllers/Goods/Delete', 2, '商品-删除', NULL, 's:6:"system";', 1479214998, 1482747659),
-('product/controllers/Goods/Index', 2, '商品-列表', NULL, 's:6:"system";', 1479214998, 1482747659),
-('product/controllers/Goods/Update', 2, '商品-更新', NULL, 's:6:"system";', 1479214998, 1482747659),
-('product/controllers/Goods/View', 2, '商品-查看', NULL, 's:6:"system";', 1479214998, 1482747659),
-('product/controllers/GoodsCategory', 1, '商品分类管理', NULL, 's:6:"system";', 1479214998, 1482747658),
-('product/controllers/GoodsCategory/Audit', 2, '商品分类-审核', NULL, 's:6:"system";', 1479214998, 1482747658),
-('product/controllers/GoodsCategory/Create', 2, '商品分类-创建', NULL, 's:6:"system";', 1479214998, 1482747658),
-('product/controllers/GoodsCategory/Delete', 2, '商品分类-删除', NULL, 's:6:"system";', 1479214998, 1482747658),
-('product/controllers/GoodsCategory/Index', 2, '商品分类-列表', NULL, 's:6:"system";', 1479214998, 1482747658),
-('product/controllers/GoodsCategory/MoveDown', 2, '商品分类-下移', NULL, 's:6:"system";', 1479214998, 1482747658),
-('product/controllers/GoodsCategory/MoveUp', 2, '商品分类-上移', NULL, 's:6:"system";', 1479214998, 1482747658),
-('product/controllers/GoodsCategory/Update', 2, '商品分类-更新', NULL, 's:6:"system";', 1479214998, 1482747658),
-('product/controllers/GoodsCategory/View', 2, '商品分类-查看', NULL, 's:6:"system";', 1479214998, 1482747658),
-('product/controllers/GoodsCategory/Visible', 2, '商品分类-可见', NULL, 's:6:"system";', 1479214998, 1482747658),
-('user/controllers/Admin', 1, '员工管理', NULL, 's:6:"system";', 1479214998, 1482747659),
-('user/controllers/Admin/Assignment', 2, '员工-授权', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Admin/Create', 2, '员工-创建', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Admin/Delete', 2, '员工-删除', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Admin/Index', 2, '员工-列表', NULL, 's:6:"system";', 1479214998, 1482747659),
-('user/controllers/Admin/Reset', 2, '员工-重置权限', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Admin/Status', 2, '员工-状态', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Admin/Update', 2, '员工-更新', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Admin/View', 2, '员工-查看', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Role', 1, '角色管理', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Role/Assignment', 2, '角色-授权', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Role/AuthInitialize', 2, '角色-权限索引', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Role/Create', 2, '角色-创建', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Role/Delete', 2, '角色-删除', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Role/Index', 2, '角色-列表', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Role/Update', 2, '角色-更新', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/Role/View', 2, '角色-查看', NULL, 's:6:"system";', 1479214999, 1482747659),
-('user/controllers/User', 1, '客户管理', NULL, 's:6:"system";', 1479215000, 1482747659),
-('user/controllers/User/Create', 2, '客户-创建', NULL, 's:6:"system";', 1479215000, 1482747659),
-('user/controllers/User/Delete', 2, '客户-删除', NULL, 's:6:"system";', 1479215000, 1482747659),
-('user/controllers/User/Index', 2, '客户-列表', NULL, 's:6:"system";', 1479215000, 1482747659),
-('user/controllers/User/Status', 2, '客户-状态', NULL, 's:6:"system";', 1479215000, 1482747659),
-('user/controllers/User/Update', 2, '客户-更新', NULL, 's:6:"system";', 1479215000, 1482747659),
-('user/controllers/User/View', 2, '客户-查看', NULL, 's:6:"system";', 1479215000, 1482747659),
+('product/controllers/AttributeName', 1, '属性管理', NULL, 's:6:"system";', 1479214997, 1486722071),
+('product/controllers/AttributeName/Audit', 2, '属性-审核', NULL, 's:6:"system";', 1479214997, 1486722071),
+('product/controllers/AttributeName/Create', 2, '属性-创建', NULL, 's:6:"system";', 1479214997, 1486722071),
+('product/controllers/AttributeName/Delete', 2, '属性-删除', NULL, 's:6:"system";', 1479214997, 1486722071),
+('product/controllers/AttributeName/Index', 2, '属性-列表', NULL, 's:6:"system";', 1479214997, 1486722071),
+('product/controllers/AttributeValue', 1, '属性值管理', NULL, 's:6:"system";', 1479214997, 1486722071),
+('product/controllers/AttributeValue/Delete', 2, '属性值-删除', NULL, 's:6:"system";', 1479214998, 1486722071),
+('product/controllers/AttributeValue/Index', 2, '属性值-列表', NULL, 's:6:"system";', 1479214997, 1486722071),
+('product/controllers/AttributeValue/Save', 2, '属性值-更新', NULL, 's:6:"system";', 1479214997, 1486722071),
+('product/controllers/Goods', 1, '商品管理', NULL, 's:6:"system";', 1479214998, 1486722072),
+('product/controllers/Goods/Audit', 2, '商品-审核', NULL, 's:6:"system";', 1479214998, 1486722072),
+('product/controllers/Goods/Create', 2, '商品-创建', NULL, 's:6:"system";', 1479214998, 1486722072),
+('product/controllers/Goods/Delete', 2, '商品-删除', NULL, 's:6:"system";', 1479214998, 1486722072),
+('product/controllers/Goods/Index', 2, '商品-列表', NULL, 's:6:"system";', 1479214998, 1486722072),
+('product/controllers/Goods/Update', 2, '商品-更新', NULL, 's:6:"system";', 1479214998, 1486722072),
+('product/controllers/Goods/View', 2, '商品-查看', NULL, 's:6:"system";', 1479214998, 1486722072),
+('product/controllers/GoodsAttribute', 1, 'SKU管理', NULL, 's:6:"system";', 1486718554, 1486722071),
+('product/controllers/GoodsAttribute/Create', 2, 'SKU-创建', NULL, 's:6:"system";', 1486718554, 1486722071),
+('product/controllers/GoodsAttribute/Delete', 2, 'SKU-删除', NULL, 's:6:"system";', 1486718554, 1486722071),
+('product/controllers/GoodsAttribute/Index', 2, 'SKU-列表', NULL, 's:6:"system";', 1486718554, 1486722071),
+('product/controllers/GoodsAttribute/Update', 2, 'SKU-更新', NULL, 's:6:"system";', 1486718554, 1486722071),
+('product/controllers/GoodsAttribute/View', 2, 'SKU-查看', NULL, 's:6:"system";', 1486718554, 1486722071),
+('product/controllers/GoodsCategory', 1, '商品分类管理', NULL, 's:6:"system";', 1479214998, 1486722071),
+('product/controllers/GoodsCategory/Audit', 2, '商品分类-审核', NULL, 's:6:"system";', 1479214998, 1486722071),
+('product/controllers/GoodsCategory/Create', 2, '商品分类-创建', NULL, 's:6:"system";', 1479214998, 1486722071),
+('product/controllers/GoodsCategory/Delete', 2, '商品分类-删除', NULL, 's:6:"system";', 1479214998, 1486722072),
+('product/controllers/GoodsCategory/Index', 2, '商品分类-列表', NULL, 's:6:"system";', 1479214998, 1486722071),
+('product/controllers/GoodsCategory/MoveDown', 2, '商品分类-下移', NULL, 's:6:"system";', 1479214998, 1486722071),
+('product/controllers/GoodsCategory/MoveUp', 2, '商品分类-上移', NULL, 's:6:"system";', 1479214998, 1486722071),
+('product/controllers/GoodsCategory/Update', 2, '商品分类-更新', NULL, 's:6:"system";', 1479214998, 1486722071),
+('product/controllers/GoodsCategory/View', 2, '商品分类-查看', NULL, 's:6:"system";', 1479214998, 1486722071),
+('product/controllers/GoodsCategory/Visible', 2, '商品分类-可见', NULL, 's:6:"system";', 1479214998, 1486722071),
+('user/controllers/Admin', 1, '员工管理', NULL, 's:6:"system";', 1479214998, 1486722072),
+('user/controllers/Admin/Assignment', 2, '员工-授权', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Admin/Create', 2, '员工-创建', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Admin/Delete', 2, '员工-删除', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Admin/Index', 2, '员工-列表', NULL, 's:6:"system";', 1479214998, 1486722072),
+('user/controllers/Admin/Reset', 2, '员工-重置权限', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Admin/Status', 2, '员工-状态', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Admin/Update', 2, '员工-更新', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Admin/View', 2, '员工-查看', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Role', 1, '角色管理', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Role/Assignment', 2, '角色-授权', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Role/AuthInitialize', 2, '角色-权限索引', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Role/Create', 2, '角色-创建', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Role/Delete', 2, '角色-删除', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Role/Index', 2, '角色-列表', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Role/Update', 2, '角色-更新', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/Role/View', 2, '角色-查看', NULL, 's:6:"system";', 1479214999, 1486722072),
+('user/controllers/User', 1, '客户管理', NULL, 's:6:"system";', 1479215000, 1486722072),
+('user/controllers/User/Create', 2, '客户-创建', NULL, 's:6:"system";', 1479215000, 1486722072),
+('user/controllers/User/Delete', 2, '客户-删除', NULL, 's:6:"system";', 1479215000, 1486722072),
+('user/controllers/User/Index', 2, '客户-列表', NULL, 's:6:"system";', 1479215000, 1486722072),
+('user/controllers/User/Status', 2, '客户-状态', NULL, 's:6:"system";', 1479215000, 1486722072),
+('user/controllers/User/Update', 2, '客户-更新', NULL, 's:6:"system";', 1479215000, 1486722072),
+('user/controllers/User/View', 2, '客户-查看', NULL, 's:6:"system";', 1479215000, 1486722072),
 ('主编', 1, 'Editor', NULL, 's:11:"application";', 1479215020, 1479215186),
 ('管理员', 1, 'Admin', NULL, 's:4:"core";', 1479214993, 1479214993),
 ('超级管理员', 1, 'SuperAdmin', NULL, 's:4:"core";', 1479214993, 1479214993);
@@ -966,9 +973,8 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('content/controllers/ArticleCategory', 'content/controllers/ArticleCategory/View'),
 ('content/controllers/ArticleCategory', 'content/controllers/ArticleCategory/Visible'),
 ('content/controllers/ArticleSection', 'content/controllers/ArticleSection/Delete'),
+('content/controllers/ArticleSection', 'content/controllers/ArticleSection/DeletePicture'),
 ('content/controllers/ArticleSection', 'content/controllers/ArticleSection/Edit'),
-('content/controllers/ArticleSectionPicture', 'content/controllers/ArticleSectionPicture/Delete'),
-('content/controllers/ArticleSectionPicture', 'content/controllers/ArticleSectionPicture/Index'),
 ('content/controllers/Comment', 'content/controllers/Comment/Audit'),
 ('content/controllers/Comment', 'content/controllers/Comment/Create'),
 ('content/controllers/Comment', 'content/controllers/Comment/Delete'),
@@ -1003,10 +1009,9 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('content/controllers/RecommendationContent', 'content/controllers/RecommendationContent/Audit'),
 ('content/controllers/RecommendationContent', 'content/controllers/RecommendationContent/Create'),
 ('content/controllers/RecommendationContent', 'content/controllers/RecommendationContent/Delete'),
+('content/controllers/RecommendationContent', 'content/controllers/RecommendationContent/DeletePicture'),
 ('content/controllers/RecommendationContent', 'content/controllers/RecommendationContent/Index'),
 ('content/controllers/RecommendationContent', 'content/controllers/RecommendationContent/Update'),
-('content/controllers/RecommendationPicture', 'content/controllers/RecommendationPicture/Delete'),
-('content/controllers/RecommendationPicture', 'content/controllers/RecommendationPicture/Edit'),
 ('product/controllers/AttributeName', 'product/controllers/AttributeName/Audit'),
 ('product/controllers/AttributeName', 'product/controllers/AttributeName/Create'),
 ('product/controllers/AttributeName', 'product/controllers/AttributeName/Delete'),
@@ -1020,6 +1025,11 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('product/controllers/Goods', 'product/controllers/Goods/Index'),
 ('product/controllers/Goods', 'product/controllers/Goods/Update'),
 ('product/controllers/Goods', 'product/controllers/Goods/View'),
+('product/controllers/GoodsAttribute', 'product/controllers/GoodsAttribute/Create'),
+('product/controllers/GoodsAttribute', 'product/controllers/GoodsAttribute/Delete'),
+('product/controllers/GoodsAttribute', 'product/controllers/GoodsAttribute/Index'),
+('product/controllers/GoodsAttribute', 'product/controllers/GoodsAttribute/Update'),
+('product/controllers/GoodsAttribute', 'product/controllers/GoodsAttribute/View'),
 ('product/controllers/GoodsCategory', 'product/controllers/GoodsCategory/Audit'),
 ('product/controllers/GoodsCategory', 'product/controllers/GoodsCategory/Create'),
 ('product/controllers/GoodsCategory', 'product/controllers/GoodsCategory/Delete'),
@@ -1068,9 +1078,8 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('主编', 'content/controllers/ArticleCategory/View'),
 ('主编', 'content/controllers/ArticleCategory/Visible'),
 ('主编', 'content/controllers/ArticleSection/Delete'),
+('主编', 'content/controllers/ArticleSection/DeletePicture'),
 ('主编', 'content/controllers/ArticleSection/Edit'),
-('主编', 'content/controllers/ArticleSectionPicture/Delete'),
-('主编', 'content/controllers/ArticleSectionPicture/Index'),
 ('主编', 'content/controllers/Comment/Audit'),
 ('主编', 'content/controllers/Comment/Create'),
 ('主编', 'content/controllers/Comment/Delete'),
@@ -1105,23 +1114,21 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('主编', 'content/controllers/RecommendationContent/Audit'),
 ('主编', 'content/controllers/RecommendationContent/Create'),
 ('主编', 'content/controllers/RecommendationContent/Delete'),
+('主编', 'content/controllers/RecommendationContent/DeletePicture'),
 ('主编', 'content/controllers/RecommendationContent/Index'),
 ('主编', 'content/controllers/RecommendationContent/Update'),
-('主编', 'content/controllers/RecommendationPicture/Delete'),
-('主编', 'content/controllers/RecommendationPicture/Edit'),
 ('管理员', 'content/controllers/Article'),
 ('管理员', 'content/controllers/ArticleCategory'),
 ('管理员', 'content/controllers/ArticleSection'),
-('管理员', 'content/controllers/ArticleSectionPicture'),
 ('管理员', 'content/controllers/Comment'),
 ('管理员', 'content/controllers/Menu'),
 ('管理员', 'content/controllers/Page'),
 ('管理员', 'content/controllers/RecommendationCategory'),
 ('管理员', 'content/controllers/RecommendationContent'),
-('管理员', 'content/controllers/RecommendationPicture'),
 ('管理员', 'product/controllers/AttributeName'),
 ('管理员', 'product/controllers/AttributeValue'),
 ('管理员', 'product/controllers/Goods'),
+('管理员', 'product/controllers/GoodsAttribute'),
 ('管理员', 'product/controllers/GoodsCategory'),
 ('管理员', 'user/controllers/Admin'),
 ('管理员', 'user/controllers/Role'),
@@ -1144,6 +1151,7 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('超级管理员', 'content/controllers/ArticleCategory/View'),
 ('超级管理员', 'content/controllers/ArticleCategory/Visible'),
 ('超级管理员', 'content/controllers/ArticleSection/Delete'),
+('超级管理员', 'content/controllers/ArticleSection/DeletePicture'),
 ('超级管理员', 'content/controllers/ArticleSection/Edit'),
 ('超级管理员', 'content/controllers/ArticleSectionPicture/Delete'),
 ('超级管理员', 'content/controllers/ArticleSectionPicture/Index'),
@@ -1181,6 +1189,7 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('超级管理员', 'content/controllers/RecommendationContent/Audit'),
 ('超级管理员', 'content/controllers/RecommendationContent/Create'),
 ('超级管理员', 'content/controllers/RecommendationContent/Delete'),
+('超级管理员', 'content/controllers/RecommendationContent/DeletePicture'),
 ('超级管理员', 'content/controllers/RecommendationContent/Index'),
 ('超级管理员', 'content/controllers/RecommendationContent/Update'),
 ('超级管理员', 'content/controllers/RecommendationPicture/Delete'),
@@ -1198,6 +1207,11 @@ INSERT INTO `yii_auth_item_child` (`parent`, `child`) VALUES
 ('超级管理员', 'product/controllers/Goods/Index'),
 ('超级管理员', 'product/controllers/Goods/Update'),
 ('超级管理员', 'product/controllers/Goods/View'),
+('超级管理员', 'product/controllers/GoodsAttribute/Create'),
+('超级管理员', 'product/controllers/GoodsAttribute/Delete'),
+('超级管理员', 'product/controllers/GoodsAttribute/Index'),
+('超级管理员', 'product/controllers/GoodsAttribute/Update'),
+('超级管理员', 'product/controllers/GoodsAttribute/View'),
 ('超级管理员', 'product/controllers/GoodsCategory/Audit'),
 ('超级管理员', 'product/controllers/GoodsCategory/Create'),
 ('超级管理员', 'product/controllers/GoodsCategory/Delete'),
@@ -1338,8 +1352,8 @@ CREATE TABLE `yii_goods` (
 --
 
 INSERT INTO `yii_goods` (`id`, `name`, `category_id`, `content`, `sale_mode`, `goods_type`, `presell`, `origin_price`, `sale_price`, `picture_id`, `picture_url`, `sale_url`, `audit`, `hot`, `recommend`, `hit`, `stock`, `color`, `seo_title`, `seo_description`, `seo_keyword`, `created_at`, `updated_at`) VALUES
-(1, 'TCL王牌彩电', 3, '', 0, 0, 0, '199.00', '169.00', 3712, 'http://img.yii2.com/goods/2017/01/23/03435a1ea416b3110f384d0bb015e497.jpg', '', 0, 1, 1, 0, 0, 'red', '', '', '', 1478700717, 1485166696),
-(2, '魔兽点卡2500分钟', 5, '', 0, 0, 0, '30.00', '29.00', 3713, 'http://img.yii2.com/goods/2017/01/23/d901e5154bb2ad8d1cd9e7c9da137f25.gif', '', 1, 0, 0, 0, 0, 'gold', '', '', '', 1478700717, 1485164964);
+(1, 'TCL王牌彩电', 3, '', 0, 0, 0, '199.00', '169.00', 3717, 'http://img.yii2.com/images/2017/02/06/4b569f4188b79ee5bb0e17064f47706f.jpg', '', 0, 1, 1, 0, 0, 'red', '', '', '', 1478700717, 1486372838),
+(2, '魔兽点卡2500分钟', 5, '', 0, 0, 0, '30.00', '29.00', 3712, 'http://img.yii2.com/goods/2017/01/23/03435a1ea416b3110f384d0bb015e497.jpg', '', 1, 0, 0, 0, 0, 'gold', '', '', '', 1478700717, 1485241044);
 
 -- --------------------------------------------------------
 
@@ -1359,6 +1373,13 @@ CREATE TABLE `yii_goods_attribute` (
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `yii_goods_attribute`
+--
+
+INSERT INTO `yii_goods_attribute` (`id`, `goods_id`, `attribute_name_id`, `attribute_value_id`, `origin_price`, `sale_price`, `stock`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, '100.00', '98.00', 10, 1, 1486719240, 1486719242);
 
 -- --------------------------------------------------------
 
@@ -1387,7 +1408,7 @@ CREATE TABLE `yii_goods_category` (
 --
 
 INSERT INTO `yii_goods_category` (`id`, `name`, `action`, `lft`, `rgt`, `parent`, `depth`, `audit`, `seo_title`, `seo_description`, `seo_keyword`, `created_at`, `updated_at`) VALUES
-(1, '电器', 'famous-persons', 1, 8, 0, 1, 0, '', '', '', 1439545487, 1478096182),
+(1, '电器', 'famous-persons', 1, 8, 0, 1, 1, '', '', '', 1439545487, 1486534229),
 (2, '家具', 'entrepreneurial-story', 5, 6, 3, 3, 1, '', '', '', 1439545620, 1482748657),
 (3, '电视机', 'tv', 2, 7, 1, 2, 1, '', '', '', 1439545673, 1478070652),
 (4, '冰箱', 'cold', 3, 4, 3, 3, 1, '', '', '', 1439545688, 1479139871),
@@ -1438,7 +1459,7 @@ CREATE TABLE `yii_menu` (
 --
 
 INSERT INTO `yii_menu` (`id`, `name`, `action`, `link`, `lft`, `rgt`, `parent`, `depth`, `content`, `audit`, `visible`, `seo_title`, `seo_description`, `seo_keyword`, `created_at`, `updated_at`) VALUES
-(1, '首页', 'home', '', 1, 2, 0, 1, '', 1, 1, '首页', '首页', '首页', 1438655940, 1450168089),
+(1, '首页', 'home', '', 1, 2, 0, 1, '', 1, 1, '首页', '首页', '首页', 1438655940, 1486461474),
 (2, '心灵鸡汤', 'essay', '', 9, 14, 0, 1, '', 1, 1, '心灵鸡汤', '心灵鸡汤', '心灵鸡汤', 1438657431, 1438916256),
 (3, '笑话', 'joke', '', 15, 16, 0, 1, '', 1, 1, '笑话', '笑话', '笑话', 1438657526, 1443603604),
 (4, ' 成功故事', 'success-story', '', 12, 13, 2, 2, '', 1, 1, ' 成功故事', ' 成功故事', ' 成功故事', 1438661865, 1469786836),
@@ -5252,7 +5273,12 @@ INSERT INTO `yii_picture` (`id`, `name`, `category`, `width`, `height`, `type`, 
 (3711, '1479319930314123.jpg', 'images', 200, 200, 'image/jpeg', '1.00', '/images/2016/11/17/1479319930314123.jpg', 10167, 1, 0, 1, 1479319930),
 (3712, '03435a1ea416b3110f384d0bb015e497.jpg', 'goods', 200, 200, 'image/jpeg', '1.00', '/goods/2017/01/23/03435a1ea416b3110f384d0bb015e497.jpg', 47051, 1, 0, 1, 1485164789),
 (3713, 'd901e5154bb2ad8d1cd9e7c9da137f25.gif', 'goods', 237, 184, 'image/gif', '1.29', '/goods/2017/01/23/d901e5154bb2ad8d1cd9e7c9da137f25.gif', 1856218, 1, 0, 1, 1485164860),
-(3714, '4e485ccc7679139259efa47bb28c3e85.jpg', 'goods', 600, 400, 'image/jpeg', '1.50', '/goods/2017/01/23/4e485ccc7679139259efa47bb28c3e85.jpg', 78638, 1, 0, 1, 1485165166);
+(3714, '4e485ccc7679139259efa47bb28c3e85.jpg', 'goods', 600, 400, 'image/jpeg', '1.50', '/goods/2017/01/23/4e485ccc7679139259efa47bb28c3e85.jpg', 78638, 1, 0, 1, 1485165166),
+(3715, '00560e7454f39807e691bb778297f309.jpg', 'goods', 200, 200, 'image/jpeg', '1.00', '/goods/2017/02/06/00560e7454f39807e691bb778297f309.jpg', 42543, 1, 0, 1, 1486365649),
+(3716, 'aa3674b9855e21b75ead140ef209ca01.jpg', 'goods', 200, 200, 'image/jpeg', '1.00', '/goods/2017/02/06/aa3674b9855e21b75ead140ef209ca01.jpg', 42543, 1, 0, 1, 1486366115),
+(3717, '4b569f4188b79ee5bb0e17064f47706f.jpg', 'images', 200, 200, 'image/jpeg', '1.00', '/images/2017/02/06/4b569f4188b79ee5bb0e17064f47706f.jpg', 7202, 1, 0, 1, 1486372821),
+(3718, '3f55adfdeaa72abda4ffbfb094d5196a.jpg', 'recommendation_picture', 200, 200, 'image/jpeg', '1.00', '/recommendation_picture/2017/02/07/3f55adfdeaa72abda4ffbfb094d5196a.jpg', 42543, 1, 0, 1, 1486433358),
+(3719, '98b69b79dcdd035c5aa567b5836d17aa.jpg', 'recommendation_picture', 600, 400, 'image/jpeg', '1.50', '/recommendation_picture/2017/02/07/98b69b79dcdd035c5aa567b5836d17aa.jpg', 66875, 1, 0, 1, 1486433470);
 
 -- --------------------------------------------------------
 
@@ -5280,7 +5306,7 @@ CREATE TABLE `yii_recommendation_category` (
 
 INSERT INTO `yii_recommendation_category` (`id`, `name`, `tag`, `lft`, `rgt`, `parent`, `depth`, `description`, `audit`, `created_at`, `updated_at`) VALUES
 (2, '首页广告位', 'home_page_carousel', 3, 4, 0, 1, '', 1, 1476071093, 1476083653),
-(3, '文章列表页广告位', '', 1, 2, 0, 1, '', 1, 1476071628, 1476071674);
+(3, '文章列表页广告位', '', 1, 2, 0, 1, '', 0, 1476071628, 1486540220);
 
 -- --------------------------------------------------------
 
@@ -5309,7 +5335,8 @@ INSERT INTO `yii_recommendation_content` (`id`, `category_id`, `title`, `descrip
 (1, 2, '轮播图1', '', '', '', 0, 1, 0, 1476434490),
 (2, 2, '轮播图2', '', '', '', 0, 0, 1476434798, 1476434798),
 (3, 2, '轮播图3', '', '', '', 0, 0, 1476434999, 1476435004),
-(4, 3, 'test', '', '', '', 0, 0, 1479232345, 1479232345);
+(4, 3, 'test', '', '', '', 0, 0, 1479232345, 1486434566),
+(5, 3, 'test2', '123', '123', '123123', 0, 0, 1486433523, 1486433523);
 
 -- --------------------------------------------------------
 
@@ -5336,8 +5363,7 @@ INSERT INTO `yii_recommendation_picture` (`id`, `category_id`, `content_id`, `pi
 (3, 2, 1, 3430, '3', 3),
 (6, 2, 1, 3433, '67', 1),
 (7, 2, 1, 3434, '89', 2),
-(8, 3, 4, 3471, '', 1),
-(9, 3, 4, 3472, '', 2);
+(10, 3, 4, 3718, '', 1);
 
 -- --------------------------------------------------------
 
@@ -5507,9 +5533,9 @@ CREATE TABLE `yii_user` (
 --
 
 INSERT INTO `yii_user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `picture_id`, `mobile`, `email`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'T-bag', 'u7-wDoLbP4l3sJmGrpS9zecK_r3s-jHi', '$2y$13$GUXdsafM7ZP7ViJCi/thau2oIzMWwt7kc7mFJnMq.N6jfyOv5UQoe', NULL, 3464, '13311002524', '67218027@sina.com', 10, 1469704031, 1478709061),
-(2, 'TOM', '5-6cjKbWn_YyUb8ScEtJu3Z_ouQdJWhO', '$2y$13$4BdAZ9Z8TGNAj18k3Q90rOdWYL.p3745a0imLNzFgQz2DQ92eriwi', NULL, 0, '18600945045', '67218027@qq.com', 10, 1471862333, 1471862333),
-(13, 'STARR', 'edBGxpoOgzJtj9qVfQmbW6CRdwn8Vs_i', '$2y$13$7Bcn6RJyBcyRbv3ix0dluO8Q0ppBVc1.giDUT52l5ibtxLg3e4WYC', NULL, 3707, '18600945040', '67218315@qq.com', 10, 1471863329, 1479319205);
+(1, 'T-bag', 'u7-wDoLbP4l3sJmGrpS9zecK_r3s-jHi', '$2y$13$GUXdsafM7ZP7ViJCi/thau2oIzMWwt7kc7mFJnMq.N6jfyOv5UQoe', NULL, 3717, '13311002524', '67218027@sina.com', 10, 1469704031, 1486540245),
+(2, 'TOM', '5-6cjKbWn_YyUb8ScEtJu3Z_ouQdJWhO', '$2y$13$4BdAZ9Z8TGNAj18k3Q90rOdWYL.p3745a0imLNzFgQz2DQ92eriwi', NULL, 3715, '18600945045', '67218027@qq.com', 10, 1471862333, 1486540290),
+(13, 'STARR', 'edBGxpoOgzJtj9qVfQmbW6CRdwn8Vs_i', '$2y$13$7Bcn6RJyBcyRbv3ix0dluO8Q0ppBVc1.giDUT52l5ibtxLg3e4WYC', NULL, 3716, '18600945040', '67218315@qq.com', 0, 1471863329, 1486540263);
 
 -- --------------------------------------------------------
 
@@ -5855,7 +5881,7 @@ ALTER TABLE `yii_article_section_picture`
 -- 使用表AUTO_INCREMENT `yii_attribute_name`
 --
 ALTER TABLE `yii_attribute_name`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- 使用表AUTO_INCREMENT `yii_attribute_value`
 --
@@ -5875,7 +5901,7 @@ ALTER TABLE `yii_goods`
 -- 使用表AUTO_INCREMENT `yii_goods_attribute`
 --
 ALTER TABLE `yii_goods_attribute`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- 使用表AUTO_INCREMENT `yii_goods_category`
 --
@@ -5900,7 +5926,7 @@ ALTER TABLE `yii_page`
 -- 使用表AUTO_INCREMENT `yii_picture`
 --
 ALTER TABLE `yii_picture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3715;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3720;
 --
 -- 使用表AUTO_INCREMENT `yii_recommendation_category`
 --
@@ -5910,12 +5936,12 @@ ALTER TABLE `yii_recommendation_category`
 -- 使用表AUTO_INCREMENT `yii_recommendation_content`
 --
 ALTER TABLE `yii_recommendation_content`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- 使用表AUTO_INCREMENT `yii_recommendation_picture`
 --
 ALTER TABLE `yii_recommendation_picture`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- 使用表AUTO_INCREMENT `yii_tag`
 --
