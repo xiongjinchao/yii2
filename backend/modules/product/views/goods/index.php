@@ -32,8 +32,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-cubes"></i> '.$this->title;
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
             [
-                'class' => '\kartik\grid\SerialColumn',
-                'vAlign'=>'middle',
+                'class' => '\kartik\grid\SerialColumn'
             ],
             [
                 'class' => '\kartik\grid\RadioColumn'
@@ -117,7 +116,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-cubes"></i> '.$this->title;
                 'attribute' => 'category_id',
                 'vAlign'=>'middle',
                 'value'=>function($model){
-                    return isset($model->category->name)?$model->category->name:'';
+                    return isset($model->category)&&$model->category!=null?$model->category->name:'';
                 },
                 'filterType' => GridView::FILTER_SELECT2,
                 'filter'=>\common\models\GoodsCategory::getGoodsCategoryOptions(),

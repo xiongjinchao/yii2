@@ -21,6 +21,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class GoodsAttribute extends \yii\db\ActiveRecord
 {
+    const STATUS_ENABLE = 1;
+    const STATUS_DISABLE = 0;
+
     /**
      * @inheritdoc
      */
@@ -65,5 +68,33 @@ class GoodsAttribute extends \yii\db\ActiveRecord
             'created_at' => '创建时间',
             'updated_at' => '更新时间'
         ];
+    }
+
+    public function getStatusOptions($status = null)
+    {
+        $arr = [
+            self::STATUS_ENABLE => '上架',
+            self::STATUS_DISABLE => '下架',
+        ];
+        if( $status === null ){
+            return $arr;
+        }else{
+            return isset($arr[$status]) ? $arr[$status] : $status;
+        }
+    }
+
+    public function getGoods()
+    {
+        return $this->hasOne(Goods::className(), ['id' => 'goods_id']);
+    }
+
+    public function getAttributeName()
+    {
+        return $this->hasOne(AttributeName::className(), ['id' => 'attribute_name_id']);
+    }
+
+    public function getAttributeValue()
+    {
+        return $this->hasOne(AttributeValue::className(), ['id' => 'attribute_value_id']);
     }
 }

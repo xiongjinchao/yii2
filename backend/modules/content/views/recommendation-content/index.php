@@ -81,7 +81,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-rocket"></i> '.$this->title;
                                 'pluginOptions' => ['allowClear' => 'true'],
                             ]),
                             'value'=>function($model){
-                                return  isset($model->category)?$model->category->name:'';
+                                return  isset($model->category)&&$model->category!=null?$model->category->name:'';
                             }
                         ],
                         [

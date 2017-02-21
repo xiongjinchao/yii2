@@ -29,12 +29,37 @@ $this->params['breadcrumbs'][] = $this->title;
         'pjax'=>true,
         'tableOptions' => ['class'=>'table table-striped table-bordered table-hover'],
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'goods_id',
-            'attribute_name_id',
-            'attribute_value_id',
+            [
+                'class' => 'kartik\grid\SerialColumn',
+                'vAlign'=>'middle'
+            ],
+            [
+                'class' => '\kartik\grid\RadioColumn'
+            ],
+            [
+                'attribute'=>'id',
+                'vAlign'=>'middle',
+                'width'=>'4%',
+            ],
+            [
+                'attribute'=>'goods_id',
+                'vAlign'=>'middle',
+                'format'=> 'raw',
+                'value' => function($model){
+                    return isset($model->goods)&&$model->goods!=null?$model->goods->name:'';
+                }
+            ],
+            [
+                'attribute'=>'attribute_name_id',
+                'label' => '属性',
+                'vAlign'=>'middle',
+                'format'=> 'raw',
+                'value' => function($model){
+                    $value = isset($model->attributeName)&&$model->attributeName!=null?$model->attributeName->name.'：':'';
+                    $value .= isset($model->attributeValue)&&$model->attributeValue!=null?$model->attributeValue->value:'';
+                    return $value;
+                }
+            ],
             [
                 'attribute'=>'sale_price',
                 'hAlign'=>'right',
@@ -44,12 +69,45 @@ $this->params['breadcrumbs'][] = $this->title;
                     return '<span>'.$model->sale_price.'</span><br/><span style="text-decoration:line-through;color:#999">'.$model->origin_price.'</span>';
                 }
             ],
-            // 'stock',
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute'=>'stock',
+                'hAlign'=>'right',
+                'vAlign'=>'middle',
+                'filter'=> false
+            ],
+            [
+                'attribute'=>'created_at',
+                'format'=>['datetime','php:Y-m-d H:i:s'],
+                'vAlign'=>'middle',
+            ],
+            [
+                'attribute'=>'updated_at',
+                'format'=>['datetime','php:Y-m-d H:i:s'],
+                'vAlign'=>'middle',
+            ],
+            [
+                'attribute'=>'status',
+                'format'=>'raw',
+                'vAlign'=>'middle',
+                'hAlign'=>'center',
+                'value'=>function($model){
+                    return Html::a($model->status == $model::STATUS_ENABLE?'<span class="glyphicon glyphicon-ok text-success"></span>':'<span class="glyphicon glyphicon-remove text-danger"></span>', ['audit','id'=>$model->id], ['title' => '审核']) ;
+                },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter'=>\common\models\GoodsAttribute::getStatusOptions(),
+                'filterWidgetOptions'=>[
+                    'pluginOptions'=>['allowClear'=>true],
+                ],
+                'filterInputOptions'=>['placeholder'=>'所有类别'],
+            ],
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'template' => '{update} {delete}',
+            ],
+            [
+                'class'=>'kartik\grid\CheckboxColumn',
+                'headerOptions'=>['class'=>'kartik-sheet-style'],
+            ],
         ],
     ]); ?>
 </div>

@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'name',
                     [
                         'attribute'=>'category_id',
-                        'value'=>isset($model->category->name)?$model->category->name:'',
+                        'value'=>isset($model->category)&&$model->category!=null?$model->category->name:'',
                     ],
                     'origin_price',
                     'sale_price',
