@@ -70,7 +70,7 @@ class GoodsAttribute extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getStatusOptions($status = null)
+    public static function getStatusOptions($status = null)
     {
         $arr = [
             self::STATUS_ENABLE => '上架',
