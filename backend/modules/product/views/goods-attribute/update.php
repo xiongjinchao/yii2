@@ -4,9 +4,9 @@
 /* @var $this yii\web\View */
 /* @var $model common\models\GoodsAttribute */
 
-$this->title = '创建SKU';
+$this->title = 'SKU管理';
 $this->params['breadcrumbs'][] = ['label' => '<i class="fa fa-globe"></i> SKU管理', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->goods->name.' '.$model->attributeName->name.' '.$model->attributeValue->value, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->goods->name.' '.$model->attributeValue->value, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = '更新';
 ?>
 <div class="goods-attribute-update">
