@@ -5,6 +5,7 @@ namespace common\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use backend\models\Picture;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%goods}}".
@@ -157,6 +158,12 @@ class Goods extends \yii\db\ActiveRecord
             "blue", "green", "violet", "cyan", "magenta", "purple"
         ];
         return $arr;
+    }
+
+    public static function getGoodsOptions()
+    {
+        $arr = self::find()->orderBy(['id'=>SORT_DESC])->all();
+        return ArrayHelper::map($arr, 'id', 'name');
     }
 
     public function getCategory()

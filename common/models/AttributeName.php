@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%attribute_name}}".
@@ -90,6 +91,12 @@ class AttributeName extends \yii\db\ActiveRecord
         }else{
             return isset($arr[$status]) ? $arr[$status] : $status;
         }
+    }
+
+    public static function getAttributeNameOptions()
+    {
+         $arr = self::find()->orderBy(['id'=>SORT_DESC])->all();
+         return ArrayHelper::map($arr, 'id', 'name');
     }
 
     public function getValues()

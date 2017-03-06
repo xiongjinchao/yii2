@@ -200,7 +200,10 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-cubes"></i> '.$this->title;
                 ],
                 'filterInputOptions'=>['placeholder'=>'所有类别'],
             ],
-            ['class' => 'kartik\grid\ActionColumn'],
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'template' => '{update} {delete}',
+            ],
             [
                 'class'=>'kartik\grid\CheckboxColumn',
                 'headerOptions'=>['class'=>'kartik-sheet-style'],

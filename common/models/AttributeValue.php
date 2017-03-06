@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%attribute_value}}".
@@ -59,5 +60,11 @@ class AttributeValue extends \yii\db\ActiveRecord
             'created_at' => '创建时间',
             'updated_at' => '更新时间',
         ];
+    }
+
+    public static function getAttributeValueOptions($attribute_name_id)
+    {
+        $arr = self::find()->where(['attribute_name_id'=>$attribute_name_id])->orderBy(['id'=>SORT_DESC])->all();
+        return ArrayHelper::map($arr, 'id', 'value');
     }
 }

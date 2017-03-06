@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'SKU管理';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '<i class="fa fa-globe"></i> '.$this->title;
 ?>
 <div class="goods-attribute-index">
 
@@ -40,6 +40,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'id',
                 'vAlign'=>'middle',
                 'width'=>'4%',
+            ],
+            [
+                'header'=>'图片',
+                'vAlign'=>'middle',
+                'format'=> 'raw',
+                'value' => function($model){
+                    return isset($model->goods)&&isset($model->goods->picture)?Html::img('http://'.Yii::$app->params['domain']['image'].$model->goods->picture->path,['class'=>'img-responsive img-thumbnail','width'=>'60','height'=>'60']):'';
+                },
             ],
             [
                 'attribute'=>'goods_id',
