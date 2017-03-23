@@ -89,8 +89,25 @@ class AttributeValueController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-        Yii::$app->session->setFlash('info','属性值删除失败！');
+        Yii::$app->session->setFlash('info','属性值删除成功！');
         return $this->redirect(['attribute-name/index']);
+    }
+
+    public function actionAjaxGetAttributeValue()
+    {
+        if(Yii::$app->request->isAjax) {
+            $data = AttributeValue::getAttributeValueOptions(Yii::$app->request->post('attribute_name_id'));
+            $result = [];
+            foreach($data as $key => $item){
+                $result[] = [
+                    'id' => $key,
+                    'text' => $item
+                ];
+            }
+            echo Json::encode($result);
+        }else{
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**
