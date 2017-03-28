@@ -24,6 +24,8 @@ $(function(){
         }
 	});
 
+	$(".fa").removeClass('fa-fa');
+
 	//提示层间隔2S消失
 	setTimeout(function(){
 		$(".callout.alert").fadeOut()
