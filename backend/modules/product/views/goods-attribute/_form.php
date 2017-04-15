@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use kartik\widgets\Select2;
 use common\models\Goods;
@@ -56,5 +57,20 @@ use common\models\AttributeValue;
     </div>
 
     <?php ActiveForm::end(); ?>
+
+    <script>
+        $("select[name='GoodsAttribute[attribute_name_id]']").on('change',function(){
+            $("select[name='GoodsAttribute[attribute_value_id]'] option").remove();
+            $.post('<?=Url::to(['/product/attribute-value/ajax-get-attribute-value']);?>',{attribute_name_id:$(this).val()},function(result){
+                $("select[name='GoodsAttribute[attribute_value_id]']").select2({
+                    data: result,
+                    placeholder:'请选择',
+                    allowClear:true,
+                    width:'100%',
+                    theme: 'krajee'
+                });
+            },'json');
+        });
+    </script>
 
 </div>

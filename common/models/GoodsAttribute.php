@@ -45,7 +45,7 @@ class GoodsAttribute extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['goods_id', 'attribute_name_id', 'attribute_value_id', 'created_at', 'updated_at'], 'required'],
+            [['goods_id', 'attribute_name_id', 'attribute_value_id'], 'required'],
             [['goods_id', 'attribute_name_id', 'attribute_value_id', 'stock', 'status'], 'integer'],
             [['origin_price', 'sale_price'], 'number'],
         ];
@@ -81,6 +81,17 @@ class GoodsAttribute extends \yii\db\ActiveRecord
         }else{
             return isset($arr[$status]) ? $arr[$status] : $status;
         }
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        
+        $minOriginPrice = self::find()->where(['goods_id'=>$this->goods_id])->min('origin_price');
+        $minSalePrice = self::find()->where(['goods_id'=>$this->goods_id])->min('sale_price');
+        $this->goods->sale_price = $minSalePrice;
+        $this->goods->origin_price = $minOriginPrice;
+        $this->goods->save();
     }
 
     public function getGoods()
