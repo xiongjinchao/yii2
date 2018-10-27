@@ -1,0 +1,62 @@
+.summary{
+    height:24px;
+    line-height:24px;
+    text-align:right;
+	overflow:hidden;
+}
+html .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+	border:1px solid #eeeeee;
+}
+html .skin-black-light .content-header h1{
+	font-size:20px;
+}
+html .skin-black-light .main-footer{
+	background:#f9fafc;
+}
+html .content-header > .breadcrumb{
+	top:10px;
+}
+html .content-header > .breadcrumb > li + li::before {
+	content: "/ ";
+}
+html h1,html h2,html h3,html h4,html h5{
+	font-family:"Helvetica Neue",Helvetica,Microsoft YaHei,sans-serif
+}
+html .content .box.box-primary{
+	border-top-color:#eee;
+}
+html .select2-container--krajee .select2-selection{
+	border-radius: 0px;
+}
+html .select2-container--krajee .select2-search--dropdown .select2-search__field{
+	border-radius: 2px;
+}
+html .select2-container .select2-selection--single .select2-selection__rendered{
+	margin-top:0px;
+}
+html .select2-container .select2-selection--single .select2-selection__clear{
+	margin-top:-3px;
+}
+html .select2-dropdown .select2-search__field:focus, .select2-search--inline .select2-search__field:focus {
+	/*border:none;*/
+}
+html .input-group .input-group-addon{
+	background-color:#eee;
+	padding:0;
+}
+html .kv-editable-link{
+	border:none;
+	color:#333333;
+}
+html .badge{
+	min-height:14px;
+}
+.selected-picture{
+	margin:20px 0 0 0;
+}
+html .selected-picture img{
+	margin-right:20px;
+}
+html .modal-content{
+	border-radius: 4px;
+}
