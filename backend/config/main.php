@@ -12,6 +12,7 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'layout' => '@app/views/layouts/adminlte/main',
+    'language' => 'zh-CN',
     'modules' => [
         'user' => [
             'class' => 'backend\modules\user\Module',
