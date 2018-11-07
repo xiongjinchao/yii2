@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-gears"></i> '.$this->title;
 
     <?= GridView::widget([
         'id' => 'attribute-name-grid-view',
+        //'bsVersion' => '4.x',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'layout' => '<div class="box box-primary">

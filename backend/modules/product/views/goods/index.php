@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-cubes"></i> '.$this->title;
             ],
             [
                 'attribute'=>'id',
-                'width'=>'4%',
+                'width'=>'7%',
                 'vAlign'=>'middle',
             ],
             [

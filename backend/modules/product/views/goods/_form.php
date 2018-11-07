@@ -17,9 +17,9 @@ use yii\bootstrap\Modal;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name', ['template' => '{label}<div class="input-group"><div class="input-group-addon"><i class="fa fa-header"></i></div>{input}</div>{hint}{error}'])->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'category_id')->widget(Select2::classname(), [
+    <?= $form->field($model, 'category_id', ['template' => '{label}<div class="input-group"><div class="input-group-addon"><i class="fa fa-sitemap"></i></div>{input}</div>{hint}{error}'])->widget(Select2::classname(), [
         'data' => GoodsCategory::getGoodsCategoryOptions(),
         'options' => ['placeholder' => '请选择'],
         'pluginOptions' => [

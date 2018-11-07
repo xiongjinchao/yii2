@@ -40,7 +40,7 @@ html .select2-container .select2-selection--single .select2-selection__clear{
 html .select2-dropdown .select2-search__field:focus, .select2-search--inline .select2-search__field:focus {
 	/*border:none;*/
 }
-html .input-group .input-group-addon{
+html .input-group-sp.input-group-addon{
 	background-color:#eee;
 	padding:0;
 }
@@ -58,5 +58,12 @@ html .selected-picture img{
 	margin-right:20px;
 }
 html .modal-content{
-	border-radius: 4px;
+	border-radius:4px;
+}
+
+html .radio-lable label{
+	font-weight:normal;
+	display:inline-block;
+	min-width:80px;
+	padding-right:15px;
 }

@@ -34,7 +34,8 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-navicon"></i> '.$this->title;
 
             [
                 'attribute'=>'id',
-                'headerOptions'=>['style'=>'width:5%'],
+                'width'=>'5%',
+                'vAlign'=>'middle'
             ],
             [
                 'attribute'=>'name',

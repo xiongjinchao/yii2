@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = '<i class="fa fa-globe"></i> '.$this->title;
             [
                 'attribute'=>'id',
                 'vAlign'=>'middle',
-                'width'=>'4%',
+                'width'=>'5%',
             ],
             [
                 'header'=>'图片',
