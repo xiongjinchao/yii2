@@ -137,6 +137,37 @@ class UserController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionFaker()
+    {
+        $faker = \Faker\Factory::create();
+
+        $prefix = [
+            130, 131, 132, 133, 134, 135, 136, 137, 138, 139,
+            144, 147,
+            150, 151, 152, 153, 155, 156, 157, 158, 159,
+            176, 177, 178,
+            180, 181, 182, 183, 184, 185, 186, 187, 188, 189,
+        ];
+        $mobile = $prefix[array_rand($prefix)].mt_rand(10000000, 99999999);
+        $data['User'] = [
+            'username' => $faker->name,
+            'auth_key' => Yii::$app->getSecurity()->generateRandomString(),
+            'password_hash' => Yii::$app->getSecurity()->generatePasswordHash('123456'),
+            'picture_id' => rand(1,3000),
+            'mobile' => $mobile,
+            'email' => $faker->email,
+            'status' => 10
+        ];
+        $model = new User();
+        if($model->load($data)) {
+            if ($model->save()) {
+                echo '新用户' . $model->username . '保存成功';
+            } else {
+                echo '新用户' . $model->username . '保存失败';
+            }
+        }
+    }
+
     /**
      * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

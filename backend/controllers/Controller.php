@@ -1,8 +1,9 @@
 <?php
 namespace backend\controllers;
 
+use common\models\User;
 use Yii;
-use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 
 
 class Controller extends \yii\web\Controller
@@ -30,9 +31,15 @@ class Controller extends \yii\web\Controller
             'Detail' => '查看',
             'Delete' => '删除',
             'Assignment' => '授权',
-            'Reset' => '重置权限',
+            'Reset' => '重置',
             'AuthInitialize' => '权限索引',
             'DeletePicture' => '删除图片',
+            'user/controllers/Admin' => [
+                'role' => '员工管理',            //控制器中没有定义role属性时，从这里读取
+                'permission' => [
+                    'Reset' => '重置权限'       //重新定义控制器下的权限的名称
+                ],
+            ]
         ];
         //$this->authInitialize();
     }
@@ -41,7 +48,7 @@ class Controller extends \yii\web\Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => 'yii\filters\AccessControl',
                 'rules' => [
                     [
                         'allow' => true,
@@ -124,13 +131,13 @@ class Controller extends \yii\web\Controller
         if($role === null){
             //创建角色
             $role = $auth->createRole($name);
-            $role->description = isset($properties['auth'])?$properties['auth']:$name;
+            $role->description = ArrayHelper::getValue($properties,'auth',ArrayHelper::getValue($this->auth,$name.'.role',$name));
             $role->data = 'system';
             $auth->add($role);
             $auth->addChild($admin, $role);
         }else{
             //更新角色描述
-            $role->description = isset($properties['auth'])?$properties['auth']:$name;
+            $role->description = ArrayHelper::getValue($properties,'auth',ArrayHelper::getValue($this->auth,$name.'.role',$name));
             $auth->update($name,$role);
         }
 
@@ -138,7 +145,8 @@ class Controller extends \yii\web\Controller
             if($method->class==$controller->name&&strstr($method->name,'action')
                 &&!strstr($method->name,'Ajax')&&$method->name!='actions'){
                 $permission = $auth->getPermission($name.'/'.str_replace('action','',$method->name));
-                $description = isset($this->auth[str_replace('action','',$method->name)])?str_replace('管理','',$role->description).'-'.$this->auth[str_replace('action','',$method->name)]:$name.'/'.str_replace('action','',$method->name);
+                $describe = ArrayHelper::getValue($this->auth,$name.'.permission.'.str_replace('action','',$method->name),ArrayHelper::getValue($this->auth,str_replace('action','',$method->name)));
+                $description = $describe != ''?str_replace('管理','',$role->description).'-'.$describe:$name.'/'.str_replace('action','',$method->name);
                 if($permission === null){
                     //创建权限
                     $permission = $auth->createPermission($name.'/'.str_replace('action','',$method->name));

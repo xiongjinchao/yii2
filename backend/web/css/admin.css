@@ -67,3 +67,6 @@ html .radio-lable label{
 	min-width:80px;
 	padding-right:15px;
 }
+html .syntaxhighlighter td.code{
+	padding: 9.5px 0 9.5px 0!important;
+}

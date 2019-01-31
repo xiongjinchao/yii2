@@ -112,9 +112,9 @@ class RoleController extends Controller
             Yii::$app->session->setFlash('info','权限分配成功！');
             return $this->redirect(['index']);
         }
-
         $dataProvider =  new ActiveDataProvider([
             'query' => (new Query())->from($auth->itemTable)->where(['type'=>Item::TYPE_ROLE,'data'=>serialize('system')])->orderBy(['name'=>SORT_ASC]),
+            'pagination' => false
         ]);
 
         return $this->render('assignment', [
