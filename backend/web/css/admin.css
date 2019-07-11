@@ -44,6 +44,9 @@ html .input-group-sp.input-group-addon{
 	background-color:#eee;
 	padding:0;
 }
+html .kv-loader-overlay{
+	z-index:5;
+}
 html .kv-editable-link{
 	border:none;
 	color:#333333;
