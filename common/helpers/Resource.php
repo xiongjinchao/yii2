@@ -1,10 +1,11 @@
 <?php
-namespace common\helpers\weather;
+namespace common\helpers;
 
 use yii\base\BaseObject;
 use common\helpers\place\PlaceInterface;
+use common\helpers\weather\WeatherInterface;
 
-class Weather extends BaseObject
+class Resource extends BaseObject
 {
     public $place;
     public $weather;
