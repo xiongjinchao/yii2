@@ -5,8 +5,16 @@ use yii\base\BaseObject;
 
 class QiCaiWeather extends BaseObject implements WeatherInterface
 {
-    function getWeather()
+    protected $qiCaiWeatherCode;
+
+    public function __construct($qiCaiWeatherCode, $config = [])
     {
-        return "七彩天气";
+        $this->qiCaiWeatherCode = $qiCaiWeatherCode;
+        parent::__construct($config);
+    }
+
+    public function getWeather()
+    {
+        return "七彩天气".$this->qiCaiWeatherCode;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 namespace frontend\controllers;
+use common\helpers\place\Place;
+use common\helpers\weather\Weather;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -21,6 +23,7 @@ class WeatherController extends Controller
         ]);
 
         //$container->set('common\helpers\place\PlaceInterface', 'common\helpers\place\FunHanPlace',['FunHan_1']);
+        //$container->set('common\helpers\weather\WeatherInterface', 'common\helpers\weather\QiCaiWeather',['QICAI_1']);
         /*
         $container->set('common\helpers\place\PlaceInterface',function()use($params){
             // 根据参数设置不同依赖
@@ -38,8 +41,12 @@ class WeatherController extends Controller
             return $place;
         });
         */
-        $container->set('common\helpers\place\PlaceInterface', ['common\helpers\place\PlaceBuilder','build']);
-        $container->set('common\helpers\weather\WeatherInterface', 'common\helpers\weather\QiCaiWeather');
+
+        // $place = (new Place($params))->getPlace();
+        // $weather = (new Weather($params))->getWeather();
+
+        $container->set('common\helpers\place\PlaceInterface', 'common\helpers\place\Place', [$params]);
+        $container->set('common\helpers\weather\WeatherInterface', 'common\helpers\weather\Weather', [$params]);
         $container->set('resource', 'common\helpers\Resource');
 
         $resource = $container->get('resource');

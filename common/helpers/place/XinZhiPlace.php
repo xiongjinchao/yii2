@@ -5,7 +5,7 @@ use yii\base\BaseObject;
 
 class XinZhiPlace extends BaseObject implements PlaceInterface
 {
-    public $xinZhiCityCode;
+    protected $xinZhiCityCode;
 
     public function __construct($xinZhiCityCode, $config = [])
     {
@@ -13,7 +13,7 @@ class XinZhiPlace extends BaseObject implements PlaceInterface
         parent::__construct($config);
     }
 
-    function getPlace()
+    public function getPlace()
     {
         return "心知：北京市朝阳区".$this->xinZhiCityCode;
     }

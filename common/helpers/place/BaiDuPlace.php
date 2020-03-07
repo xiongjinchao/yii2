@@ -5,7 +5,7 @@ use yii\base\BaseObject;
 
 class BaiDuPlace extends BaseObject implements PlaceInterface
 {
-    public $baiDuCityCode;
+    protected $baiDuCityCode;
 
     public function __construct($baiDuCityCode, $config = [])
     {
@@ -13,7 +13,7 @@ class BaiDuPlace extends BaseObject implements PlaceInterface
         parent::__construct($config);
     }
 
-    function getPlace()
+    public function getPlace()
     {
         return "百度：北京市朝阳区".$this->baiDuCityCode;
     }

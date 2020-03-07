@@ -5,7 +5,7 @@ use yii\base\BaseObject;
 
 class FunHanPlace extends BaseObject implements PlaceInterface
 {
-    public $id;
+    protected $id;
 
     public function __construct($id, $config = [])
     {
@@ -13,7 +13,7 @@ class FunHanPlace extends BaseObject implements PlaceInterface
         parent::__construct($config);
     }
 
-    function getPlace()
+    public function getPlace()
     {
         return "方瀚：北京市朝阳区".$this->id;
     }
