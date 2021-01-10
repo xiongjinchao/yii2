@@ -134,11 +134,14 @@ class Controller extends \yii\web\Controller
             $role->description = ArrayHelper::getValue($properties,'auth',ArrayHelper::getValue($this->auth,$name.'.role',$name));
             $role->data = 'system';
             $auth->add($role);
+        }
+
+        //更新角色描述
+        $role->description = ArrayHelper::getValue($properties,'auth',ArrayHelper::getValue($this->auth,$name.'.role',$name));
+        $auth->update($name,$role);
+
+        if(!$auth->hasChild($admin, $role)){
             $auth->addChild($admin, $role);
-        }else{
-            //更新角色描述
-            $role->description = ArrayHelper::getValue($properties,'auth',ArrayHelper::getValue($this->auth,$name.'.role',$name));
-            $auth->update($name,$role);
         }
 
         foreach($controller->getMethods() as $method){
@@ -147,18 +150,24 @@ class Controller extends \yii\web\Controller
                 $permission = $auth->getPermission($name.'/'.str_replace('action','',$method->name));
                 $describe = ArrayHelper::getValue($this->auth,$name.'.permission.'.str_replace('action','',$method->name),ArrayHelper::getValue($this->auth,str_replace('action','',$method->name)));
                 $description = $describe != ''?str_replace('管理','',$role->description).'-'.$describe:$name.'/'.str_replace('action','',$method->name);
-                if($permission === null){
+
+                if($permission === null) {
                     //创建权限
-                    $permission = $auth->createPermission($name.'/'.str_replace('action','',$method->name));
+                    $permission = $auth->createPermission($name . '/' . str_replace('action', '', $method->name));
                     $permission->description = $description;
                     $permission->data = 'system';
                     $auth->add($permission);
+                }
+
+                //更新权限描述
+                $permission->description = $description;
+                $auth->update($name.'/'.str_replace('action','',$method->name),$permission);
+
+                if(!$auth->hasChild($superAdmin, $permission)){
                     $auth->addChild($superAdmin, $permission);
+                }
+                if(!$auth->hasChild($role, $permission)){
                     $auth->addChild($role, $permission);
-                }else{
-                    //更新权限描述
-                    $permission->description = $description;
-                    $auth->update($name.'/'.str_replace('action','',$method->name),$permission);
                 }
             }
         }
